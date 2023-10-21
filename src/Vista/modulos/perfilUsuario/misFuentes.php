@@ -1,41 +1,51 @@
-<div class="container">
+<div class="container p-2 jsContainer">
     <div>
-        <div class="row">
+        <div class="row mt-4 mb-4 p-4">
             <div class="col-md-12">
-                <div class="header">
-                    <h1>Mis Fuentes</h1>
-                    <button>Ingresar Fuente</button>
+                <div class="titulo_categoria">
+                    <h2>
+                        <p style="font-size: 3rem;">
+                            <span style="color: blue;">
+                                Mis
+                            </span>
+                            Fuentes
+                        </p>
+                    </h2>
+                    <button class="btn">
+                        Agregar fuente
+                    </button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-5">
+        </div>
+        <hr size="5" color="#000000">
+        <div class="row jsDivR p-4 ">
+            <div class=" col-md-1 sm-1 user-profile">
+                <img class="col-md-2 user-profile-avatar" src="src\Vista\img\2.jpeg" />
+                <i>Sebastian</i>
+            </div>
 
-                    <table>
-                        <tr>
-                            <th>Ahorros</th>
-                        </tr>
+            <div class="col-md-5 sm-5 jsDiv">
+                <h3 class="titulos">ahorros</h3>
+                <table>
+                    <thead>
                         <tr>
                             <th>Nombre</th>
                             <th>Monto Actual</th>
                         </tr>
-
-                    </table>
-                    <div class="col-md-5">
-                        <table>
-                            <tr>
-                                <th>Ingresos</th>
-                            </tr>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Monto último ingreso</th>
-                            </tr>
-
-                        </table>
-                    </div>
-                </div>
+                    </thead>
+                </table>
             </div>
-
+            <div class="col-md-5 sm-5  jsDiv">
+                <h3 class="titulos">Ingresos</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Monto último ingreso</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
-
 </div>
