@@ -4,15 +4,15 @@
             <div class="col-md-12">
                 <div class="titulo_categoria">
                     <h2>
-                        <p style="font-size: 3rem;">
-                            <span style="color: blue;">
+                        <p style="font-size: 2rem;">
+                            <span style="color: blue; font-size: 2rem;">
                                 Mis
                             </span>
                             Fuentes
                         </p>
                     </h2>
-                    <button class="btn">
-                        Agregar fuente
+                    <button>
+                        <span>MIS FUENTES</span>
                     </button>
                 </div>
             </div>
@@ -20,7 +20,7 @@
         <hr size="5" color="#000000">
         <div class="row jsDivR p-4 ">
             <div class=" col-md-1 sm-1 user-profile">
-                <img class="col-md-2 user-profile-avatar" src="src\Vista\img\2.jpeg" />
+                <img class="col-md-2 user-profile-avatar" src="src\Vista\img\lic.jpg" />
                 <i>Sebastian</i>
             </div>
 
