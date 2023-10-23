@@ -4,8 +4,8 @@
             <div class="col-md-12">
                 <div class="titulo_categoria">
                     <h2>
-                        <p style="font-size: 2rem;">
-                            <span style="color: blue; font-size: 2rem;">
+                        <p style="font-size: 3rem;">
+                            <span style="color: blue;">
                                 Mis
                             </span>
                             Fuentes
@@ -17,14 +17,14 @@
                 </div>
             </div>
         </div>
-        <hr size="5" color="#455181">
+        <hr size="5" color="#000000">
         <div class="row jsDivR p-4 ">
-            <div class=" col-md-12 sm-12 col-lg-2  user-profile">
+            <div class=" col-md-1 sm-1 user-profile">
                 <img class="col-md-2 user-profile-avatar" src="src\Vista\img\2.jpeg" />
                 <i>Sebastian</i>
             </div>
 
-            <div class="col-md-6 sm-6 col-lg-5  jsDiv">
+            <div class="col-md-5 sm-5 jsDiv">
                 <h3 class="titulos">ahorros</h3>
                 <table>
                     <thead>
@@ -33,23 +33,9 @@
                             <th>Monto Actual</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>ahorro1</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>ahorro2</td>
-                            <td>2000</td>
-                        </tr>
-                        <tr>
-                            <td>ahorro3</td>
-                            <td>3000</td>
-                        </tr>
-                    </tbody>
                 </table>
             </div>
-            <div class="col-md-6 sm-6 col-lg-5   jsDiv">
+            <div class="col-md-5 sm-5  jsDiv">
                 <h3 class="titulos">Ingresos</h3>
                 <table>
                     <thead>
@@ -58,19 +44,6 @@
                             <th>Monto último ingreso</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>ingreso1</td>
-                            <td>1000</td>
-                        </tr>
-                        <tr>
-                            <td>ingreso2</td>
-                            <td>2000</td>
-                        </tr>
-                        <tr>
-                            <td>ingreso3</td>
-                            <td>3000</td>
-                        </tr>
                 </table>
             </div>
         </div>
