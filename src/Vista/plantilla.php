@@ -3,7 +3,8 @@
 session_start();
 include_once("src/Vista/modulos/cabecera.php");
 
-include_once("src\Vista\modulos\perfilUsuario\misFuentes.php");
+include_once("src\Vista\modulos/navbar.php");
+include_once("src\Vista\modulos/perfilUsuario/misFuentes.php");
 
 
 if (isset($_SESSION["ruta"])) { 
