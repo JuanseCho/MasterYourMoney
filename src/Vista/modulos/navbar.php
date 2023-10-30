@@ -10,7 +10,7 @@
     </div>
     <div class="container-fluid">
         <a class="navbar-brand d-block d-lg-none" href="#">
-            <img src="/static_files/images/logos/logo_2_white.png" height="80" />
+            <img src="src\Vista\img\5.png" height="80" />
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,7 +26,7 @@
                 </li>
                 <li class="nav-item d-none d-lg-block">
                     <a class="nav-link mx-2" href="#">
-                        <img src="/static_files/images/logos/logo_2_white.png" height="80" />
+                        <img src="src\Vista\img\5.png" height="80" />
                     </a>
                 </li>
                 <li class="nav-item">
