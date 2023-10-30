@@ -25,4 +25,4 @@
 
 
 <link rel='stylesheet' type='text/css' media='screen' href='src/Vista/css/style.css'>
-<script src='src/Vista/js/main.js'></script>
+<!-- <script src='src/Vista/js/main.js'></script> -->
