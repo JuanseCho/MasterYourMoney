@@ -73,16 +73,23 @@ form {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
-    
+
 }
+
 .dataTables_scrollBody {
     overflow-x: hidden !important;
 }
-.jsDiv table td {
-    border: 0;
 
-    word-break: break-word;
+table td {
+    text-align: justify;
+    word-wrap: break-word;
+    overflow: hidden;
+    white-space: nowrap;
+    /* O usa 'wrap' para permitir el desplazamiento vertical */
+    text-overflow: ellipsis;
+
 }
+
 
 .jsDiv table tbody {
     text-align: left !important;
@@ -116,6 +123,7 @@ form {
     cursor: pointer;
     margin-right: 2vh;
 }
+
 
 .btn:hover {
     background-image: linear-gradient(90deg, #312255 0%, #455181 50%, #24546e 75%, #25615b 100%);
@@ -251,22 +259,21 @@ form .btn {
 .button-container {
     display: flex;
     background-image: linear-gradient(80deg, #a8b6c1 0%, #cfd8e0 50%, #b2c2c6 75%, #a8d3d4 100%);
-
+    min-width: 10vh;
+    max-width: 15vh;
     background-color: transparent;
-    align-items: center;
-    justify-content: space-around;
     border-radius: 10px;
     flex-wrap: wrap;
+    justify-content: space-around;
 
 }
 
 .button {
+
     outline: 0 !important;
     border: 0 !important;
     border-radius: 50%;
     background-color: transparent;
-
-    align-items: center;
     justify-content: center;
     color: #180f0f;
     transition: all ease-in-out 0.3s;
@@ -276,4 +283,3 @@ form .btn {
 .button:hover {
     transform: translateY(-3px);
 }
-

@@ -6,6 +6,10 @@ include_once("src/Vista/modulos/cabecera.php");
 include_once("src\Vista\modulos/navbar.php");
 
 include_once("src\Vista\modulos/perfilUsuario/historiaDeUso.php");
+/*include_once("src\Vista\modulos/perfilUsuario/misFuentes.php");*/
+
+include_once("src\Vista\modulos/perfilUsuario/misPresupuestos.php");
+
 
 
 
