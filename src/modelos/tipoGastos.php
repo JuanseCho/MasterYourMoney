@@ -9,7 +9,7 @@ class tipoDeGastos
     {
         $mensaje = [];
         try {
-            $objRespuesta = Conexion::conectar()->prepare("INSERT INTO tipo_gastos (nombre_tipo_gasto) VALUES (:nombre)");
+            $objRespuesta = Conexion::conectar()->prepare("INSERT INTO tipo_gastos (nombre_tipo_gasto) SELECT :nombre WHERE NOT EXISTS (SELECT 1 FROM tipo_gastos WHERE nombre_tipo_gasto = :nombre);");
             $objRespuesta->bindParam(":nombre", $nombreTipoDeGastos, PDO::PARAM_STR);
             if ($objRespuesta->execute()) {
                 $mensaje = array("codigo" => "200", "mensaje" => "Tipo de gasto registrado correctamente");
@@ -37,8 +37,8 @@ class tipoDeGastos
         return $listaTipoGasto;
     }
 
-
-    public static function ActualizarTipoDeGastos($idTipoGasto, $nombreTipoDeGastos)
+    // funcion para actualizar tipo de gastos
+    public static function actualizarTipoDeGastos($idTipoGasto, $nombreTipoDeGastos)
     {
         $mensaje = [];
         try {
@@ -54,8 +54,7 @@ class tipoDeGastos
             $mensaje = array("codigo" => "500", "mensaje" => $e->getMessage());
         }
         return $mensaje;
-    } 
-
+    }
 
     // funcion para eliminar tipo de gastos
     public static function eliminarTipoDeGastos($idTipoGasto)
@@ -74,6 +73,4 @@ class tipoDeGastos
         }
         return $mensaje;
     }
-
-
 }

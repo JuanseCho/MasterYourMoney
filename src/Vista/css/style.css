@@ -1,5 +1,6 @@
 body {
     background-color: #000000;
+    background-color: rgba(226, 225, 220, 0.397);
 
     font-family: sans-serif;
     font-size: 16px;
@@ -81,6 +82,7 @@ form {
 }
 
 table td {
+    border: 0;
     text-align: justify;
     word-wrap: break-word;
     overflow: hidden;
@@ -90,7 +92,9 @@ table td {
 
 }
 
-
+.jsDiv table thead {
+    width: 100% !important;
+}
 .jsDiv table tbody {
     text-align: left !important;
 }
@@ -208,6 +212,30 @@ form .btn {
     100% {
         transform: scale(1);
     }
+}
+
+.cssbuttons-io-button {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    color: white;
+    background: #ad5389;
+    background-image: linear-gradient(90deg, #251844 0%, #333f70 50%, #18465f 75%, #154b46 100%);
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}
+  
+.cssbuttons-io-button:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+}
+  
+.cssbuttons-io-button:active {
+    box-shadow: 0 0.3em 1em -0.5em #14a73e98;
 }
 
 /* Cuando la ventana del navegador es de 600px o menos */
