@@ -7,10 +7,10 @@
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto" style="margin-left: 90%;">
         <li class="nav-item">
-          <a class="nav-link" href="ListaUsuarios">ListaUsuarios</a>
+          <a class="nav-link" href="register">Register</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="logout">Cerrar Sesion</a>
+          <a class="nav-link" href="login">Login</a>
         </li>
       </ul>
     </div>

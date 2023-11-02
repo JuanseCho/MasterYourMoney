@@ -10,15 +10,23 @@
     <!-- jquery -->
     <script src="src/librerias/js/jquery.js"></script>
 
+    <!-- datatables -->
+    <script src="src/librerias/js/datatables.min.js"></script>
+    <link rel="stylesheet" href="src/librerias/css/datatables.min.css">
     <!-- bootstrap -->
     <link rel="stylesheet" href="src/librerias/css/bootstrap.min.css">
     <script src="src/librerias/js/bootstrap.min.js"></script>
 
+    <script src="https://kit.fontawesome.com/e4a7398719.js" crossorigin="anonymous"></script>
+
     <!-- local -->
+    <link rel="stylesheet" href="src/Vista/css/main.css">
+    <link rel="stylesheet" href="/src/Vista/css/style.css">
+
     <script src="src/Vista/js/login.js"></script>
     <script src="src/Vista/js/registro.js"></script>
-
-    <?php include_once 'CDN.php'; ?>
+    <script src="src/Vista/js/Usuarios.js"></script>
+    
 </head>
 
 <body>

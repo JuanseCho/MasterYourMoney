@@ -5,6 +5,7 @@ include_once "conexion.php";
 class loginModelo {
 
     public static function mdlLogin($email,$password){
+        $password = hash('sha512', $password);
         $mensaje = array();
         try {
             $sql = "SELECT email, contrasena FROM usuarios WHERE email=:email AND contrasena=:password";
@@ -16,7 +17,7 @@ class loginModelo {
             $objrespuesta = null;
 
             if ($datos_usuario != null) {
-                $_SESSION["ruta"] = "homePage";
+                $_SESSION["ruta"] = "inicio";
                 $mensaje = array("codigo"=>"200", "mensaje"=>$_SESSION["ruta"]);
                 
             }else {
