@@ -130,15 +130,24 @@ tr {
     margin-left: 5%;
     margin-top: 4%;
 }
+.tipoTransaccion{
+    width: 17ch;
+    justify-content: start;
+    align-items: start;
+    text-align: center;
+}
 .descripcionTransaccion {   
     width: 35ch;
     justify-content: end;
-    border-left: 1px solid #000;
+    border-left: 1px solid #8E8E8E;
     align-items: start;
+    text-align: center;
 
 }
 .valorTransaccion {
-    width: 25ch;
+    width: 17ch;
     justify-content: end;
-    border-left: 1px solid #000;
+    border-left: 1px solid #8E8E8E;
+    text-align: center;
+
 }
