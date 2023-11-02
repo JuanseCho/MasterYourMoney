@@ -1,0 +1,313 @@
+body {
+    background-color: #000000;
+    background-color: rgba(226, 225, 220, 0.397);
+
+    font-family: sans-serif;
+    font-size: 16px;
+    color: #212529;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.titulo_categoria {
+    display: flex;
+    justify-content: space-between;
+    color: #08151d;
+    font-size: 1vh;
+}
+
+@media (max-width: 768px) {
+    .titulo_categoria {
+        flex-direction: column;
+    }
+
+    .btn {
+        max-width: 180px;
+    }
+}
+
+.jsDivR {
+    display: flexbox;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 3vh;
+}
+
+/* Clases para contenedores */
+.jsContainer {
+    background-color: #f3f3ee;
+    display: flexbox;
+    justify-content: space-around;
+    margin-top: 3vh;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    min-height: 85vh;
+}
+
+/*style formularios*/
+form {
+
+    padding: 1vh;
+}
+
+
+/*////////////////////////////////////////////////////////////////*/
+
+/* Clases para tablas */
+.jsDiv {
+    padding-top: 2vh;
+    margin-top: 3vh;
+    background: #d9c2d1;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 0%, rgb(244, 247, 251) 100%);
+    border-radius: 20px;
+    border: 2px solid #d2d6e6;
+    box-shadow: -1px 0px 25px 0px #18587456;
+    /*box-shadow: rgba(133, 189, 215, 0.911) 0px 30px 30px -20px;*/
+    border-radius: 12px;
+    text-align: center;
+
+}
+
+.jsDiv table {
+    border: 0;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+}
+
+.dataTables_scrollBody {
+    overflow-x: hidden !important;
+}
+
+table td {
+    border: 0;
+    text-align: justify;
+    word-wrap: break-word;
+    overflow: hidden;
+    white-space: nowrap;
+    /* O usa 'wrap' para permitir el desplazamiento vertical */
+    text-overflow: ellipsis;
+
+}
+
+.jsDiv table thead {
+    width: 100% !important;
+}
+.jsDiv table tbody {
+    text-align: left !important;
+}
+
+.titulos {
+    text-align: center;
+}
+
+
+.jsDiv form div {
+    text-align: left;
+
+}
+
+/*////////////////////////////////////////////////////////////////*/
+
+
+
+/* Clases para botones */
+.btn {
+    margin-bottom: 2vh;
+    min-width: 130px;
+    max-height: 45px;
+    font-size: auto;
+    background-image: linear-gradient(90deg, #251844 0%, #333f70 50%, #18465f 75%, #154b46 100%);
+    box-shadow: 6px 6px 12px #c5c5c5,
+        -6px -6px 12px #ffffff;
+    color: #ffffff;
+    border-radius: 40px;
+    cursor: pointer;
+    margin-right: 2vh;
+}
+
+
+.btn:hover {
+    background-image: linear-gradient(90deg, #312255 0%, #455181 50%, #24546e 75%, #25615b 100%);
+    box-shadow: 6px 6px 12px #c5c5c5,
+        -6px -6px 12px #ffffff;
+    color: #fff;
+    transform: translateY(-5px);
+}
+
+/*botones de formularios*/
+form .btn {
+    margin-top: 3vh;
+    margin-bottom: 2vh;
+
+}
+
+/* BOTON */
+.button1 {
+    min-width: 140px;
+    max-height: 45px;
+    max-width: 100px;
+    height: 60px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    background: #183153;
+    font-family: "Montserrat", sans-serif;
+    box-shadow: 0px 6px 24px 0px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    border: none;
+    margin-right: 3vh;
+}
+
+
+
+.button1:after {
+    content: " ";
+    width: 0%;
+    height: 100%;
+    background: #FFD401;
+    position: absolute;
+    transition: all 0.4s ease-in-out;
+    right: 0;
+}
+
+.button1:hover::after {
+    right: auto;
+    left: 0;
+    width: 100%;
+}
+
+.button1 span {
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+    padding: 12px 18px;
+    color: #fff;
+
+    font-size: 1.225em;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    z-index: 20;
+    transition: all 0.5s ease-in-out;
+}
+
+.button1:hover span {
+    color: #183153;
+    animation: scaleUp 0.3s ease-in-out;
+}
+
+@keyframes scaleUp {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(0.95);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.cssbuttons-io-button {
+    display: flex;
+    align-items: center;
+    font-family: inherit;
+    color: white;
+    background: #ad5389;
+    background-image: linear-gradient(90deg, #251844 0%, #333f70 50%, #18465f 75%, #154b46 100%);
+    border: none;
+    box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}
+  
+.cssbuttons-io-button:hover {
+    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
+}
+  
+.cssbuttons-io-button:active {
+    box-shadow: 0 0.3em 1em -0.5em #14a73e98;
+}
+
+/* Cuando la ventana del navegador es de 600px o menos */
+@media only screen and (max-width: 800px) {
+    .button1 span {
+        font-size: 1.09em;
+    }
+}
+
+/* Cuando la ventana del navegador es de 400px o menos */
+@media only screen and (max-width: 400px) {
+    .button1 span {
+        font-size: 1, 1em;
+    }
+}
+
+
+/*////////////////////////////////////////////////////////////////*/
+
+.user-profile {
+    font-size: larger;
+    margin-top: 1vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #08151d;
+}
+
+.user-profile-avatar {
+    width: 10vh;
+    height: 10vh;
+    min-width: 80px;
+    min-height: 80px;
+    border-radius: 50%;
+
+}
+
+.form-emerge {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+/*BOTONES EDITAR*/
+.button-container {
+    display: flex;
+    background-image: linear-gradient(80deg, #a8b6c1 0%, #cfd8e0 50%, #b2c2c6 75%, #a8d3d4 100%);
+    min-width: 10vh;
+    max-width: 15vh;
+    background-color: transparent;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+.button {
+
+    outline: 0 !important;
+    border: 0 !important;
+    border-radius: 50%;
+    background-color: transparent;
+    justify-content: center;
+    color: #180f0f;
+    transition: all ease-in-out 0.3s;
+    cursor: pointer;
+}
+
+.button:hover {
+    transform: translateY(-3px);
+}
