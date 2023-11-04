@@ -48,4 +48,4 @@
 <link rel='stylesheet' type='text/css' media='screen' href='src/Vista/css/style.css'>
 <script src='src/Vista/js/historial_De_Uso.js'></script>
 <script src='src/Vista/js/misPresupuestos.js'></script>
-<!-- <script src='src/Vista/js/presupuestos.js'></script> -->
+<script src='src/Vista/js/capital.js'></script>

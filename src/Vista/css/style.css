@@ -10,6 +10,7 @@ body {
     box-sizing: border-box;
 }
 
+
 .titulo_categoria {
     display: flex;
     justify-content: space-between;
@@ -26,6 +27,18 @@ body {
         max-width: 180px;
     }
 }
+
+@media (max-width: 800px) {
+    .titulo_categoria h2 {
+        text-align: center;
+    }
+
+    .titulo_categoria button,
+    .titulo_categoria #montoTotal {
+        display: block;
+    }
+}
+
 
 .jsDivR {
     display: flexbox;
@@ -95,6 +108,7 @@ table td {
 .jsDiv table thead {
     width: 100% !important;
 }
+
 .jsDiv table tbody {
     text-align: left !important;
 }
@@ -112,6 +126,24 @@ table td {
 /*////////////////////////////////////////////////////////////////*/
 
 
+#montoTotal {
+    width: 100%;
+    height: auto;
+    max-width: 15vw;
+    min-width: 200px;
+    text-align: center;
+    
+    background-color: lightgray;
+    font-size: 25px;
+    margin: 1vh;
+    margin-top: 0;
+    padding: 10px;
+    border-radius: 2rem;
+    padding: 10px;
+    letter-spacing: 2px;
+      
+    
+}
 
 /* Clases para botones */
 .btn {
@@ -228,14 +260,6 @@ form .btn {
     top: 0;
     right: 0;
     margin: 10px;
-}
-  
-.cssbuttons-io-button:hover {
-    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
-}
-  
-.cssbuttons-io-button:active {
-    box-shadow: 0 0.3em 1em -0.5em #14a73e98;
 }
 
 /* Cuando la ventana del navegador es de 600px o menos */
