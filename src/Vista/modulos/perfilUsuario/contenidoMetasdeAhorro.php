@@ -11,9 +11,21 @@
                             Ahorro
                         </p>
                     </h2>
-                    <button class="button1">
+                    <button id="ahorrosbtn" class="button1">
                         <span>MIS FUENTES</span>
                     </button>
+                    <!-- Agrega esto después del botón "MIS FUENTES" -->
+                    <div id="" style="display: none;">
+                        <form id="formAhorros">
+                            <label for="fecha">Fecha:</label><br>
+                            <input type="date" id="fecha" name="fecha"><br>
+                            <label for="descripcion">Descripcion:</label><br>
+                            <input type="text" id="descripcion" name="descripcion"><br>
+                            <label for="monto">Monto:</label><br>
+                            <input type="number" id="monto" name="monto"><br>
+                            <button type="button" id="registrar">Registrar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -26,20 +38,19 @@
 
             <div class="col-md-7 sm-5 jsDiv">
                 <h3 class="titulos">Ahorros</h3>
-                <table>
+                <table id="tablaahorros">
                     <thead>
                         <tr>
-                            <th>Fecha de inicio</th>
-                            <th>Monto incial</th>
-                            <th>Monto actual</th>
-                            <th>Monto objetivo</th>
-                            <th>Fecha fin</th>
+                            <th>Fecha</th>
+                            <th>Descripcion</th>
+                            <th>Monto</th>
+
                         </tr>
                     </thead>
                 </table>
             </div>
-            
-           
+
+
         </div>
     </div>
 </div>

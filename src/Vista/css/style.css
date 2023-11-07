@@ -232,7 +232,27 @@ footer {
     display: flex;
 }
 
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  #footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+  .footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
 
+.footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 footer ul {
     display: flex;

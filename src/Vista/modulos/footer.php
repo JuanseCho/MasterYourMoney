@@ -1,4 +1,4 @@
-<footer>
+<footer class="footer-links footer">
     <ul>
         Our Services
         <li><a href="#">Grooming</a></li>

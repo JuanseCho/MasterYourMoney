@@ -22,7 +22,7 @@
                     <a class="nav-link mx-2 active" aria-current="page" href="login">Iniciar sesion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="#">Registro</a>
+                    <a class="nav-link mx-2" href="register">Registro</a>
                 </li>
                 <li class="nav-item d-none d-lg-block">
                     <a class="nav-link mx-2" href="#">
