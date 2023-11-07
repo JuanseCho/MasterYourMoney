@@ -42,3 +42,4 @@
 <script src='src/Vista/js/main.js'></script>
 <script src='src/Vista/js/interfazUsoDiario.js'></script>
 <script src='src/Vista/js/misFormasDePago.js'></script>
+<script src='src/Vista/js/capital.js'></script>

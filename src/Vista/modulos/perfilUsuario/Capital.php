@@ -3,237 +3,152 @@
         <div class="row mt-4 mb-4 p-4">
             <div class="col-md-12">
                 <div class="titulo_categoria">
-                    <h2>
-                        <p style="font-size: 3rem;">
-                            <span style="color: blue;">
-                                Mi
+                    <div class="col-lg-4">
+                        <h2>
+                            <p style="font-size: 3rem;">
+                                <span style="color: blue;">
+                                    Mi
+                                </span>
+                                Capital
+                            </p>
+                        </h2>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: space-between;" class="col-lg-8">
+                        <div id="montoTotal" style="flex-grow: 1;"></div>
+                        
+                        <button style="flex-grow: 0;" class="button1" data-bs-toggle="modal" data-bs-target="#modalFormCapital">
+                            <span>
+                                Agregar al capital
                             </span>
-                            Capital
-                        </p>
-                    </h2>
-                    <button class="button1">
-                        <span>
-                            Agregar
-                        </span>
+                        </button>
+                    </div>
 
-                    </button>
                 </div>
             </div>
+
         </div>
         <hr size="5" color="#000000">
-
         <div class="row jsDivR p-4 ">
-            <div class=" col-md-12 col-lg-1 sm-1 user-profile">
+            <div class=" col-md-12 col-lg-1 sm-12 user-profile">
                 <img class="col-md-2 user-profile-avatar" src="src\Vista\img\2.jpeg" />
                 <i>Sebastian</i>
             </div>
-
-
-            <div class="col-md-12 col-lg-10 col-sm-8  jsDiv">
-
-                <table>
+            <div class="col-md-12 col-lg-8 sm-12  jsDiv">
+                <h3 class="titulos">CAPITALES </h3>
+                <table id="tabla_Capital" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
                     <thead>
                         <tr>
-                            <th>CAPITALES</th>
-                            <th>DESCRIPCÓN</th>
-                            <th>ACCIONES</th>
+                            <th>monto</th>
+                            <th>Descripcion</th>
+                            <th>forma de pago </th>
+
+                            <th> acciones </th>
                         </tr>
                     </thead>
-                </table>
 
+                </table>
             </div>
         </div>
     </div>
 </div>
 
-
-
-
-
-<div class="col-md-6 col-lg-4 col-sm-10 jsDiv form-emerge" id="ventana_del_formulario_Presupuestos" style="display: none;">
-    <button class="cssbuttons-io-button" id="cerrar-ventana">
-        <i class="bi bi-x-lg"></i>
-    </button>
-    <h3 class="titulos">Agregar presupuesto</h3>
-    <form id="form_Agregar_Presupuesto">
-        <div>
-            <label for="" class="form-label">tipo de de gasto</label>
-            <select class="form-select" name="" id="select_tipoGasto" required>
-            </select>
-            <div class="valid-feedback">correcto</div>
-            <div class="invalid-feedback">error rellena el campo</div>
-        </div>
-        <div>
-            <label for="" class="form-label">limite presupuestal</label>
-            <input type="number" class="form-control" name="" id="txt_Presupuesto" placeholder="$50.0000" maxlength="15" required>
-            <div class="valid-feedback">correcto</div>
-            <div class="invalid-feedback">error rellena el campo</div>
-        </div>
-        <button class="btn" id="Btn_new_presupuesto">Agregar</button>
-    </form>
-</div>
-
-
-
-
-<!--Formulario pa ingresar nuevos capitales-->
-
-<div class="col-md-6 col-lg-4 col-sm-8 jsDiv form-emerg" id="ventana_del_formulario_TG" style="padding: 2vh; display: nonee;">
-    <button class="cssbuttons-io-button">
-        <i class="bi bi-x-lg"></i>
-    </button>
-
-    <h3 class="titulos">nuevo capital</h3>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12 ">
-            <form id="form_Agregar_capitales" class="needs-validation">
-                <div class="row">
-
-                    <div class="col-md-8 col-sm-12">
-                        <label for="" class="form-label">monto</label>
-                        <input type="number" class="form-control" name="" id="txt_monto" placeholder="$50.0000" maxlength="15" required>
-                        <div class="valid-feedback">correcto</div>
-                        <div class="invalid-feedback">error rellena el campo</div>
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <label for="" class="form-label">nombre</label>
-                        <input type="text" class="form-control" name="" id="txt_nombre" placeholder="nombre descriptivo  " maxlength="50" required>
-                        <div class="valid-feedback">correcto</div>
-                        <div class="invalid-feedback">error rellena el campo</div>
-                    </div>
-
-                    <div class="col-md-8 col-sm-12">
-                        <label for="" class="form-label">Tipo de pago</label>
-                        <select class="form-select" aria-label="Default select example" id="tipoPago" required>
-                            <option selected>Seleccione una opción</option>
-                            <option value="1">Efectivo</option>
-                            <option value="2">Tarjeta</option>
-                        </select>
-                    </div>
-                    <div>
-                        <button class="btn col-md-3 col-sm-12">Agregar <i class="bi bi-plus-circle"></i></button>
-                    </div>
-                </div>
-
-            </form>
-        </div>
-
-    </div>
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--Formulario pa ingresar efectivo a la caja y asi poder utilizarla como otra fuente-->
-
-<div class=" col-6 col-md-8 col-sm-10 jsDiv form-emerg">
-    <h3 class="titulos">Agregar </h3>
-    <form>
-        <div class="mb-3">
-            <label for="" class="form-label">Efectivo</label>
-            <input type="number" class="form-control" name="" id="" placeholder="$50.0000">
-
-        </div>
-        <button class="btn">Guardar</button>
-    </form>
-</div>
-
-
-<!--Formulario pa ingresar la nueva  de fuente -->
-<!-- Button to Open the Modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-    Open modal
-</button>
+<!--Formulario pa ingresar la nuevo Capital -->
 
 <!-- The Modal -->
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<div class="modal " id="modalFormCapital">
+    <div class="modal-dialog ">
+        <div class="modal-content ">
 
             <!-- Modal Header -->
-
-            <div class="modal-header" style="text-align: center; justify-content: center;">
-
-                <h3 class="titulos modal-title">Agregar Tipo de fuente</h3>
-
+            <div class="modal-header">
+                <h3 class="titulos">Agregar capital</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form id="form_Agregar_Fuente">
-                    <div class="mb-3">
-                        <label for="" class="form-label">nombre</label>
-                        <input type="text" class="form-control" name="" id="nombreFuente" placeholder="Ej: negocio familiar" required>
+
+                <form id="form_Agregar_Capital">
+                    <div>
+                        <label class="form-label">Monto</label>
+                        <input type="number" class="form-control" id="txt_monto" required>
+
                     </div>
+                    <div>
+                        <label class="form-label">Descripcion</label>
+                        <input type="text" class="form-control" id="txt_descripcion" required>
 
-                    <div class="mb-3">
-                        <label for="" class="form-label">Tipo de fuente</label>
-                        <select class="form-select" aria-label="Default select example" id="tipoFuente" required>
-                            <option selected>Seleccione una opción</option>
-                            <option value="1">Ahorros</option>
-                            <option value="2">Ingresos</option>
-                        </select>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="" class="form-label">Monto inicial</label>
-                        <input type="number" class="form-control" name="" id="montoFuente" placeholder="$50.0000" required>
+                    <div>
+                        <label class="form-label">Forma de pago</label>
+                        <section>
+                            <select class="form-select" id="txt_formaD_Pago" required>
+                                <option selected>seleccione el tipo de pago </option>
+                                <option value="1">efectivo</option>
+                                <option value="2">tarjeta</option>
+                                <option value="3">cheque</option>
+                            </select>
+                        </section>
                     </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" type="submit">Agregar</button>
 
-
-                    <button class="btn" type="button ">Guardar</button>
-
+                    </div>
                 </form>
+
             </div>
-
-
         </div>
     </div>
 </div>
 
-<!-- formulario para agregar nueva fuente -->
+<!--Formulario pa editar algun Capital -->
+
+<!-- The Modal -->
+
+<div class="modal" id="modalFormulaioEditarCapital">
+
+    <div class="modal-dialog ">
+        <div class="modal-content ">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h3 class="titulos">editar capital</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <form id="form_Editar_Capital">
+                    <div>
+                        <label class="form-label">Monto</label>
+                        <input type="number" class="form-control" id="txt_montoEditar" required>
+
+                    </div>
+                    <div>
+                        <label class="form-label">Descripcion</label>
+                        <input type="text" class="form-control" id="txt_descripcionEditar" required>
+
+                    </div>
+                    <div>
+                        <label class="form-label">Forma de pago</label>
+                        <section>
+                            <select class="form-select" id="txt_formaD_PagoEditar" required>
+                                <option selected>seleccione el tipo de pago </option>
+                                <option value="1">efectivo</option>
+                                <option value="2">tarjeta</option>
+                                <option value="3">cheque</option>
+                            </select>
+                        </section>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-primary" id="BTN_editarCapital" type="submit" idcapital="">Editar</button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+    </div>

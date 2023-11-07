@@ -78,6 +78,8 @@ $(function () {
 
     function cargarDatos(response) {
       var dataSet = [];
+      var formasPago ='';
+      formasPago += '<option selected disabled>Seleccione una forma de pago</option>';
 
       response.forEach(listarDatos);
 
@@ -88,6 +90,7 @@ $(function () {
         objBotones += '</div>';
 
         dataSet.push([item.NombreFormaPago,objBotones]);
+        formasPago += '<option value="'+item.idFormaPago+'">'+item.NombreFormaPago+'</option>';
       }
 
       if (tabla != null) {
@@ -96,6 +99,8 @@ $(function () {
       tabla = $("#tablaFormasPago").DataTable({
         data: dataSet
       });
+
+      $("#txt-FormaPagoIngresoCapital").html(formasPago);
     }
 
     var formEdicion = document.querySelectorAll('#formEditarFormaPago');
@@ -162,27 +167,7 @@ $(function () {
       $("#btnEditarFormaPago").attr("idformaPago",idformaPago);
     });
 
-    
-    // $("#tablaFormasPago").on("click", "#btnEliminar", function () {
-    //   var idformaPago = $(this).attr('idformaPago');
-
-    //   if (confirm("¿Estás seguro de eliminar esta forma de pago?")) {
-
-    //     var objData = new FormData();
-    //     objData.append("idformaPago", idformaPago);
-
-    //     fetch('src/controladores/misFormasDePagoControl.php', {
-    //       method: 'POST',
-    //       body: objData
-    //     }).then(response => response.json()).catch(error => {
-    //       console.log('error: ', error);
-    //     }).then(response => {
-    //       listarFormasPago();
-    //       alert(response["respuesta"]);
-    //     });
-    //   }
-    // });
-
+   
     $("#tablaFormasPago").on("click", "#btnEliminar", function () {
       var idformaPago = $(this).attr('idformaPago');
   

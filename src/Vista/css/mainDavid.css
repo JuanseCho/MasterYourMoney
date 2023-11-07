@@ -115,6 +115,25 @@
     margin-right: 5%;
     margin-left: 14%;
 }
+.cajaDisponibleForm {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    padding: 1%;
+    width: 70%;
+}
+.actualCajaForm {
+    border-radius: 10px;
+    font-family: monda;
+    font-size: 3.5ch;
+    color: #00651C;
+    background-color: #6F8572;
+    border: 1px solid #4E4E4E;
+    text-align: end;
+    margin-right: 5%;
+    margin-left: 14%;
+    padding-inline: 6%;
+}
 .containerListadoTransacciones {
     justify-content: flex;
     width: 73%;
