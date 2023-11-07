@@ -119,8 +119,13 @@
         <i class="bi bi-x-lg"></i>
     </button>
     <h3 class="titulos">Editar Forma de pago</h3>
+<<<<<<< HEAD
     <div class="row modal-dialog modal-content">
         <div class="col-md-12 col-sm-10 modal-body">
+=======
+    <div class="row">
+        <div class="col-md-12 col-sm-10">
+>>>>>>> a373d0f6b2d629c55619c55892e8348fee287a4c
             <form id="form_Editar_tipoDeGastos" class="needs-validation">
                 <div>
                     <label for="" class="form-label">Nombre</label>
@@ -140,4 +145,8 @@
         </div>
     </div>
 
+<<<<<<< HEAD
 </div> -->
+=======
+</div>
+>>>>>>> a373d0f6b2d629c55619c55892e8348fee287a4c
