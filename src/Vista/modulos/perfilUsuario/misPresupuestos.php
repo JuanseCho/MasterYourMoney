@@ -59,7 +59,7 @@
 
 <!--Formulario para ingresar nuevos presupuestos-->
 
-<div class="col-md-6 col-lg-4 col-sm-10 jsDiv form-emerge" id="ventana_del_formulario_Presupuestos" style="display: none;">
+<div class="col-md-6 col-lg-4 col-sm-10 jsDiv form-emerg" id="ventana_del_formulario_Presupuestos" style="">
 <button class="cssbuttons-io-button" id="cerrar-ventana">
         <i class="bi bi-x-lg"></i>
     </button>
@@ -84,7 +84,7 @@
 
 <!--Formulario pa ingresar nuevos tipos de gastos-->
 
-<div class="col-md-6 col-lg-4 col-sm-8 jsDiv form-emerge" id="ventana_del_formulario_TG" style="padding: 2vh; display: none;">
+<div class="col-md-6 col-lg-4 col-sm-8 jsDiv form-emerg" id="ventana_del_formulario_TG" style="padding: 2vh; display: no">
     <button class="cssbuttons-io-button">
         <i class="bi bi-x-lg"></i>
     </button>
@@ -133,7 +133,7 @@
 
 <!--Formulario para Editar tipos de gastos-->
 
-<div class="col-md-3 jsDiv form-emerge" id="ventana_del_formulario_TG_Edit" style="padding: 2vh; display: none;">
+<div class="col-md-3 jsDiv form-emerg" id="ventana_del_formulario_TG_Edit" style="padding: 2vh; display: non">
 <button class="cssbuttons-io-button">
         <i class="bi bi-x-lg"></i>
     </button>

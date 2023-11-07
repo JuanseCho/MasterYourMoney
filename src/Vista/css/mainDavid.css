@@ -115,11 +115,6 @@
     margin-right: 5%;
     margin-left: 14%;
 }
-tr {
-    display: flex;
-    border-bottom: 1px solid #000;
-    
-}
 .containerListadoTransacciones {
     justify-content: flex;
     width: 73%;

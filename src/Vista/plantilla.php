@@ -4,7 +4,7 @@ session_start();
 include_once("src/Vista/modulos/cabecera.php");
 
 include_once("src\Vista\modulos/navbar.php");
-include_once("src\Vista\modulos/interfazUsoDiario.php");
+include_once("src\Vista\modulos\perfilUsuario\misFormasDePago.php");
 
 
 if (isset($_SESSION["ruta"])) { 
