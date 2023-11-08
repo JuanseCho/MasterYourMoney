@@ -8,18 +8,20 @@ class Capital
 {
 
     // funcion para agregar Capital
-    public static function agregarCapital($MontoInicial, $descipcion, $idUsuario, $formapago_idFormaPago)
+    public static function agregarCapital($MontoInicial, $descipcion, $idUsuario, $formapago_idFormaPago, $fecha)
 
     {
 
      
         $mensaje = [];
         try {
-            $objRespuesta = Conexion::conectar()->prepare("INSERT INTO Capital (MontoInicial, descipcion, idUsuario, formapago_idFormaPago) VALUES (:MontoInicial, :descipcion, :idUsuario, :formapago_idFormaPago)");
-            $objRespuesta->bindParam(":MontoInicial", $MontoInicial, PDO::PARAM_STR);
+            $objRespuesta = Conexion::conectar()->prepare("INSERT INTO Capital (Montoactual, descipcion, usuarios_idUsuario , formapago_idFormaPago,fecha) VALUES (:Montoactual, :descipcion, :idUsuario, :formapago_idFormaPago, :fecha)");
+            $objRespuesta->bindParam(":Montoactual", $MontoInicial, PDO::PARAM_STR);
             $objRespuesta->bindParam(":descipcion", $descipcion, PDO::PARAM_STR);
             $objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
             $objRespuesta->bindParam(":formapago_idFormaPago", $formapago_idFormaPago, PDO::PARAM_INT);
+            $objRespuesta->bindParam(":fecha", $fecha, PDO::PARAM_STR);
+
             if ($objRespuesta->execute()) {
                 $mensaje = array("codigo" => "200", "mensaje" => "Capital registrado correctamente");
             } else {
@@ -35,9 +37,11 @@ class Capital
 
     public static function mostrarCapital($idUsuario)
     {
+       
+
         $mensaje = [];
         try {
-            $objRespuesta = Conexion::conectar()->prepare("SELECT C.idCapital, C.MontoInicial, C.descipcion, C.idUsuario, C.formapago_idFormaPago, F.nombreFormaPago FROM Capital C INNER JOIN Formapago F ON C.formapago_idFormaPago = F.idFormaPago WHERE C.idUsuario = :idUsuario");
+            $objRespuesta = Conexion::conectar()->prepare("SELECT C.idCapital, C.Montoactual, C.descipcion, C.usuarios_idUsuario, C.formapago_idFormaPago, F.nombreFormaPago , C.fecha FROM capital C INNER JOIN Formapago F ON C.formapago_idFormaPago = F.idFormaPago WHERE C.usuarios_idUsuario = :idUsuario");
             $objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
             $objRespuesta->execute();
             $mensaje = $objRespuesta->fetchAll();

@@ -1,5 +1,6 @@
 <?php
-
+session_start();
+$_SESSION["idUsuario"] = 2;
 include_once "../modelos/presupuesto.php";
 
 class presupuestoControlador
@@ -8,24 +9,26 @@ class presupuestoControlador
 
     public $limitePresupuesto;
 
-    public $idTipoGasto;
+    public $idTipoPresupuesto;
+    public $idUsuario ;
 
 
     public function ctrAgregarPresupuesto()
     {
-        $objRespuesta = presupuesto::agregarPresupuesto($this->limitePresupuesto, $this->idTipoGasto);
+        $objRespuesta = presupuesto::agregarPresupuesto($this->limitePresupuesto, $this->idTipoPresupuesto);
         echo json_encode($objRespuesta);
     }
 
     public function ctrMostrarPresupuesto()
     {
-        $objRespuesta = presupuesto::mostrarPresupuesto();
+        $this->idUsuario = $_SESSION["idUsuario"];
+        $objRespuesta = presupuesto::mostrarPresupuesto($this->idUsuario);
         echo json_encode($objRespuesta);
     }
 
     public function ctrEditarPresupuesto()
     {
-        $objRespuesta = presupuesto::actualizarPresupuesto($this->idPresupuesto, $this->limitePresupuesto, $this->idTipoGasto);
+        $objRespuesta = presupuesto::actualizarPresupuesto($this->idPresupuesto, $this->limitePresupuesto, $this->idTipoPresupuesto);
         echo json_encode($objRespuesta);
     }
 
@@ -41,7 +44,7 @@ class presupuestoControlador
 if (isset($_POST["limitePresupuesto"])) {
     $objAgregarPresupuesto = new presupuestoControlador();
     $objAgregarPresupuesto->limitePresupuesto = $_POST["limitePresupuesto"];
-    $objAgregarPresupuesto->idTipoGasto = $_POST["tipoGasto"];
+    $objAgregarPresupuesto->idTipoPresupuesto = $_POST["tipoPresupuesto"];
     $objAgregarPresupuesto->ctrAgregarPresupuesto();
 }
 
@@ -57,11 +60,11 @@ if (isset($_POST["editIdPresupuesto"])) {
     $objEditarPresupuesto = new presupuestoControlador();
     $objEditarPresupuesto->idPresupuesto = $_POST["editIdPresupuesto"];
     $objEditarPresupuesto->limitePresupuesto = $_POST["editLimitePresupuesto"];
-    $objEditarPresupuesto->idTipoGasto = $_POST["editIdTipoGasto"];
+    $objEditarPresupuesto->idTipoPresupuesto = $_POST["editIdTipoPresupuesto"];
     $objEditarPresupuesto->ctrEditarPresupuesto();
 }
 
-// verificar si estan llegando los datos para la eliminacion de un tipo de gasto
+// verificar si estan llegando los datos para la eliminacion de un tipo de Presupuesto
 
 if (isset($_POST["IdPresupuesto_Eliminar"])) {
     $objEliminarPresupuesto = new presupuestoControlador();

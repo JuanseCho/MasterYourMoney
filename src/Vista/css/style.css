@@ -134,7 +134,7 @@ table td {
     text-align: center;
     
     background-color: lightgray;
-    font-size: 25px;
+    font-size: 20px;
     margin: 1vh;
     margin-top: 0;
     padding: 10px;
@@ -178,6 +178,7 @@ form .btn {
 
 /* BOTON */
 .button1 {
+    text-align: center;
     min-width: 140px;
     max-height: 45px;
     max-width: 100px;
@@ -217,7 +218,7 @@ form .btn {
     text-align: center;
     text-decoration: none;
     width: 100%;
-    padding: 12px 18px;
+    
     color: #fff;
 
     font-size: 1.225em;

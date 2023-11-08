@@ -1,6 +1,7 @@
 <?php
 session_start();
-$_SESSION["idUsuario"] = 2;
+$_SESSION["idUsuario"] = 1;
+
 
 include_once "../modelos/md_Capital.php";
 
@@ -16,10 +17,12 @@ class CapitalControlador
 
     public $formapago_idFormaPago;
 
+    public $fecha;
+
     public function ctrAgregarCapital()
     {
         $this->idUsuario = $_SESSION["idUsuario"];
-        $objRespuesta = Capital::agregarCapital($this->MontoInicial, $this->descipcion, $this->idUsuario, $this->formapago_idFormaPago);
+        $objRespuesta = Capital::agregarCapital($this->MontoInicial, $this->descipcion, $this->idUsuario, $this->formapago_idFormaPago, $this->fecha);
         echo json_encode($objRespuesta);
     }
     public function ctrMostrarCapital()
@@ -49,6 +52,7 @@ if (isset($_POST["monto"])) {
     $objCapital->descipcion = $_POST["descripcion"];
     //$objCapital->idUsuario = $_POST["idUsuario"];
     $objCapital->formapago_idFormaPago = $_POST["formaDePago"];
+    $objCapital->fecha = $_POST["fecha"];
     $objCapital->ctrAgregarCapital();
 }
 
