@@ -8,7 +8,7 @@ include_once "conexion.php";
 
             $mensaje = array();
             try {
-                $objRespuesta = conexion::conectar()->prepare("INSERT INTO ingresos(fecha_ingreso, hora_ingreso, monto_ingreso, usuarios_idUsuario, capital_idCapital, formapago_idFormaPago) VALUES(:fechaIngreso,:horaIngreso,:montoIngreso,:capitalIngreso,:formaPagoIngreso,:idusuario)");
+                $objRespuesta = conexion::conectar()->prepare("INSERT INTO ingresos(fecha_ingreso, hora_ingreso, monto_ingreso, capital_idCapital, formapago_idFormaPago, usuarios_idUsuario) VALUES(:fechaIngreso,:horaIngreso,:montoIngreso,:capitalIngreso,:formaPagoIngreso,:idusuario)");
                 $objRespuesta->bindParam(":fechaIngreso",$fechaIngreso);
                 $objRespuesta->bindParam(":horaIngreso",$horaIngreso);
                 $objRespuesta->bindParam(":montoIngreso",$montoIngreso);
@@ -50,12 +50,12 @@ include_once "conexion.php";
 
             $mensaje = array();
             try {
-                $objRespuesta = conexion::conectar()->prepare("INSERT INTO ahorros(fecha_ahorro, hora_ahorro, monto_ahorro, usuarios_idUsuario, capital_idCapital, formapago_idFormaPago) VALUES(:fechaAhorro,:horaAhorro,:montoAhorro,:capitalAhorro,:formaPagoAhorro,:idusuario)");
+                $objRespuesta = conexion::conectar()->prepare("INSERT INTO ahorros(fecha_ahorro, hora_ahorro, monto_ahorro, descripcion_ahorro, capital_idCapital, usuarios_idUsuario) VALUES(:fechaAhorro,:horaAhorro,:montoAhorro,:descripcionAhorro,:capitalAhorro,:idusuario)");
                 $objRespuesta->bindParam(":fechaAhorro",$fechaAhorro);
                 $objRespuesta->bindParam(":horaAhorro",$horaAhorro);
                 $objRespuesta->bindParam(":montoAhorro",$montoAhorro);
+                $objRespuesta->bindParam(":descripcionAhorro",$descripcionAhorro);
                 $objRespuesta->bindParam(":capitalAhorro",$capitalAhorro);
-                $objRespuesta->bindParam(":formaPagoAhorro",$formaPagoAhorro);
                 $objRespuesta->bindParam(":idusuario",$idusuario);
 
                 if ($objRespuesta->execute()) {
