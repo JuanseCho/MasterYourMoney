@@ -17,9 +17,9 @@
                     <div class="containerCaja2 d-flex flex-row">
                         <div class="d-flex flex-row">
                             <button class="botonIngreso" id="btn-agregarIngresoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarIngresoCapital"><img src="src/Vista/img/ingresoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
-                            <button class="botonGasto"><a href="#myModal" data-toggle="modal"><img src="src/Vista/img/gastoBoton.png" alt="" style="width:20px;" class="mx-4"></a></button>
+                            <button class="botonGasto" id="btn-agregarGastoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarGastoCapital"><img src="src/Vista/img/gastoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
                         </div>                        
-                        <div class="actualCaja">$43.800</div>    
+                        <div id="capitalActual" class="actualCaja"></div>    
                     </div>
 
             </div>
@@ -57,7 +57,23 @@
 
                 </tbody>
         </table>
-    </div>    
+    </div>
+    
+    <div class="containerListadoTransacciones">
+        <table id="tablaGastosCapital" class="table table-striped table-bordered shadow-lg">
+                <thead class="table-dark shadow-lg">
+                    <tr>
+                        <th>Tipo de transacción</th>
+                        <th>Hora</th>
+                        <th>Descripción</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody class="table-light table-bordered">
+
+                </tbody>
+        </table>
+    </div>
 
     <!-- Formulario modal agregar Ingreso al Capital-->
     <div class="modal" id="ventanaAgregarIngresoCapital">
@@ -67,7 +83,7 @@
                       <h5 class="pt-3"><dt>AGREGAR INGRESO</dt></h5>
                       <div class="d-flex flex-around cajaDisponibleForm">
                         <h5 class="pt-3"><dt>Disponible:</dt></h5>
-                        <div class="actualCajaForm">$43.800</div>   
+                        <div id="actualCajaForm" class="actualCajaForm"></div>   
 
                       </div>
                       <div class=" mx-3 mt-5">
@@ -80,9 +96,9 @@
                           <label for="txt-nombreCapitalIngreso" class="form-label">Capital:</label>
                           <select type="text" class="form-select py-1 shadow-sm" id="txt-capitalIngreso" placeholder="Seleccione el Capital destino de ingreso" name="cat" required>
                           <option selected disabled>Seleccione el Capital destino de ingreso</option>
-                            <option value="1">Salario</option>
+                            <!-- <option value="1">Salario</option>
                             <option value="2">Cuenta bancaria</option>
-                            <option value="3">sueldo</option>
+                            <option value="3">sueldo</option> -->
                             </select>
                           <div class="valid-feedback">Correcto.</div>
                           <div class="invalid-feedback">Por favor llene este campo.</div>
@@ -110,7 +126,7 @@
                       <h5 class="pt-3"><dt>AGREGAR AHORRO</dt></h5> 
                       <div class="d-flex flex-around cajaDisponibleForm">
                         <h5 class="pt-3"><dt>Disponible:</dt></h5>
-                        <div class="actualCajaForm">$43.800</div>   
+                        <div id="actualCajaForm" class="actualCajaForm"></div>   
 
                       </div>
                       <div class=" mx-3 mt-5">
@@ -129,9 +145,49 @@
                           <label for="txt-capitalAhorro" class="form-label">Capital:</label>
                           <select type="text" class="form-select py-1 shadow-sm" id="txt-capitalAhorro" placeholder="Seleccione el Capital origen del ahorro" name="cat" required>
                           <option selected disabled>Seleccione el Capital origen del ahorro</option>
-                            <option value="1">Salario</option>
+                            <!-- <option value="1">Salario</option>
                             <option value="2">Cuenta bancaria</option>
-                            <option value="3">sueldo</option>
+                            <option value="3">sueldo</option> -->
+                            </select>
+                          <div class="valid-feedback">Correcto.</div>
+                          <div class="invalid-feedback">Por favor llene este campo.</div>
+                      </div>
+                      <button type="submit" class="btn btn-success px-5 mt-5 mb-4 shadow">Agregar</button>
+                    </form>                  
+                </div>
+            </div>
+    </div>
+
+    <!-- Formulario modal agregar Gasto del Capital-->
+    <div class="modal" id="ventanaAgregarGastoCapital">
+            <div class="modal-dialog">
+                <div class="modal-content rounded-5">
+                    <form id="formAgregarGastoCapital" action="" class="modal-body needs-validated shadow-lg rounded-5 text-center" novalidate>
+                      <h5 class="pt-3"><dt>AGREGAR GASTO</dt></h5> 
+                      <div class="d-flex flex-around cajaDisponibleForm">
+                        <h5 class="pt-3"><dt>Disponible:</dt></h5>
+                        <div class="actualCajaForm">$43.800</div>   
+
+                      </div>
+                      <div class=" mx-3 mt-5">
+                          <label for="txt-montoGasto" class="form-label">Monto:</label>
+                          <input type="number" class="form-control py-1 shadow-sm" id="txt-montoGasto" placeholder="Ingrese el monto a gastar del capital" name="desc" required>
+                          <div class="valid-feedback">Correcto.</div>
+                          <div class="invalid-feedback">Por favor llene este campo.</div>
+                      </div>
+                      <div class=" mx-3 mt-5">
+                          <label for="txt-descripcionGasto" class="form-label">Descripción:</label>
+                          <input type="text" class="form-control py-1 shadow-sm" id="txt-descripcionGasto" placeholder="Ingrese una descripción del gasto" name="desc" required>
+                          <div class="valid-feedback">Correcto.</div>
+                          <div class="invalid-feedback">Por favor llene este campo.</div>
+                      </div>
+                      <div class=" mx-3 mt-4">
+                          <label for="txt-capitalGasto" class="form-label">Capital:</label>
+                          <select type="text" class="form-select py-1 shadow-sm" id="txt-capitalGasto" placeholder="Seleccione el Capital origen del gasto" name="cat" required>
+                          <option selected disabled>Seleccione el Capital origen del gasto</option>
+                            <!-- <option value="1">Salario</option>
+                            <option value="2">Cuenta bancaria</option>
+                            <option value="3">sueldo</option> -->
                             </select>
                           <div class="valid-feedback">Correcto.</div>
                           <div class="invalid-feedback">Por favor llene este campo.</div>

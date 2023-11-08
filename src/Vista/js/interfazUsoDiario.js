@@ -1,8 +1,9 @@
 $(function () {
 
   var tablaIngresosCapital = null;
-  var dataSetIngresosCapital = null;
   listarIngresosCapital();
+  var tablaAhorrosCapital = null;
+  listarAhorrosCapital();
 
     var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     var date = new Date();
@@ -118,11 +119,11 @@ $(function () {
         }).then(response => response.json()).catch(error => {
           console.log(error);
         }).then(response => {
-          cargarDatos(response);
+          cargarDatosIngresos(response);
         });
       }
       
-      function cargarDatos(response) {
+      function cargarDatosIngresos(response) {
         var dataSetIngresosCapital = [];      
         response.forEach(listarDatos);
     
@@ -132,7 +133,7 @@ $(function () {
           // objBotones += '<button id="btnEliminar" type="button" class="btn btn-danger" idvehiculo="' + item.idvehiculo + '"><img src="vista/img/trash.png" alt="" style="width:30px;" class="p-2"></button>';
           // objBotones += '</div>';
             
-          dataSetIngresosCapital.push(["Ingreso",item.horaIngreso, item.descripcionIngreso, item.valorIngreso]);
+          dataSetIngresosCapital.push(["Ingreso",item.horaIngreso, item.descripcionIngreso, parseFloat(item.valorIngreso).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })]);
         }
       
         if (tablaIngresosCapital != null) {
@@ -220,4 +221,41 @@ $(function () {
         }, false)
       });
 
+
+      // Función de listar Ahorros
+
+      function listarAhorrosCapital() {
+        var objData = new FormData();
+        objData.append("listaAhorrosCapital", "ok");
+    
+        fetch('src/controladores/interfazUsoDiarioControl.php', {
+          method: 'POST',
+          body: objData
+        }).then(response => response.json()).catch(error => {
+          console.log(error);
+        }).then(response => {
+          cargarDatosAhorros(response);
+        });
+      }
+      
+      function cargarDatosAhorros(response) {
+        var dataSetAhorrosCapital = [];      
+        response.forEach(listarDatos);
+    
+        function listarDatos(item, index) {
+          // var objBotones = '<div class="btn-group align-center">';
+          // objBotones += '<button id="btnEditar" type="button" class="btn btn-warning" idvehiculo="' + item.idvehiculo + '" placa="' + item.placa + '" color="' + item.color + '" marca="' + item.marca + '" modelo="' + item.modelo + '" tipoVehiculo="' + item.nombre_tipo_vehiculo + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarVehiculo"><img src="vista/img/edit.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
+          // objBotones += '<button id="btnEliminar" type="button" class="btn btn-danger" idvehiculo="' + item.idvehiculo + '"><img src="vista/img/trash.png" alt="" style="width:30px;" class="p-2"></button>';
+          // objBotones += '</div>';
+            
+          dataSetAhorrosCapital.push(["Ahorro",item.hora_ahorro, item.descripcion_ahorro, parseFloat(item.monto_ahorro).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })]);
+        }
+      
+        if (tablaAhorrosCapital != null) {
+        $("#tablaAhorrosCapital").dataTable().fnDestroy();        
+        }
+        tablaAhorrosCapital = $("#tablaAhorrosCapital").DataTable({
+          data: dataSetAhorrosCapital
+        });
+      };
 });

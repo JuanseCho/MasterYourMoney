@@ -38,6 +38,7 @@
                 <table id="tabla_Capital" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
                     <thead>
                         <tr>
+                            <th>fecha</th>
                             <th>monto</th>
                             <th>Descripcion</th>
                             <th>forma de pago </th>

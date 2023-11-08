@@ -12,10 +12,20 @@ $(document).ready(function () {
                 form.classList.add("was-validated");
             } else {
                 event.preventDefault();
+
+                const fecha = new Date();
+                const año = fecha.getFullYear();
+                const mes = fecha.getMonth() + 1; // Sumamos 1 para obtener un valor de mes entre 1 y 12
+                const dia = fecha.getDate();
+                const fechaFormateada = `${año}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+
+              
+
                 let monto = $("#txt_monto").val();
                 let descripcion = $("#txt_descripcion").val();
                 let formaDePago = $("#txt_formaD_Pago").val();
                 let objData = new FormData();
+                objData.append("fecha", fechaFormateada);
                 objData.append("monto", monto);
                 objData.append("descripcion", descripcion);
                 objData.append("formaDePago", formaDePago);
@@ -44,7 +54,7 @@ $(document).ready(function () {
                             });
                             // cerrar modal 
                             $("#btn_Cerrar_Modal_Capital").click();
-                            
+
                         } else {
                             Swal.fire({
                                 position: 'center',
@@ -57,7 +67,7 @@ $(document).ready(function () {
                         $("#txt_monto").val("");
                         $("#txt_descripcion").val("");
                         $("#txt_formaD_Pago").val("");
-                        
+
                         listarCapital();
                     })
                     .catch((error) => {
@@ -92,6 +102,7 @@ $(document).ready(function () {
     // function para cargar datos en la tabla
     function cargarDatos(response) {
         var dataSet = [];
+        var selectedOptions = [];
         response.forEach(listarDatosC);
         function listarDatosC(item, index) {
 
@@ -99,7 +110,7 @@ $(document).ready(function () {
             var objBotones = `
         <div class="button-container">
             <!-boton para editar-->
-            <button class="button" id="Btn_Capital_Editar" idCapital="${item.idCapital}" monto="${item.MontoInicial}" descripcion="${item.descipcion}" formaPago="${item.formapago_idFormaPago}" data-bs-toggle="modal" data-bs-target="#modalFormulaioEditarCapital">
+            <button class="button" id="Btn_Capital_Editar" idCapital="${item.idCapital}" monto="${item.Montoactual}" descripcion="${item.descipcion}" formaPago="${item.formapago_idFormaPago}" data-bs-toggle="modal" data-bs-target="#modalFormulaioEditarCapital">
                 <i class="bi bi-pencil-square"></i>
             </button>
 
@@ -112,7 +123,8 @@ $(document).ready(function () {
         </div>`;
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            dataSet.push([item.MontoInicial, item.descipcion, item.nombreFormaPago, objBotones]);
+            dataSet.push([item.fecha, item.Montoactual, item.descipcion, item.nombreFormaPago, objBotones]);
+            selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
         }
         if (tablaCapital != null) {
             $("#tabla_Capital").dataTable().fnDestroy();
@@ -128,12 +140,18 @@ $(document).ready(function () {
 
         //sumar los datos de MontoInicial
         var total = 0;
-        tablaCapital.column(0).data().each(function (value, index) {
+        tablaCapital.column(1).data().each(function (value, index) {
             total += parseFloat(value);
         });
-        var formattedTotal = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
+        var formattedTotal = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0});
         //mostrar en el div de id montoTotal
         $("#montoTotal").html(formattedTotal);
+        $("#capitalActual").html(formattedTotal);
+        $(".actualCajaForm").html(formattedTotal);
+        $("#txt-capitalIngreso").html(selectedOptions);
+        $("#txt-capitalAhorro").html(selectedOptions);
+        $("#txt-capitalGasto").html(selectedOptions);
+
 
 
 

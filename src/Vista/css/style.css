@@ -108,6 +108,24 @@ table td {
     text-align: left;
 
 }
+#montoTotal {
+    width: 100%;
+    height: auto;
+    max-width: 15vw;
+    min-width: 200px;
+    text-align: center;
+    
+    background-color: lightgray;
+    font-size: 20px;
+    margin: 1vh;
+    margin-top: 0;
+    padding: 10px;
+    border-radius: 2rem;
+    padding: 10px;
+    letter-spacing: 2px;
+      
+    
+}
 
 /*////////////////////////////////////////////////////////////////*/
 
