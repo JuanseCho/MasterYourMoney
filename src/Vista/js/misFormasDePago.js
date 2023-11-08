@@ -100,7 +100,7 @@ $(function () {
         data: dataSet
       });
 
-      $("#txt-FormaPagoIngresoCapital").html(formasPago);
+      $("#txt-formaPagoIngreso").html(formasPago);
     }
 
     var formEdicion = document.querySelectorAll('#formEditarFormaPago');

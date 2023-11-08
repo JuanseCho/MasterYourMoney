@@ -27,57 +27,60 @@ include_once "conexion.php";
             return $mensaje;
         }
 
-        public static function mdlListarFormasPago(){
+        public static function mdlListarIngresosCapital(){
 
-            $listaFormasPago = null;
+            $listaIngresosCapital = null;
             try {
-                $objRespuesta = conexion::conectar()->prepare("SELECT * FROM formapago");
+                $objRespuesta = conexion::conectar()->prepare("SELECT i.hora_ingreso AS horaIngreso, c.descipcion AS descripcionIngreso, i.monto_ingreso AS valorIngreso FROM ingresos i INNER JOIN capital c ON i.capital_idCapital = c.idCapital");
                 $objRespuesta->execute();
-                $listaFormasPago = $objRespuesta->fetchAll();
+                $listaIngresosCapital = $objRespuesta->fetchAll();
                 $objRespuesta = null;
             } catch (exception $e) {
-                $listaFormasPago = $e->getMessage();
+                $listaIngresosCapital = $e->getMessage();
             }
-            return $listaFormasPago;
+            return $listaIngresosCapital;
         }
 
-        public static function mdlActualizarFormaPago($idformaPago, $nombreFormaPago
-        ){
+    }
+
+
+    class ahorroCapitalModelo{
+
+        public static function mdlRegistrarAhorroCapital($fechaAhorro,$horaAhorro,$montoAhorro,$descripcionAhorro,$capitalAhorro,$idusuario){
 
             $mensaje = array();
             try {
-                $objRespuesta = conexion::conectar()->prepare("UPDATE formapago SET NombreFormaPago = :nombreFormaPago WHERE idFormaPago = :idformaPago");
-                $objRespuesta->bindParam(":idformaPago",$idformaPago);
-                $objRespuesta->bindParam(":nombreFormaPago",$nombreFormaPago);
+                $objRespuesta = conexion::conectar()->prepare("INSERT INTO ahorros(fecha_ahorro, hora_ahorro, monto_ahorro, usuarios_idUsuario, capital_idCapital, formapago_idFormaPago) VALUES(:fechaAhorro,:horaAhorro,:montoAhorro,:capitalAhorro,:formaPagoAhorro,:idusuario)");
+                $objRespuesta->bindParam(":fechaAhorro",$fechaAhorro);
+                $objRespuesta->bindParam(":horaAhorro",$horaAhorro);
+                $objRespuesta->bindParam(":montoAhorro",$montoAhorro);
+                $objRespuesta->bindParam(":capitalAhorro",$capitalAhorro);
+                $objRespuesta->bindParam(":formaPagoAhorro",$formaPagoAhorro);
+                $objRespuesta->bindParam(":idusuario",$idusuario);
 
                 if ($objRespuesta->execute()) {
-                    $mensaje = array("codigo"=>"200", "respuesta"=>"Forma de pago actualizada correctamente");
+                    $mensaje = array("codigo"=>"200", "respuesta"=>"El ahorro del Capital fue registrado correctamente");
                 }else {
-                    $mensaje = array("codigo"=>"425", "respuesta"=>"No fue posible procesar la solicitud de actualización");
+                    $mensaje = array("codigo"=>"425", "respuesta"=>"No fue posible procesar su solicitud");
                 }
             } catch (exception $e) {
-                $mensaje = array("codigo"=>"425", "mensaje"=>$e->getMessage());
+                $mensaje = array("codigo"=>"425", "mensaje"=> $e->getMessage());
             }
             return $mensaje;
         }
 
-        public static function mdlEliminarFormaPago($idformaPago){
-            
-            $mensaje = array();
+        public static function mdlListarAhorrosCapital(){
+
+            $listaAhorrosCapital = null;
             try {
-                $objRespuesta = conexion::conectar()->prepare("DELETE FROM formapago WHERE idFormaPago = :idformaPago");
-                $objRespuesta->bindParam(":idformaPago",$idformaPago);
-
-                if ($objRespuesta->execute()) {
-                    $mensaje = array("codigo"=>"200", "respuesta"=>"Forma de pago eliminada correctamente");
-                }else {
-                    $mensaje = array("codigo"=>"425", "respuesta"=>"No fue posible procesar su solicitud de elimnación");
-                }
+                $objRespuesta = conexion::conectar()->prepare("SELECT i.hora_ahorro AS horaAhorro, c.descipcion AS descripcionAhorro, i.monto_ahorro AS valorAhorro FROM ahorros i INNER JOIN capital c ON i.capital_idCapital = c.idCapital");
+                $objRespuesta->execute();
+                $listaAhorrosCapital = $objRespuesta->fetchAll();
+                $objRespuesta = null;
             } catch (exception $e) {
-                $mensaje = array("codigo"=>"425", "mensaje"=>$e->getMessage());
+                $listaAhorrosCapital = $e->getMessage();
             }
-            return $mensaje;
+            return $listaAhorrosCapital;
         }
-
-
+        
     }
