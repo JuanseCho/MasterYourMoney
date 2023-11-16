@@ -50,7 +50,6 @@ if (isset($_POST["monto"])) {
     $objCapital = new CapitalControlador();
     $objCapital->MontoInicial = $_POST["monto"];
     $objCapital->descipcion = $_POST["descripcion"];
-    //$objCapital->idUsuario = $_POST["idUsuario"];
     $objCapital->formapago_idFormaPago = $_POST["formaDePago"];
     $objCapital->fecha = $_POST["fecha"];
     $objCapital->ctrAgregarCapital();

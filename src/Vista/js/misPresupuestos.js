@@ -376,95 +376,9 @@ $(document).ready(function () {
         });
     });
 
-    // agregar capital al presupuesto a la tabla de capital_has_presupuesto
-
-    const formsCapitalHasPresupuesto = document.querySelectorAll("#form_Agregar_Capital_Has_Presupuesto");
-
-    Array.from(formsCapitalHasPresupuesto).forEach((form) => {
-        form.addEventListener("submit", (event) => {
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-                form.classList.add("was-validated");
-            } else {
-                event.preventDefault();
-                let idPresupuesto = $("#select_Presupuesto").val();
-                let valorAsignado = $("#txt_valorAsignado").val();
-                let valorActual = $("#txt_valorAsignado").val();
-                let idCapital = $("#select_Capital").val();
-
-                let objData = new FormData();
-                objData.append("idPresupuesto", idPresupuesto);
-                objData.append("valorAsignado", valorAsignado);
-                objData.append("valorActual", valorActual);
-                objData.append("idCapital", idCapital);
-
-                fetch("src/controladores/ctr_capital_has_presupuesto.php", {
-                    method: "POST",
-                    body: objData,
-                })
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then((response) => {
-                        if (response["codigo"] == "200") {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: response["mensaje"],
-                                showConfirmButton: false,
-                                timer: 1000,
-                                customClass: {
-                                    title: 'swal'
-                                }
-                            });
-
-                            $("#txt_valorAsignado").val("");
-                            $("#txt_montoactual").val("");
-                            $("#select_Capital").empty();
-                            listarCapitales();
-                            $("#ventana_del_formulario_Capital_Has_Presupuesto").hide();
-
-                        } else {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: response["mensaje"],
-                                showConfirmButton: false,
-                                timer: 1000
-                            });
-                        }
-                        
-                        listarPresupuestos();
-
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            }
-        });
-    });
 
 
 
-
-        const selectPresupuesto = document.getElementById("select_Presupuesto");
-        const txtMontoActual = document.getElementById("txt_montoactual");
-
-
-        selectPresupuesto.addEventListener("change", function () {
-            const selectedOption = selectPresupuesto.options[selectPresupuesto.selectedIndex];
-            const nombrePresupuesto = selectedOption.getAttribute("nombrepresupuesto");
-            const montopresupuestoasignado = selectedOption.getAttribute("montopresupuestoasignado");
-            txtMontoActual.textContent = nombrePresupuesto + " - $" + montopresupuestoasignado;
-        });
-
-        const txtValorAsignado = document.getElementById("txt_valorAsignado");
-
-        // Agrega un evento 'change' al <select>
 
         // function para listar presupuesto
 
@@ -491,7 +405,7 @@ $(document).ready(function () {
 
             var selectedOptionsEdit = [];
             var selectedOptions = "<option selected montoPresupuestoAsignado='0' nombrePresupuesto='' >seleccione el presupuesto </option>";
-            var montoactual = 0;
+            
             response.forEach(listarDatosP);
 
             function listarDatosP(item, index) {
@@ -517,14 +431,14 @@ $(document).ready(function () {
 
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-                dataSet.push([item.NombreTipoPresupuesto, item.ValorAsignado, montoactual, objBotones]);
+                dataSet.push([item.NombreTipoPresupuesto, item.ValorAsignado, item.montoActual, objBotones]);
 
 
-                selectedOptions += `<option value="${item.idPresupuesto}" montoactual="${montoactual}" montoPresupuestoAsignado="${item.ValorAsignado}" nombrePresupuesto="${item.NombreTipoPresupuesto}">   ${item.NombreTipoPresupuesto}</option>`;
+                selectedOptions += `<option value="${item.idPresupuesto}" montoactual="${item.montoActual}" montoPresupuestoAsignado="${item.ValorAsignado}" nombrePresupuesto="${item.NombreTipoPresupuesto}">   ${item.NombreTipoPresupuesto}</option>`;
 
 
             }
-            $("#txt_montoactual").html(montoactual);
+           
 
 
 
@@ -538,7 +452,8 @@ $(document).ready(function () {
                     return: true
                 },
                 paging: false,
-                scrollY: 300
+                scrollY: 300,
+                scrollX: true
             });
 
             $('button#btn_Edit_Presupuesto').click(function () {
@@ -556,8 +471,6 @@ $(document).ready(function () {
                 });
 
             });
-
-
 
         }
 
@@ -684,6 +597,11 @@ $(document).ready(function () {
 
 
         });
+
+        $("#cerrar-ventanaCP").on("click", function () {
+            $("#ventana_del_formulario_Capital_Has_Presupuesto").hide();
+        });
+
         $("#Btn_Presupuestos").on("click", function () {
             $("#select_tipoPresupuesto").empty();
             listarTiposPresupuesto();
@@ -703,9 +621,12 @@ $(document).ready(function () {
         });
         $("#Tabla_De_Presupuestos").on("click", "#btn_Agregar_Al_Presupuesto", function () {
             $("#ventana_del_formulario_Capital_Has_Presupuesto").show();
-            
+            var idPresupuesto = $(this).attr("idPresupuesto");
+            $("#Btn_new_Capital_presupuesto").attr("idPresupuestoF", idPresupuesto);
 
+            
         })
 
+       
     })
 

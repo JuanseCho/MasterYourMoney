@@ -36,7 +36,7 @@
 
             <div class="col-md-10 col-sm-12 col-lg-10  jsDiv">
 
-                <table class="table table-striped nowrap dataTables_scrollBody" style="width: 100%;" id="Tabla_De_Presupuestos">
+                <table class="table table-striped nowrap " style="width: 100%;" id="Tabla_De_Presupuestos">
                     <thead>
                         <tr>
                             <th> Descripcion </th>
@@ -194,22 +194,17 @@
 
 <!--Formulario de capital_has_presupuesto-->
 <div class="col-md-6 col-lg-5 col-sm-12 jsDiv form-emerge" id="ventana_del_formulario_Capital_Has_Presupuesto" style="display: none;">
+    <button class="cssbuttons-io-button" id="cerrar-ventanaCP">
+        <i class="bi bi-x-lg"></i>
+    </button>
     <h3 class="titulos">Asignar capital al presupuesto</h3>
     <form id="form_Agregar_Capital_Has_Presupuesto">
-        <div>
-            <label for="txt_montoactual" class="form-label">Valor del presupuesto <span id="tituloPresupuesto"></span> </label>
-            <span id="txt_montoactual"></span>
-        </div>
-        <div>
-            <label for="select_tipoPresupuesto" class="form-label">presupuesto</label>
-            <select class="form-select" name="select_Presupuesto" id="select_Presupuesto" required>
+        <div id="txt_presupuesto" idPresupuesto="" style="text-align: center; font-size: x-large;">
 
-            </select>
-            <div class="valid-feedback">Correcto</div>
-            <div class="invalid-feedback">Por favor, selecciona un tipo de presupuesto</div>
+
         </div>
         <div>
-            <label for="select_tipoPresupuesto" class="form-label">capitales</label>
+            <label for="select_tipoCapital" class="form-label">capitales</label>
             <select class="form-select" name="select_tipoCapital" id="select_tipoCapital" required>
 
             </select>
@@ -219,14 +214,12 @@
         <div>
             <label for="txt_valorAsignado" class="form-label">Valor Asignado </label>
             <input type="number" class="form-control" name="txt_valorAsignado" id="txt_valorAsignado" placeholder="$500000" required>
-        </div>
-        
-        <div>
-            <label for="txt_valorActual" class="form-label">Valor Actual </label>
-            <input type="number" class="form-control" name="txt_valorActual" id="txt_valorActual" disabled >
+            <div class="valid-feedback">Correcto</div>
         </div>
 
-        <button class="btn" id="Btn_new_presupuesto">Agregar</button>
+
+        <button class="btn" id="Btn_new_Capital_presupuesto" type="submit" idPresupuestoF="">Agregar</button>
     </form>
 
 </div>
+
