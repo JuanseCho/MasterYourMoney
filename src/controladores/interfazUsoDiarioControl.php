@@ -24,10 +24,16 @@ class ingresoCapitalControl
     public function ctrListarIngresosCapital(){
         echo json_encode(ingresoCapitalModelo::mdlListarIngresosCapital());          
     }
+    public function ctrEditarIngresoCapital()
+    {
+        $this->idusuario = $_SESSION["idUsuario"];
+        $objRespuesta = ingresoCapitalModelo::mdlEditarIngresoCapital($this->idingreso, $this->montoIngreso, $this->capitalIngreso, $this->formaPagoIngreso);
+        echo json_encode($objRespuesta);
+    }
 
 }
 
-if (isset($_POST["regFechaIngreso"], $_POST["regHoraIngreso"], $_POST["regMontoIngreso"], $_POST["regCapitalIngreso"], $_POST["regFormaPagoIngreso"])) {
+if (isset($_POST["regFechaIngreso"], $_POST["regHoraIngreso"], $_POST["regMontoIngreso"], $_POST["regCapitalIngreso"], $_POST["regFormaPagoIngreso"])  && empty($_POST["editIdIngreso"])) {
     $objIngresoCapital = new ingresoCapitalControl();
     $objIngresoCapital->fechaIngreso = $_POST["regFechaIngreso"];
     $objIngresoCapital->horaIngreso = $_POST["regHoraIngreso"];
@@ -37,10 +43,29 @@ if (isset($_POST["regFechaIngreso"], $_POST["regHoraIngreso"], $_POST["regMontoI
     //$objCapital->idUsuario = $_POST["idUsuario"];
     $objIngresoCapital->ctrRegistrarIngresoCapital();
 }
-if (isset($_POST["listaIngresosCapital"])== "ok") {
+if (isset($_POST["editIdIngreso"])) {
+    $objIngresoCapital = new ingresoCapitalControl();
+    $objIngresoCapital->idingreso = $_POST["editIdIngreso"];
+    $objIngresoCapital->montoIngreso = $_POST["regMontoIngreso"];
+    $objIngresoCapital->capitalIngreso = $_POST["regCapitalIngreso"];
+    $objIngresoCapital->formaPagoIngreso = $_POST["regFormaPagoIngreso"];
+    //$objCapital->idUsuario = $_POST["idUsuario"];
+    $objIngresoCapital->ctrEditarIngresoCapital();
+}
+
+if (isset($_POST["listaTransaccionesCapital"])== "ok") {
     $objIngresoCapital = new ingresoCapitalControl();
     $objIngresoCapital->ctrListarIngresosCapital();
 }
+
+
+
+
+
+
+
+
+
 
 
 class ahorroCapitalControl

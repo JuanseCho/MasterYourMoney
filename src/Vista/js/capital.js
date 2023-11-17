@@ -93,16 +93,18 @@ $(document).ready(function () {
                 return response.json();
             })
             .then((response) => {
-                cargarDatos(response);
+                cargarDatosCapital(response);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
     // function para cargar datos en la tabla
-    function cargarDatos(response) {
+    function cargarDatosCapital(response) {
         var dataSet = [];
         var selectedOptions = [];
+        selectedOptions += '<option selected disabled>Seleccione el Capital destino de ingreso</option>';
+
         response.forEach(listarDatosC);
         function listarDatosC(item, index) {
 
@@ -130,6 +132,7 @@ $(document).ready(function () {
             $("#tabla_Capital").dataTable().fnDestroy();
         }
         tablaCapital = $("#tabla_Capital").DataTable({
+            destroy:true,
             data: dataSet,
             search: {
                 return: true
@@ -145,10 +148,11 @@ $(document).ready(function () {
         });
         var formattedTotal = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0});
         //mostrar en el div de id montoTotal
+        $(".actualCajaForm").html(formattedTotal);
         $("#montoTotal").html(formattedTotal);
         $("#capitalActual").html(formattedTotal);
-        $(".actualCajaForm").html(formattedTotal);
         $("#txt-capitalIngreso").html(selectedOptions);
+        $("#txt-editcapitalIngreso").html(selectedOptions);
         $("#txt-capitalAhorro").html(selectedOptions);
         $("#txt-capitalGasto").html(selectedOptions);
 

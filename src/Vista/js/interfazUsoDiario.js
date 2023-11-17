@@ -1,10 +1,8 @@
 $(function () {
 
-  var tablaIngresosCapital = null;
-  listarIngresosCapital();
-  var tablaAhorrosCapital = null;
-  listarAhorrosCapital();
-
+  var tablaTransaccionesCapital = null;
+  listarTransaccionesCapital();
+  
     var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
     var date = new Date();
     var day = date.getDate();
@@ -27,11 +25,9 @@ $(function () {
       ];
 
     var dayName = dayNames[dayNumber];
-
     document.querySelector('.nombreDia').innerHTML = dayName;
-
     
-    // Formulario de ingreso de capital
+    // Formulario de Registro de ingreso al capital
 
     var formAgregarIngresoCapital = document.querySelectorAll('#formAgregarIngresoCapital');
 
@@ -61,8 +57,7 @@ $(function () {
             var montoIngreso = $("#txt-montoIngreso").val();
             var capitalIngreso = $("#txt-capitalIngreso").val();
             var formaPagoIngreso = $("#txt-formaPagoIngreso").val();
-            
-            alert(fechaIngreso + " " + horaIngresoFormateada);
+            // alert(fechaIngreso + " " + horaIngresoFormateada);
 
             var objData = new FormData();
             objData.append("regFechaIngreso", fechaIngresoFormateada);
@@ -88,6 +83,14 @@ $(function () {
                         title: 'swal'
                     }
                 });
+                
+                let objDataCapital = {"listarCapital":"ok"};
+                let objRespuesta = new CapitalUsuario(objDataCapital);
+                objRespuesta.listarCapital();
+
+                form.reset();
+                $("#ventanaAgregarIngresoCapital").modal('toggle');
+                listarTransaccionesCapital();
 
               } else {
                   Swal.fire({
@@ -98,54 +101,86 @@ $(function () {
                       timer: 1000
                   });
             }
-            form.reset();
-            $("#ventanaAgregarIngresoCapital").modal('toggle');
-            listarIngresosCapital();
+            
             });
-
           }
         }, false)
       });
 
-      // Función de listar Ingresos
 
-      function listarIngresosCapital() {
-        var objData = new FormData();
-        objData.append("listaIngresosCapital", "ok");
-    
-        fetch('src/controladores/interfazUsoDiarioControl.php', {
-          method: 'POST',
-          body: objData
-        }).then(response => response.json()).catch(error => {
-          console.log(error);
-        }).then(response => {
-          cargarDatosIngresos(response);
-        });
-      }
-      
-      function cargarDatosIngresos(response) {
-        var dataSetIngresosCapital = [];      
-        response.forEach(listarDatos);
-    
-        function listarDatos(item, index) {
-          // var objBotones = '<div class="btn-group align-center">';
-          // objBotones += '<button id="btnEditar" type="button" class="btn btn-warning" idvehiculo="' + item.idvehiculo + '" placa="' + item.placa + '" color="' + item.color + '" marca="' + item.marca + '" modelo="' + item.modelo + '" tipoVehiculo="' + item.nombre_tipo_vehiculo + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarVehiculo"><img src="vista/img/edit.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
-          // objBotones += '<button id="btnEliminar" type="button" class="btn btn-danger" idvehiculo="' + item.idvehiculo + '"><img src="vista/img/trash.png" alt="" style="width:30px;" class="p-2"></button>';
-          // objBotones += '</div>';
+       // Formulario de Edición ingreso al capital
+
+    var formAgregarIngresoCapital = document.querySelectorAll('#formAgregarIngresoCapital');
+
+    Array.prototype.slice.call(formAgregarIngresoCapital)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+            form.classList.add('was-validated')
+          } else {
+            event.preventDefault();
+
+            var idingreso = $('btnEditarIngresoCapital').attr('idingreso');
+            var montoIngreso = $("#txt-editmontoIngreso").val();
+            var capitalIngreso = $("#txt-editcapitalIngreso").val();
+            var formaPagoIngreso = $("#txt-editformaPagoIngreso").val();
+            // alert(fechaIngreso + " " + horaIngresoFormateada);
+
+            var objData = new FormData();
+
+            objData.append("editIdIngreso", idingreso);
+            objData.append("regMontoIngreso", montoIngreso);
+            objData.append("regCapitalIngreso", capitalIngreso);
+            objData.append("regFormaPagoIngreso", formaPagoIngreso);
+
+            fetch('src/controladores/interfazUsoDiarioControl.php', {
+              method: 'POST',
+              body: objData
+            }).then(response => response.json()).catch(error => {
+              console.log(error);
+            }).then(response => {
+              if (response["codigo"] == "200") {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: response["respuesta"],
+                    showConfirmButton: false,
+                    timer: 1000,
+                    customClass: {
+                        title: 'swal'
+                    }
+                });
+                
+                let objDataCapital = {"listarCapital":"ok"};
+                let objRespuesta = new CapitalUsuario(objDataCapital);
+                objRespuesta.listarCapital();
+
+                form.reset();
+                $("#ventanaEditarIngresoCapital").modal('toggle');
+                listarTransaccionesCapital();
+
+              } else {
+                  Swal.fire({
+                      position: 'center',
+                      icon: 'error',
+                      title: response["mensaje"],
+                      showConfirmButton: false,
+                      timer: 1000
+                  });
+            }
             
-          dataSetIngresosCapital.push(["Ingreso",item.horaIngreso, item.descripcionIngreso, parseFloat(item.valorIngreso).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })]);
-        }
-      
-        if (tablaIngresosCapital != null) {
-        $("#tablaIngresosCapital").dataTable().fnDestroy();        
-        }
-        tablaIngresosCapital = $("#tablaIngresosCapital").DataTable({
-          data: dataSetIngresosCapital
-        });
-      };
+            });
+          }
+        }, false)
+      });
 
 
-    // Formulario de ahorro de capital
+
+
+
+      // Formulario de ahorro del capital
 
     var formAgregarAhorroCapital = document.querySelectorAll('#formAgregarAhorroCapital');
 
@@ -203,6 +238,14 @@ $(function () {
                     }
                 });
 
+                let objDataCapital = {"listarCapital":"ok"};
+                let objRespuesta = new CapitalUsuario(objDataCapital);
+                objRespuesta.listarCapital();
+
+                form.reset();
+                $("#ventanaAgregarAhorroCapital").modal('toggle');
+                listarTransaccionesCapital();
+
               } else {
                   Swal.fire({
                       position: 'center',
@@ -212,21 +255,18 @@ $(function () {
                       timer: 1000
                   });
             }
-            form.reset();
-            $("#ventanaAgregarAhorroCapital").modal('toggle');
-            listarAhorrosCapital();
+            
             });
 
           }
         }, false)
       });
 
+      // Función de listar Transacciones
 
-      // Función de listar Ahorros
-
-      function listarAhorrosCapital() {
+      function listarTransaccionesCapital() {
         var objData = new FormData();
-        objData.append("listaAhorrosCapital", "ok");
+        objData.append("listaTransaccionesCapital", "ok");
     
         fetch('src/controladores/interfazUsoDiarioControl.php', {
           method: 'POST',
@@ -234,28 +274,73 @@ $(function () {
         }).then(response => response.json()).catch(error => {
           console.log(error);
         }).then(response => {
-          cargarDatosAhorros(response);
+          cargarDatosTransacciones(response);
         });
       }
       
-      function cargarDatosAhorros(response) {
-        var dataSetAhorrosCapital = [];      
+      function cargarDatosTransacciones(response) {
+        var dataSetTransaccionesCapital = [];      
         response.forEach(listarDatos);
-    
+
         function listarDatos(item, index) {
-          // var objBotones = '<div class="btn-group align-center">';
-          // objBotones += '<button id="btnEditar" type="button" class="btn btn-warning" idvehiculo="' + item.idvehiculo + '" placa="' + item.placa + '" color="' + item.color + '" marca="' + item.marca + '" modelo="' + item.modelo + '" tipoVehiculo="' + item.nombre_tipo_vehiculo + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarVehiculo"><img src="vista/img/edit.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
-          // objBotones += '<button id="btnEliminar" type="button" class="btn btn-danger" idvehiculo="' + item.idvehiculo + '"><img src="vista/img/trash.png" alt="" style="width:30px;" class="p-2"></button>';
-          // objBotones += '</div>';
+          var objBotones = '<div class="btn-group align-center">';
+
+          if (item.tipoTransaccion === "Ingreso") {
+            objBotones += '<button id="btnEditar" type="button" class="" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" idFormaPago="' + item.idFormaPago + '" tipoTransaccion="' + item.tipoTransaccion + '" horaTransaccion="' + item.horaTransaccion + '" descripcionTransaccion="' + item.descripcionTransaccion + '" montoTransaccion="' + item.montoTransaccion + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarIngresoCapital"><img src="src/Vista/img/editarTransaccion1.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
+            item.tipoTransaccion = '<img src="src/Vista/img/ingresoBoton.png" alt="Ingreso" style="width:20px;">';
             
-          dataSetAhorrosCapital.push(["Ahorro",item.hora_ahorro, item.descripcion_ahorro, parseFloat(item.monto_ahorro).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 })]);
+          } else if (item.tipoTransaccion === "Ahorro") {
+            objBotones += '<button id="btnEditar" type="button" class="" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" idFormaPago="' + item.idFormaPago + '" tipoTransaccion="' + item.tipoTransaccion + '" horaTransaccion="' + item.horaTransaccion + '" descripcionTransaccion="' + item.descripcionTransaccion + '" montoTransaccion="' + item.montoTransaccion + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarAhorroCapital"><img src="src/Vista/img/editarTransaccion1.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
+            item.tipoTransaccion = '<img src="src/Vista/img/ahorroBoton.png" alt="Ingreso" style="width:20px;">';
+          }
+
+          objBotones += '<button id="btnEliminar" type="button" class=""><img src="src/Vista/img/eliminarTransaccion.png" alt="" style="width:30px;" class="p-2"></button>';
+          objBotones += '</div>';
+
+          let date = new Date(`1970-01-01T${item.horaTransaccion}Z`);
+          date.setHours(date.getHours() + 5);
+          let strTime = date.toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+          item.horaTransaccion = strTime;
+            
+          dataSetTransaccionesCapital.push([item.horaTransaccion, item.tipoTransaccion,  item.descripcionTransaccion, parseFloat(item.montoTransaccion).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }), objBotones]);
         }
       
-        if (tablaAhorrosCapital != null) {
-        $("#tablaAhorrosCapital").dataTable().fnDestroy();        
+        if (tablaTransaccionesCapital != null) {
+        $("#tablaTransaccionesCapital").dataTable().fnDestroy();        
         }
-        tablaAhorrosCapital = $("#tablaAhorrosCapital").DataTable({
-          data: dataSetAhorrosCapital
+        tablaTransaccionesCapital = $("#tablaTransaccionesCapital").DataTable({
+          data: dataSetTransaccionesCapital
         });
       };
+
+      // Botón para editar Transacción
+      
+      $("#tablaTransaccionesCapital").on("click", "#btnEditar", function () {
+        var idtransaccion = $(this).attr('idTransaccion');
+        var horaTransaccion = $(this).attr('horaTransaccion');
+        var descripcionTransaccion = $(this).attr('idCapital');
+        var montoTransaccion = $(this).attr('montoTransaccion');
+        var formaPago = $(this).attr('idFormaPago');
+
+        if ($(this).attr('tipoTransaccion') === "Ingreso") {
+          alert("Ingreso");
+          $("#btnEditarIngresoCapital").attr("idingreso",idtransaccion);
+          $("#txt-editmontoIngreso").val(montoTransaccion);
+          $("#txt-editcapitalIngreso").val(descripcionTransaccion);
+          $("#txt-editformaPagoIngreso").val(formaPago);
+          alert(idtransaccion); 
+
+
+        } else if ($(this).attr('tipoTransaccion') === "Ahorro") {
+          alert("Ahorro");
+        }
+    
+        $("#txt-editcolor").val(color);
+        $("#txt-editmarca").val(marca);
+        $("#txt-editmodelo").val(modelo);
+        $("#txt-edittipoVehiculo").val(tipoVehiculo);
+      });
+
+    
 });

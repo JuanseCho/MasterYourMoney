@@ -39,7 +39,12 @@
 
 <link rel='stylesheet' type='text/css' media='screen' href='src/Vista/css/style.css'>
 <link rel='stylesheet' type='text/css' media='screen' href='src/Vista/css/mainDavid.css'>
+
+
+
+
+<script src='src/Vista/js/cl_capital.js'></script>
 <script src='src/Vista/js/main.js'></script>
-<script src='src/Vista/js/interfazUsoDiario.js'></script>
 <script src='src/Vista/js/misFormasDePago.js'></script>
 <script src='src/Vista/js/capital.js'></script>
+<script src='src/Vista/js/interfazUsoDiario.js'></script>

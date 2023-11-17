@@ -79,7 +79,7 @@ $(function () {
     function cargarDatos(response) {
       var dataSet = [];
       var formasPago ='';
-      formasPago += '<option selected disabled>Seleccione una forma de pago</option>';
+      formasPago += '<option selected disabled>Seleccione la forma de pago del Ingreso</option>';
 
       response.forEach(listarDatos);
 
@@ -101,6 +101,7 @@ $(function () {
       });
 
       $("#txt-formaPagoIngreso").html(formasPago);
+      $("#txt-editformaPagoIngreso").html(formasPago);
     }
 
     var formEdicion = document.querySelectorAll('#formEditarFormaPago');
