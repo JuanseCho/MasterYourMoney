@@ -5,8 +5,6 @@ $(document).ready(function () {
     listarTiposPresupuesto();
     listarPresupuestos();
 
-
-
     var tablaTipoPresupuesto = null;
     var tablaCapitalesDePresupuesto = null;
 
@@ -147,8 +145,6 @@ $(document).ready(function () {
 
         $("#Tabla_De_Presupuestos").on("click", "#btn_Edit_Presupuesto", function () {
 
-
-            $("#ventana_del_formulario_Presupuesto_Edit").show();
 
             var idPresupuesto = $(this).attr("idPresupuesto");
             var idTipoPresupuesto = $(this).attr("idTipoPresupuesto");
@@ -554,7 +550,7 @@ $(document).ready(function () {
         });
         document.getElementById("btn_Cancelar_edit_tipo_Presupuesto").addEventListener("click", function (event) {
             event.preventDefault(); // Evita el envío del formulario
-            document.getElementById("ventana_del_formulario_Presupuesto_Edit").style.display = "none"; // Cierra la ventana
+           
         });
     });
 
@@ -628,7 +624,7 @@ $(document).ready(function () {
     });
 
  
-    $("#Tabla_De_Presupuestos").on("click", "#btn_Edit_Presupuesto",  function listarCapitalesDePresupuesto() {
+      function listarCapitalesDePresupuesto() {
    var id = $('#btn_Edit_Presupuesto').attr('idPresupuesto');
 
         var objData = new FormData();
@@ -649,7 +645,7 @@ $(document).ready(function () {
                 cargarDatosCapitaDePresupuesto(response);
 
             });
-    });
+    }
 
     function cargarDatosCapitaDePresupuesto(response) {
         console.log(response);
@@ -676,6 +672,14 @@ $(document).ready(function () {
             $("#tabla_capitalesDePresupuesto").dataTable().fnDestroy();
         }
         tablaCapitalesDePresupuesto = $("#tabla_capitalesDePresupuesto").DataTable({
+            data: dataSet,
+            columns: [
+                { title: "Fecha" },
+                { title: "Descripción" },
+                { title: "Valor Deducido" },
+                { title: "Acciones" }
+            ],
+            destroy: true, 
             search: {
                 return: true
             },
@@ -720,10 +724,6 @@ $(document).ready(function () {
         document.getElementById("ventana_del_formulario_TG_Edit").style.display = "none";
     });
 
-    $("#edit_Presupuesto_form").on("click touchstart", function () {
-        $("#ventana_del_formulario_Presupuesto_Edit").css("display", "block");
-
-    });
     $("#Tabla_De_Presupuestos").on("click touchstart", "#btn_Agregar_Al_Presupuesto", function () {
         $("#ventana_del_formulario_Capital_Has_Presupuesto").show();
         var idPresupuesto = $(this).attr("idPresupuesto");
