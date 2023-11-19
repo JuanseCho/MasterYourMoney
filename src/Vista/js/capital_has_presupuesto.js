@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     $("#Tabla_De_Presupuestos").on("click", "#btn_Agregar_Al_Presupuesto", function () {
         $("#ventana_del_formulario_Capital_Has_Presupuesto").show();
         var idPresupuesto = $(this).attr("idPresupuesto");
@@ -17,16 +18,24 @@ $(document).ready(function () {
     const formsCapitalHasPresupuesto = document.querySelectorAll("#form_Agregar_Capital_Has_Presupuesto");
 
     formsCapitalHasPresupuesto.forEach(form => {
-        form.addEventListener("submit", function (event) {
+        form.querySelector("#Btn_new_Capital_presupuesto").addEventListener("click", function (event) {
             event.preventDefault();
             if (form.checkValidity()) {
                 event.stopPropagation();
                 form.classList.add("was-validated");
+
+                const fecha = new Date();
+                const año = fecha.getFullYear();
+                const mes = fecha.getMonth() + 1; // Sumamos 1 para obtener un valor de mes entre 1 y 12
+                const dia = fecha.getDate();
+                const fechaFormateada = `${año}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+
                 let idPresupuesto = $("#Btn_new_Capital_presupuesto").attr("idPresupuestoF");
                 let idCapital = $("#select_tipoCapital").val();
                 let valorAsignado = $("#txt_valorAsignado").val();
 
                 let data = new FormData();
+                data.append("fecha", fechaFormateada);
                 data.append("idPresupuesto", idPresupuesto);
                 data.append("idCapital", idCapital);
                 data.append("valorAsignado", valorAsignado);
@@ -41,14 +50,14 @@ $(document).ready(function () {
                     return response.json();
                 }).then(response => {
 
-                   if (response["codigo"] == "409") {
+                    if (response["codigo"] == "409") {
                         Swal.fire({
                             title: "este capital ya esta vinculado con el presupuesto . Puedes editarla si lo deseas.",
                             text: response.error,
                             icon: "info",
                             confirmButtonText: "Entendido"
-                        }); 
-                        
+                        });
+
 
                     } else if (response["codigo"] == "200") {
                         Swal.fire({
@@ -59,6 +68,8 @@ $(document).ready(function () {
                                 location.reload();
                             }
                         });
+                        
+                        listarPresupuestos();
                     } else {
                         Swal.fire({
                             title: "Error al agregar el capital",
@@ -72,7 +83,7 @@ $(document).ready(function () {
                     console.error("Error en la solicitud:", error);
 
                 });
-
+                
 
 
 
@@ -83,3 +94,6 @@ $(document).ready(function () {
 
 
 })
+
+
+

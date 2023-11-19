@@ -8,7 +8,7 @@ class Capital
 {
 
     // funcion para agregar Capital
-    public static function agregarCapital($MontoInicial, $descipcion, $idUsuario, $formapago_idFormaPago, $fecha)
+    public static function agregarCapital($MontoActual, $descipcion, $idUsuario, $formapago_idFormaPago, $fecha)
 
     {
 
@@ -16,7 +16,7 @@ class Capital
         $mensaje = [];
         try {
             $objRespuesta = Conexion::conectar()->prepare("INSERT INTO Capital (Montoactual, descipcion, usuarios_idUsuario , formapago_idFormaPago,fecha) VALUES (:Montoactual, :descipcion, :idUsuario, :formapago_idFormaPago, :fecha)");
-            $objRespuesta->bindParam(":Montoactual", $MontoInicial, PDO::PARAM_STR);
+            $objRespuesta->bindParam(":Montoactual", $MontoActual, PDO::PARAM_STR);
             $objRespuesta->bindParam(":descipcion", $descipcion, PDO::PARAM_STR);
             $objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
             $objRespuesta->bindParam(":formapago_idFormaPago", $formapago_idFormaPago, PDO::PARAM_INT);
@@ -53,13 +53,13 @@ class Capital
         return $mensaje;
     }
     // funcion para actualizar Capital 
-    public static function actualizarCapital($idCapital, $MontoInicial, $descipcion, $idUsuario, $formapago_idFormaPago)
+    public static function actualizarCapital($idCapital, $MontoActual, $descipcion, $idUsuario, $formapago_idFormaPago)
     {
         $mensaje = [];
         try {
-            $objRespuesta = Conexion::conectar()->prepare("UPDATE Capital SET MontoInicial = :MontoInicial, descipcion = :descipcion, idUsuario = :idUsuario, formapago_idFormaPago = :formapago_idFormaPago WHERE idCapital = :idCapital");
+            $objRespuesta = Conexion::conectar()->prepare("UPDATE Capital SET MontoActual = :MontoActual, descipcion = :descipcion, usuarios_idUsuario = :idUsuario, formapago_idFormaPago = :formapago_idFormaPago WHERE idCapital = :idCapital");
             $objRespuesta->bindParam(":idCapital", $idCapital, PDO::PARAM_INT);
-            $objRespuesta->bindParam(":MontoInicial", $MontoInicial, PDO::PARAM_STR);
+            $objRespuesta->bindParam(":MontoActual", $MontoActual, PDO::PARAM_STR);
             $objRespuesta->bindParam(":descipcion", $descipcion, PDO::PARAM_STR);
             $objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
             $objRespuesta->bindParam(":formapago_idFormaPago", $formapago_idFormaPago, PDO::PARAM_INT);

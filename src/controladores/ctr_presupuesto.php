@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION["idUsuario"] = 2;
+$_SESSION["idUsuario"] = 1;
 include_once "../modelos/presupuesto.php";
 
 class presupuestoControlador
@@ -11,6 +11,7 @@ class presupuestoControlador
 
     public $idTipoPresupuesto;
     public $idUsuario ;
+    public $contraseña;
 
 
     public function ctrAgregarPresupuesto()
@@ -33,8 +34,10 @@ class presupuestoControlador
     }
 
     public function ctrEliminarPresupuesto()
+    
     {
-        $objRespuesta = presupuesto::EliminarPresupuesto($this->idPresupuesto);
+        $this->idUsuario = $_SESSION["idUsuario"];
+        $objRespuesta = presupuesto::EliminarPresupuesto($this->idPresupuesto, $this->contraseña, $this->idUsuario);
         echo json_encode($objRespuesta);
     }
     
@@ -69,8 +72,10 @@ if (isset($_POST["editIdPresupuesto"])) {
 if (isset($_POST["IdPresupuesto_Eliminar"])) {
     $objEliminarPresupuesto = new presupuestoControlador();
     $objEliminarPresupuesto->idPresupuesto = $_POST["IdPresupuesto_Eliminar"];
+    $objEliminarPresupuesto->contraseña = $_POST["contrasena"];
     $objEliminarPresupuesto->ctrEliminarPresupuesto();
 }
+
 
 
 

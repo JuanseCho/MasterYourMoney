@@ -36,18 +36,15 @@
 
             <div class="col-md-10 col-sm-12 col-lg-10  jsDiv">
 
-                <table class="table table-striped nowrap " style="width: 100%;" id="Tabla_De_Presupuestos">
+                <table class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;" id="Tabla_De_Presupuestos">
                     <thead>
                         <tr>
+                            
                             <th> Descripcion </th>
-                            <th>
-                                monto inicial
-                            </th>
-                            <th>
-                                Monto actual
-                            <th>
-                                acciones
-                                <i class="bi bi-credit-card-2-front"></i>
+                            <th>monto inicial</th>
+                            <th>Monto actual</th>
+                            <th>capitales de consumo</th>
+                            <th>acciones <i class="bi bi-credit-card-2-front"></i></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,7 +58,12 @@
 
 <!--Formulario para ingresar nuevos presupuestos-->
 
-<div class="col-md-6 col-lg-4 col-sm-10 jsDiv form-emerge" id="ventana_del_formulario_Presupuestos" style="display: none;">
+<div class="col-md-6 col-lg-4 col-sm-10 jsDiv form-emerge" id="ventana_del_formulario_Presupuestos" style="display: none; background-image: url(src/Vista/img/pexels.jpg);min-height: 30vh;
+  background-color: black;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  max-height: 40vh;">
     <button class="cssbuttons-io-button" id="cerrar-ventana">
         <i class="bi bi-x-lg"></i>
     </button>
@@ -75,7 +77,7 @@
             <div class="valid-feedback">Correcto</div>
             <div class="invalid-feedback">Por favor, selecciona un tipo de presupuesto</div>
         </div>
-        <div>
+        <div hidden>
             <label for="txt_Presupuesto" class="form-label">Valor presupuestal</label>
             <input type="number" class="form-control" name="txt_Presupuesto" id="txt_Presupuesto" value="0" disabled required>
             <div class="valid-feedback">Correcto</div>
@@ -163,6 +165,7 @@
                 <button class="btn" id="btn_Cancelar_edit_tipo_Presupuesto">Cancelar <i class="bi bi-plus-circle"></i></button>
 
             </form>
+
         </div>
     </div>
 
@@ -170,30 +173,63 @@
 
 <!--Formulario para Editar presupuesto-->
 
-<div class="col-md-4 col-sm-8 jsDiv form-emerge" id="ventana_del_formulario_Presupuesto_Edit" style="display: none;">
-    <button class="cssbuttons-io-button">
-        <i class="bi bi-x-lg"></i>
-    </button>
-    <h3 class="titulos">Editar presupuesto</h3>
-    <form id="form_Editar_Presupuesto">
-        <div>
-            <label for="" class="form-label">tipo de de Presupuesto</label>
-            <select class="form-select" name="" id="select_edit_tipoPresupuesto">
-            </select>
-        </div>
-        <div>
-            <label for="" class="form-label">
-                limite presupuestal
-            </label>
-            <input type="number" class="form-control" name="" id="txt_edit_Presupuesto" placeholder="$50.0000">
-        </div>
-        <button class="btn" id="btn_Edit_Presupuesto_f" idPresupuestoF="">Editar</button>
+<!-- The Modal -->
+<div class="modal modal-lg " id="ventana_del_formulario_Presupuesto_Edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-    </form>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h3 class="titulos">Editar presupuesto</h3>
+            </div>
+            <div class="modal-body">
+                <form id="form_Editar_Presupuesto">
+                    <div>
+                        <label for="" class="form-label">tipo de de Presupuesto</label>
+                        <select class="form-select" name="" id="select_edit_tipoPresupuesto">
+                        </select>
+                    </div>
+                    <div>
+                        <label for="" class="form-label">
+                            limite presupuestal
+                        </label>
+                        <input type="number" class="form-control" name="" id="txt_edit_Presupuesto" placeholder="$50.0000" disabled>
+                    </div>
+                    <button class="btn" id="btn_Edit_Presupuesto_f" idPresupuestoF="">Editar</button>
+
+                </form>
+
+
+                <hr size="5" color="#455181">
+
+                <div class=" col-md-12" style="background-color: rgba(226, 225, 220, 0.397);">
+                    <table id="tabla_capitalesDePresupuesto" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
+                        <thead>
+                            <tr>
+                                
+                                <th>fecha</th>
+                                <th> capitales </th>
+                                <th>valor asignado</th>
+                                <th>
+                                    acciones
+                                    <i class="bi bi-credit-card-2-front"></i>
+                                </th>
+                            </tr>
+                        </thead>
+
+
+                    </table>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
 </div>
 
 <!--Formulario de capital_has_presupuesto-->
-<div class="col-md-6 col-lg-5 col-sm-12 jsDiv form-emerge" id="ventana_del_formulario_Capital_Has_Presupuesto" style="display: none;">
+<div class="col-md-6 col-lg-5 col-sm-12 jsDiv form-emerge" id="ventana_del_formulario_Capital_Has_Presupuesto" style="display: none; ">
     <button class="cssbuttons-io-button" id="cerrar-ventanaCP">
         <i class="bi bi-x-lg"></i>
     </button>
@@ -203,7 +239,10 @@
 
 
         </div>
+        
+
         <div>
+
             <label for="select_tipoCapital" class="form-label">capitales</label>
             <select class="form-select" name="select_tipoCapital" id="select_tipoCapital" required>
 
@@ -222,4 +261,3 @@
     </form>
 
 </div>
-

@@ -8,31 +8,41 @@ class presupuesto
     public static function agregarPresupuesto($limitePresupuesto, $idTipoPresupuesto)
 {
     //INSERT INTO `presupuestos` (`idPresupuesto`, `ValorAsignado`, `capital_idCapital`, `idTipoPresupuesto`) VALUES (NULL, '50000', '89', '2');
-        $mensaje = [];
-        try {
+    $mensaje = [];
+    try {
+        // Primero, verifica si ya existe un presupuesto con el mismo idTipoPresupuesto
+        $objVerificar = Conexion::conectar()->prepare("SELECT * FROM presupuestos WHERE tipopresupuesto_idTipoPresupuesto = :idTipoPresupuesto");
+        $objVerificar->bindParam(":idTipoPresupuesto", $idTipoPresupuesto, PDO::PARAM_INT);
+        $objVerificar->execute();
+        if ($objVerificar->rowCount() > 0) {
+            // Si existe, devuelve un mensaje indicando que se puede editar el presupuesto existente
+            $mensaje = array("codigo" => "300", "mensaje" => "Ya existe un presupuesto con el mismo tipo. Por favor, edita el presupuesto existente en lugar de crear uno nuevo.");
+        } else {
+            // Si no existe, procede a insertar el nuevo presupuesto
             $objRespuesta = Conexion::conectar()->prepare("INSERT INTO presupuestos (ValorAsignado, tipopresupuesto_idTipoPresupuesto) VALUES (:limite, :idTipoPresupuesto)");
             $objRespuesta->bindParam(":limite", $limitePresupuesto, PDO::PARAM_STR);
             $objRespuesta->bindParam(":idTipoPresupuesto", $idTipoPresupuesto, PDO::PARAM_INT);
             if ($objRespuesta->execute()) {
                 $mensaje = array("codigo" => "200", "mensaje" => "Presupuesto registrado correctamente");
             } else {
-                $mensaje = array("codigo" => "425", "mensaje" => "error al registrar presupuesto");
+                $mensaje = array("codigo" => "425", "mensaje" => "Error al registrar presupuesto");
             }
-        } catch (Exception $e) {
-            $mensaje = array("codigo" => "500", "mensaje" => $e->getMessage());
         }
-        return $mensaje;
+    } catch (Exception $e) {
+        $mensaje = array("codigo" => "500", "mensaje" => $e->getMessage());
+    }
+    return $mensaje;
+    
     }
 
     // funcion para mostrar presupuesto
     public static function mostrarPresupuesto()
     {
-         //SELECT tp.NombreTipoPresupuesto ,p.idPresupuesto, p.ValorAsignado, c.idCapital, c.Montoactual, cu.Nombre AS NombreUsuario FROM presupuestos p JOIN tipopresupuesto tp ON p.tipopresupuesto_idTipoPresupuesto = tp.idTipoPresupuesto JOIN capital_has_presupuestos cp ON p.idPresupuesto = cp.presupuestos_idPresupuesto JOIN capital c ON cp.capital_idCapital = c.idCapital JOIN usuarios cu ON c.usuarios_idUsuario = cu.idUsuario WHERE cu.idUsuario = 2
-
+       
         $listaPresupuesto = null;
         try {
-            $objRespuesta = Conexion::conectar()->prepare(" SELECT * FROM presupuestos p JOIN tipopresupuesto tp ON p.tipopresupuesto_idTipoPresupuesto = tp.idTipoPresupuesto ");
-            //$objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_STR);
+            $objRespuesta = Conexion::conectar()->prepare(" SELECT  p.*,  tp.NombreTipoPresupuesto AS NombreTipoPresupuesto,  c1.nombres_capitales FROM   presupuestos p   JOIN   tipopresupuesto tp   ON   p.tipopresupuesto_idTipoPresupuesto = tp.idTipoPresupuesto   LEFT JOIN (  SELECT  pc.presupuestos_idPresupuesto,  GROUP_CONCAT(c.descipcion) AS nombres_capitales FROM  capital_has_presupuestos pc  JOIN  capital c  ON  pc.capital_idCapital = c.idcapital  GROUP BY   pc.presupuestos_idPresupuesto) c1  ON p.idpresupuesto = c1.presupuestos_idPresupuesto;");
+        //$objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_STR);
             
             $objRespuesta->execute();
             $listaPresupuesto = $objRespuesta->fetchAll();
@@ -48,7 +58,7 @@ class presupuesto
     {
         $mensaje = [];
         try {
-            $objRespuesta = Conexion::conectar()->prepare("UPDATE presupuestos SET ValorAsignado = :limite, idTipoPresupuesto = :idTipoPresupuesto WHERE idpresupuesto = :id");
+            $objRespuesta = Conexion::conectar()->prepare("UPDATE presupuestos SET ValorAsignado = :limite, tipopresupuesto_idTipoPresupuesto = :idTipoPresupuesto WHERE idpresupuesto = :id");
             $objRespuesta->bindParam(":limite", $limitePresupuesto, PDO::PARAM_STR);
             $objRespuesta->bindParam(":idTipoPresupuesto", $idTipoPresupuesto, PDO::PARAM_INT);
             $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);    
@@ -64,9 +74,20 @@ class presupuesto
     }
 
     // funcion para eliminar presupuesto
-    public static function eliminarPresupuesto($idPresupuesto)
-    {
-        $mensaje = [];
+    public static function eliminarPresupuesto($idPresupuesto, $contraseña, $idUsuario)
+{
+    $mensaje = [];
+
+    // Primero, validamos el usuario y la contraseña.
+    if (self::validarUsuario($contraseña,$idUsuario )) {
+        $objRespuesta = Conexion::conectar()->prepare("DELETE FROM capital_has_presupuestos WHERE presupuestos_idPresupuesto = :id");
+        $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
+        $objRespuesta->execute();
+
+        $objRespuesta = Conexion::conectar()->prepare("DELETE FROM gastos WHERE idPresupuesto = :id");
+        $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
+        $objRespuesta->execute();
+
         try {
             $objRespuesta = Conexion::conectar()->prepare("DELETE FROM presupuestos WHERE idpresupuesto = :id");
             $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
@@ -78,7 +99,40 @@ class presupuesto
         } catch (Exception $e) {
             $mensaje = array("codigo" => "500", "mensaje" => $e->getMessage());
         }
-        return $mensaje;
+    } else {
+        $mensaje = array("codigo" => "401", "mensaje" => " contraseña incorrecta por favor verifique la contraseña e intente nuevamente");
     }
+
+    return $mensaje;
+}
+
+// Esta es una función de ejemplo para validar el usuario y la contraseña.
+// Deberías implementar tu propia lógica de validación aquí.
+public static function validarUsuario($contraseña,$idUsuario )
+{
+    // Prepara la consulta SQL.
+    $objRespuestaUsuario = Conexion::conectar()->prepare("SELECT contraseña FROM usuarios WHERE idUsuario = :idUsuario");
+    // Vincula los parámetros.
+    $objRespuestaUsuario->bindParam(":idUsuario", $idUsuario);
+    // Ejecuta la consulta.
+    $objRespuestaUsuario->execute();
+    // Obtiene el resultado.
+    $result = $objRespuestaUsuario->fetch(PDO::FETCH_ASSOC);
+    // Verifica si se encontró el usuario.
+    if ($result) {
+        // Verifica la contraseña.
+        if ($contraseña == $result['contraseña']) {
+            // La contraseña es correcta.
+            return true;
+        } else {
+            // La contraseña es incorrecta.
+            return false;
+        }
+    } else {
+        // El usuario no existe.
+        return false;
+    }
+}
+
 
 }

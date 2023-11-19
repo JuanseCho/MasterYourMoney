@@ -135,10 +135,11 @@ $(document).ready(function () {
                 return: true
             },
             paging: false,
-            scrollY: 300
+            scrollY: 300,
+            responsive: true
         });
 
-        //sumar los datos de MontoInicial
+        //sumar los datos de MontoActual
         var total = 0;
         tablaCapital.column(1).data().each(function (value, index) {
             total += parseFloat(value);
@@ -288,7 +289,14 @@ $(document).ready(function () {
         });
     });
 
+    $("#Btn_new_Capital_presupuesto").on("click", function () {
+        
 
+        // Agrega un retraso de 2 segundos (ajusta según tus necesidades)
+        setTimeout(function () {
+            listarCapital();
+        }, 2000); // 2000 milisegundos = 2 segundos
+    });
 
 });
 

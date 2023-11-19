@@ -80,7 +80,7 @@ $(document).ready(function () {
     }
     // function para cargar datos en la tabla
     function cargarDatos(response) {
-        console.log(response);
+        
         var dataSet = [];
         var objSelect = `<option selected disabled> selecione la el tipo de Presupuesto </option>`;
         var objSelectEdit = `<option selected disabled> selecione el tipo de Presupuesto </option>`;
@@ -165,8 +165,7 @@ $(document).ready(function () {
 
 
         $("#select_edit_tipoPresupuesto").html(objSelectEdit);
-        console.log(objSelectEdit);
-        console.log(selectedOptionsEdit);
+       
 
         //////////////////////////////////////////////////////////////////////////////////
 

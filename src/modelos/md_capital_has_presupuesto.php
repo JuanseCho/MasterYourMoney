@@ -3,7 +3,7 @@ include_once "../modelos/conexion.php";
 
 class md_capital_has_presupuesto
 {
-    public static function mdAgregarCapital_has_presupuesto($valorAsignado, $idPresupuesto, $idcapital, $valorActual)
+    public static function mdAgregarCapital_has_presupuesto($valorAsignado, $idPresupuesto, $idcapital, $valorActual, $fecha)
     {
         $mensaje = [];
         //INSERT INTO `capital_has_presupuestos` (`capital_idCapital`, `presupuestos_idPresupuesto`) VALUES ('2', '19');
@@ -19,36 +19,47 @@ class md_capital_has_presupuesto
         if ($cantidadRelaciones > 0) {
             // Ya existe una relación, mostrar mensaje o tomar acción según sea necesario
            return $mensaje = array("codigo" => "409", "mensaje" => "La relación ya existe. Puedes editarla si lo deseas.");
+
         } else {
             // No existe la relación, realizar la inserción
-            $objRespuestacp = Conexion::conectar()->prepare("INSERT INTO capital_has_presupuestos (capital_idCapital, presupuestos_idPresupuesto) VALUES (:idcapital, :idPresupuesto)");
+            $objRespuestacp = Conexion::conectar()->prepare("INSERT INTO capital_has_presupuestos (capital_idCapital, presupuestos_idPresupuesto,fecha,valorDeducido) VALUES (:idcapital, :idPresupuesto, :fecha, :valorDeducido)");
             $objRespuestacp->bindParam(":idcapital", $idcapital, PDO::PARAM_INT);
             $objRespuestacp->bindParam(":idPresupuesto", $idPresupuesto, PDO::PARAM_INT);
+            $objRespuestacp->bindParam(":fecha", $fecha, PDO::PARAM_STR);
+            $objRespuestacp->bindParam(":valorDeducido", $valorActual, PDO::PARAM_STR);
 
             if ($objRespuestacp->execute()) {
+
+                try {
+                    $objRespuesta = Conexion::conectar()->prepare("UPDATE presupuestos SET ValorAsignado = ValorAsignado + :limite, montoActual = montoActual + :montoActual WHERE idpresupuesto = :id");
+                    $objRespuesta->bindParam(":limite", $valorAsignado, PDO::PARAM_STR);
+                    $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
+                    $objRespuesta->bindParam(":montoActual", $valorActual, PDO::PARAM_INT);
+
+                    
+
+                    if ($objRespuesta->execute()) {
+                        //descuento de el capital
+                    $objRespuesta = Conexion::conectar()->prepare("UPDATE capital SET Montoactual = Montoactual-:deducido WHERE capital.idCapital = :id");
+                    $objRespuesta->bindParam(":deducido", $valorAsignado, PDO::PARAM_STR);
+                    $objRespuesta->bindParam(":id", $idcapital, PDO::PARAM_INT);
+                        $mensaje = array("codigo" => "200", "mensaje" => "Presupuesto actualizado correctamente");
+                    } else {
+                        $mensaje = array("codigo" => "425", "mensaje" => "error al actualizar presupuesto");
+                    }
+                } catch (Exception $e) {
+                    $mensaje = array("codigo" => "500", "mensaje" => $e->getMessage());
+                }
                 $mensaje = array("codigo" => "200", "mensaje" => "capital_has_presupuesto registrado correctamente");
+
+
             } else {
                 $mensaje = array("codigo" => "425", "mensaje" => "error al registrar capital_has_presupuesto");
             }
         }
 
-
-
-
         // funcion para actualizar presupuesto
-        try {
-            $objRespuesta = Conexion::conectar()->prepare("UPDATE presupuestos SET ValorAsignado = :limite,   montoActual	= :montoActual	WHERE idpresupuesto = :id");
-            $objRespuesta->bindParam(":limite", $valorAsignado, PDO::PARAM_STR);
-            $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
-            $objRespuesta->bindParam(":montoActual", $valorActual, PDO::PARAM_INT);
-            if ($objRespuesta->execute()) {
-                $mensaje = array("codigo" => "200", "mensaje" => "Presupuesto actualizado correctamente");
-            } else {
-                $mensaje = array("codigo" => "425", "mensaje" => "error al actualizar presupuesto");
-            }
-        } catch (Exception $e) {
-            $mensaje = array("codigo" => "500", "mensaje" => $e->getMessage());
-        }
+      
         return $mensaje;
     }
 

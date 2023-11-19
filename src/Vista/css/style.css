@@ -76,13 +76,13 @@ form {
     border-radius: 20px;
     border: 2px solid #d2d6e6;
     box-shadow: -1px 0px 25px 0px #18587456;
-    /*box-shadow: rgba(133, 189, 215, 0.911) 0px 30px 30px -20px;*/
     border-radius: 12px;
     text-align: center;
 
 }
 
 .jsDiv table {
+    
     border: 0;
     width: 100%;
     border-collapse: collapse;
@@ -152,8 +152,8 @@ table td {
     max-height: 45px;
     font-size: auto;
     background-image: linear-gradient(90deg, #251844 0%, #333f70 50%, #18465f 75%, #154b46 100%);
-    box-shadow: 6px 6px 12px #c5c5c5,
-        -6px -6px 12px #ffffff;
+    /* box-shadow: 6px 6px 12px #c5c5c5,
+        -6px -6px 12px #ffffff; */
     color: #ffffff;
     border-radius: 40px;
     cursor: pointer;

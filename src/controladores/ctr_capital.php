@@ -9,7 +9,7 @@ class CapitalControlador
 {
     public $idCapital;
 
-    public $MontoInicial;
+    public $MontoActual;
 
     public $descipcion;
 
@@ -22,7 +22,7 @@ class CapitalControlador
     public function ctrAgregarCapital()
     {
         $this->idUsuario = $_SESSION["idUsuario"];
-        $objRespuesta = Capital::agregarCapital($this->MontoInicial, $this->descipcion, $this->idUsuario, $this->formapago_idFormaPago, $this->fecha);
+        $objRespuesta = Capital::agregarCapital($this->MontoActual, $this->descipcion, $this->idUsuario, $this->formapago_idFormaPago, $this->fecha);
         echo json_encode($objRespuesta);
     }
     public function ctrMostrarCapital()
@@ -35,7 +35,7 @@ class CapitalControlador
     public function ctrActualizarCapital()
     {
         $this->idUsuario = $_SESSION["idUsuario"];
-        $objRespuesta = Capital::actualizarCapital($this->idCapital, $this->MontoInicial, $this->descipcion, $this->idUsuario, $this->formapago_idFormaPago);
+        $objRespuesta = Capital::actualizarCapital($this->idCapital, $this->MontoActual, $this->descipcion, $this->idUsuario, $this->formapago_idFormaPago);
         echo json_encode($objRespuesta);
     }
 
@@ -48,7 +48,7 @@ class CapitalControlador
 }
 if (isset($_POST["monto"])) {
     $objCapital = new CapitalControlador();
-    $objCapital->MontoInicial = $_POST["monto"];
+    $objCapital->MontoActual = $_POST["monto"];
     $objCapital->descipcion = $_POST["descripcion"];
     $objCapital->formapago_idFormaPago = $_POST["formaDePago"];
     $objCapital->fecha = $_POST["fecha"];
@@ -63,7 +63,7 @@ if (isset($_POST["listarCapital"])== "ok") {
 if (isset($_POST["idCapitalEditar"])) {
     $objCapital = new CapitalControlador();
     $objCapital->idCapital = $_POST["idCapitalEditar"];
-    $objCapital->MontoInicial = $_POST["MontoInicialEditar"];
+    $objCapital->MontoActual = $_POST["MontoInicialEditar"];
     $objCapital->descipcion = $_POST["descipcionEditar"];
     $objCapital->formapago_idFormaPago = $_POST["idFormaPagoEditar"];
     $objCapital->ctrActualizarCapital();
