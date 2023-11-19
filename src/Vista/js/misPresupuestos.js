@@ -438,7 +438,7 @@ $(document).ready(function () {
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            dataSet.push([item.NombreTipoPresupuesto, item.ValorAsignado, item.montoActual, item.nombres_capitales ,objBotones ]);
+            dataSet.push([item.NombreTipoPresupuesto, item.ValorAsignado, item.montoActual, item.nombres_capitales, objBotones]);
 
 
             selectedOptions += `<option value="${item.idPresupuesto}" montoactual="${item.montoActual}" montoPresupuestoAsignado="${item.ValorAsignado}" nombrePresupuesto="${item.NombreTipoPresupuesto}">   ${item.NombreTipoPresupuesto}</option>`;
@@ -456,16 +456,12 @@ $(document).ready(function () {
         tablaPresupuesto = $("#Tabla_De_Presupuestos").DataTable({
 
             data: dataSet,
-            responsive: {
-                details: {
-                    display: DataTable.Responsive.display.modal({
-                        
-                    }),
-                    renderer: DataTable.Responsive.renderer.tableAll({
-                        tableClass: 'table'
-                    })
-                }
-            }
+            search: {
+                return: true
+            },
+            paging: false,
+            scrollY: 300,
+            responsive: true
         });
 
         $('button#btn_Edit_Presupuesto').click(function () {
@@ -550,7 +546,7 @@ $(document).ready(function () {
         });
         document.getElementById("btn_Cancelar_edit_tipo_Presupuesto").addEventListener("click", function (event) {
             event.preventDefault(); // Evita el envío del formulario
-           
+
         });
     });
 
@@ -623,10 +619,10 @@ $(document).ready(function () {
         })
     });
 
- 
-      function listarCapitalesDePresupuesto() {
-   var id = $('#btn_Edit_Presupuesto').attr('idPresupuesto');
 
+    $("#Tabla_De_Presupuestos").on("click", "#btn_Edit_Presupuesto",function listarCapitalesDePresupuesto() {
+        var id = $(this).attr('idPresupuesto');
+        alert(id);
         var objData = new FormData();
         objData.append("listarCapitalesDePresupuesto", "ok");
         objData.append("IdPresupuesto", id);
@@ -645,13 +641,13 @@ $(document).ready(function () {
                 cargarDatosCapitaDePresupuesto(response);
 
             });
-    }
+    });
 
     function cargarDatosCapitaDePresupuesto(response) {
         console.log(response);
         var dataSet = [];
         response.forEach(listarDatosCDP);
-    
+
         function listarDatosCDP(item, index) {
             var objBotones = `
             <div class="button-container">
@@ -665,21 +661,15 @@ $(document).ready(function () {
                     <i class="bi bi-trash"></i>
                 </button>
             </div>`;
-            dataSet.push([ item.fecha, item.descipcion ,item.valorDeducido, objBotones ]);
+            dataSet.push([item.fecha, item.descipcion, item.valorDeducido, objBotones]);
         }
-    
+
         if (tablaCapitalesDePresupuesto != null) {
             $("#tabla_capitalesDePresupuesto").dataTable().fnDestroy();
         }
         tablaCapitalesDePresupuesto = $("#tabla_capitalesDePresupuesto").DataTable({
             data: dataSet,
-            columns: [
-                { title: "Fecha" },
-                { title: "Descripción" },
-                { title: "Valor Deducido" },
-                { title: "Acciones" }
-            ],
-            destroy: true, 
+
             search: {
                 return: true
             },
@@ -688,7 +678,7 @@ $(document).ready(function () {
             responsive: true
         });
     }
-    
+
     ////////////////////////////////////////////////////
     //eventos para mostrar y ocultar ventanas de formularios
     $("#Btn_Presupuestos").on("click touchstart", function () {
@@ -711,10 +701,10 @@ $(document).ready(function () {
         $("#select_tipoPresupuesto").empty();
         listarTiposPresupuesto();
     });
-    $(document).on('click touchstart', '#btn_Edit_Presupuesto', function() {
+    $(document).on('click touchstart', '#btn_Edit_Presupuesto', function () {
         listarCapitalesDePresupuesto();
     });
-    
+
 
     $("#btn_Cancelar_edit_tipo_Presupuesto").on("click touchstart", function () {
         $("#ventana_del_formulario_TG_Edit").hide();
