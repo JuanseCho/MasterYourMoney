@@ -1,6 +1,6 @@
 <br>
 <div class="container ">
-    <div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide miCarrusel" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -8,13 +8,13 @@
         </div>
         <div class="carousel-inner ">
             <div class="carousel-item active ">
-                <img src="https://via.placeholder.com/800x400" class="d-block w-50" alt="...">
+                <img src="src\Vista\img\davidmaster.png" class="d-block imgCarru" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="https://via.placeholder.com/800x400" class="d-block w-50" alt="...">
+                <img src="src\Vista\img\masterchoco.png" class="d-block imgCarru" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="https://via.placeholder.com/800x400" class="d-block w-50" alt="...">
+                <img src="https://via.placeholder.com/800x400" class="d-block imgCarru" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -27,19 +27,49 @@
         </button>
     </div>
 </div>
-
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <section class="content-section">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <h2>Información de la página</h2>
-                <p>En esta sección encontrarás información sobre nuestra empresa, nuestros productos y servicios.</p>
-                <p>También encontrarás información sobre cómo contactarnos.</p>
+            <div class="col-md-12">
+                <h2>Que es MasterYourMoney</h2>
+                <p>
+                    <h1>Master Your Money: una herramienta para controlar tus finanzas personales</h1><br><br>
+
+                    Master Your Money es una aplicación web que ayuda a las personas a controlar sus finanzas personales. La aplicación permite realizar un seguimiento de los ingresos, gastos, ahorros y deudas. También ofrece herramientas para establecer presupuestos, realizar un seguimiento de los objetivos de ahorro y crear planes de jubilación.<br><br>
+
+                    <h4>Características principales</h4><br>
+
+                    Interfaz gráfica intuitiva: Master Your Money utiliza gráficos y tablas para representar los datos financieros de los usuarios de forma clara y concisa.
+                    Personalización de informes: Los usuarios pueden elegir qué datos incluir en los informes y cómo organizarlos.
+                    Funciones adicionales: Master Your Money incluye herramientas para establecer presupuestos, realizar un seguimiento de los objetivos de ahorro y crear planes de jubilación.<br><br>
+                    
+                    <h4>Beneficios</h4>
+
+                    Master Your Money puede ayudar a las personas a:<br>
+
+                    Mejorar la comprensión de sus finanzas personales: La aplicación proporciona una visión general clara de los ingresos, gastos, ahorros y deudas.<br><br>
+                    Identificar áreas de ahorro: Los gráficos y tablas de la aplicación pueden ayudar a los usuarios a ver dónde están gastando su dinero y a identificar áreas donde pueden ahorrar.<br><br>
+                    Crear y mantener presupuestos: Master Your Money ofrece herramientas para establecer presupuestos y realizar un seguimiento del progreso.<br><br>
+                    Alcanzar objetivos de ahorro: La aplicación permite a los usuarios realizar un seguimiento de sus objetivos de ahorro y ver cómo están progresando.<br><br>
+                    Planear la jubilación: Master Your Money ofrece herramientas para crear planes de jubilación y realizar un seguimiento de su progreso.<br><br>
+
+                    <h4>Conclusiones</h4><br>
+                    Master Your Money es una herramienta útil para cualquier persona que quiera mejorar su salud financiera. La aplicación es gratuita para registrarse y utilizarla.</p>
+
             </div>
-            
+
         </div>
     </div>
 </section>
+<br><br>
 
 
 <!-- Call-to-action section -->
@@ -47,10 +77,10 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <h2>Ready to get started?</h2>
+                <h2>Listo para comenzar con MasterYourMoney?</h2>
             </div>
             <div class="col-md-6">
-                <a href="#" class="btn btn-primary">Sign up now</a>
+                <a href="register" class="btn btn-primary">Registro</a>
             </div>
         </div>
     </div>

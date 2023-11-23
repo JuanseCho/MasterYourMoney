@@ -11,21 +11,60 @@
                             Ahorro
                         </p>
                     </h2>
-                    <button id="ahorrosbtn" class="button1">
-                        <span>MIS FUENTES</span>
+                    <button style="flex-grow: 0;" class="button1" data-bs-toggle="modal" data-bs-target="#modalFormCapital">
+                        <span>
+                            Agregar al capital
+                        </span>
                     </button>
-                    <!-- Agrega esto después del botón "MIS FUENTES" -->
-                    <div id="" style="display: none;">
-                        <form id="formAhorros">
-                            <label for="fecha">Fecha:</label><br>
-                            <input type="date" id="fecha" name="fecha"><br>
-                            <label for="descripcion">Descripcion:</label><br>
-                            <input type="text" id="descripcion" name="descripcion"><br>
-                            <label for="monto">Monto:</label><br>
-                            <input type="number" id="monto" name="monto"><br>
-                            <button type="button" id="registrar">Registrar</button>
-                        </form>
+                    <!--Formulario pa ingresar la nuevo Capital -->
+
+                    <!-- The Modal -->
+                    <div class="modal " id="modalFormCapital">
+                        <div class="modal-dialog ">
+                            <div class="modal-content ">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+                                    <h3 class="titulos">Agregar capital</h3>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+
+                                    <form id="form_Agregar_Capital">
+                                        <div>
+                                            <label class="form-label">Monto</label>
+                                            <input type="number" class="form-control" id="txt_monto" required>
+
+                                        </div>
+                                        <div>
+                                            <label class="form-label">Descripcion</label>
+                                            <input type="text" class="form-control" id="txt_descripcion" required>
+
+                                        </div>
+                                        <div>
+                                            <label class="form-label">Forma de pago</label>
+                                            <section>
+                                                <select class="form-select" id="txt_formaD_Pago" required>
+                                                    <option selected>seleccione el tipo de pago </option>
+                                                    <option value="1">efectivo</option>
+                                                    <option value="2">tarjeta</option>
+                                                    <option value="3">cheque</option>
+                                                </select>
+                                            </section>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary" type="submit">Agregar</button>
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
