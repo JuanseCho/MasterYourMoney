@@ -45,68 +45,7 @@
                      
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td >12/1rggcccccccccccccccccccccccccccccchhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhvhgjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj2/2020</td>
-                            <td>1000</td>
-                            <td>alimentacion</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>2000</td>
-                            <td>transporte</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>1000</td>
-                            <td>alimentacion</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>2000</td>
-                            <td>transporte</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>1000</td>
-                            <td>alimentacion</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>2000</td>
-                            <td>transporte</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>1000</td>
-                            <td>alimentacion</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>2000</td>
-                            <td>transporte</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>1000</td>
-                            <td>alimentacion</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>2000</td>
-                            <td>transporte</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>1000</td>
-                            <td>alimentacion</td>
-                        </tr>
-                        <tr>
-                            <td>12/12/2020</td>
-                            <td>2000</td>
-                            <td>transporte</td>
-                        </tr>
-                    </tbody>
+                 
              
                 </table>
             </div>

@@ -93,18 +93,16 @@ $(document).ready(function () {
                 return response.json();
             })
             .then((response) => {
-                cargarDatosCapital(response);
+                cargarDatos(response);
             })
             .catch((error) => {
                 console.log(error);
             });
     }
     // function para cargar datos en la tabla
-    function cargarDatosCapital(response) {
+    function cargarDatos(response) {
         var dataSet = [];
         var selectedOptions = [];
-        selectedOptions += '<option selected disabled>Seleccione el Capital destino de ingreso</option>';
-
         response.forEach(listarDatosC);
         function listarDatosC(item, index) {
 
@@ -132,25 +130,26 @@ $(document).ready(function () {
             $("#tabla_Capital").dataTable().fnDestroy();
         }
         tablaCapital = $("#tabla_Capital").DataTable({
-            destroy:true,
             data: dataSet,
             search: {
                 return: true
             },
             paging: false,
-            scrollY: 300
+            scrollY: 300,
+            responsive: true
         });
 
-        //sumar los datos de MontoInicial
+        //sumar los datos de MontoActual
         var total = 0;
         tablaCapital.column(1).data().each(function (value, index) {
             total += parseFloat(value);
         });
-        var formattedTotal = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0});
+        var formattedTotal = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
         //mostrar en el div de id montoTotal
-        $(".actualCajaForm").html(formattedTotal);
         $("#montoTotal").html(formattedTotal);
+        $(".actualCajaForm").html(formattedTotal);
         $("#capitalActual").html(formattedTotal);
+        $("#select_tipoCapital").html(selectedOptions);
         $("#txt-capitalIngreso").html(selectedOptions);
         $("#txt-editcapitalIngreso").html(selectedOptions);
         $("#txt-capitalAhorro").html(selectedOptions);
@@ -296,7 +295,14 @@ $(document).ready(function () {
         });
     });
 
+    $("#Btn_new_Capital_presupuesto").on("click", function () {
+        
 
+        // Agrega un retraso de 2 segundos (ajusta según tus necesidades)
+        setTimeout(function () {
+            listarCapital();
+        }, 2000); // 2000 milisegundos = 2 segundos
+    });
 
 });
 

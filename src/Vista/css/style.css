@@ -1,6 +1,5 @@
 body {
-    background-color: #000000;
-    background-color: rgba(226, 225, 220, 0.397);
+    background-color: #d6d6e4;
 
     font-family: sans-serif;
     font-size: 16px;
@@ -9,6 +8,7 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
+
 
 .titulo_categoria {
     display: flex;
@@ -26,6 +26,18 @@ body {
         max-width: 180px;
     }
 }
+
+@media (max-width: 800px) {
+    .titulo_categoria h2 {
+        text-align: center;
+    }
+
+    .titulo_categoria button,
+    .titulo_categoria #montoTotal {
+        display: block;
+    }
+}
+
 
 .jsDivR {
     display: flexbox;
@@ -63,13 +75,13 @@ form {
     border-radius: 20px;
     border: 2px solid #d2d6e6;
     box-shadow: -1px 0px 25px 0px #18587456;
-    /*box-shadow: rgba(133, 189, 215, 0.911) 0px 30px 30px -20px;*/
     border-radius: 12px;
     text-align: center;
 
 }
 
 .jsDiv table {
+
     border: 0;
     width: 100%;
     border-collapse: collapse;
@@ -95,6 +107,7 @@ table td {
 .jsDiv table thead {
     width: 100% !important;
 }
+
 .jsDiv table tbody {
     text-align: left !important;
 }
@@ -108,13 +121,17 @@ table td {
     text-align: left;
 
 }
+
+/*////////////////////////////////////////////////////////////////*/
+
+
 #montoTotal {
     width: 100%;
     height: auto;
     max-width: 15vw;
     min-width: 200px;
     text-align: center;
-    
+
     background-color: lightgray;
     font-size: 20px;
     margin: 1vh;
@@ -123,13 +140,9 @@ table td {
     border-radius: 2rem;
     padding: 10px;
     letter-spacing: 2px;
-      
-    
+
+
 }
-
-/*////////////////////////////////////////////////////////////////*/
-
-
 
 /* Clases para botones */
 .btn {
@@ -138,8 +151,7 @@ table td {
     max-height: 45px;
     font-size: auto;
     background-image: linear-gradient(90deg, #251844 0%, #333f70 50%, #18465f 75%, #154b46 100%);
-    box-shadow: 6px 6px 12px #c5c5c5,
-        -6px -6px 12px #ffffff;
+
     color: #ffffff;
     border-radius: 40px;
     cursor: pointer;
@@ -148,8 +160,6 @@ table td {
 
 .btn:hover {
     background-image: linear-gradient(90deg, #312255 0%, #455181 50%, #24546e 75%, #25615b 100%);
-    box-shadow: 6px 6px 12px #c5c5c5,
-        -6px -6px 12px #ffffff;
     color: #fff;
     transform: translateY(-5px);
 }
@@ -161,8 +171,83 @@ form .btn {
 
 }
 
+
+/* NAVBAR */
+@media screen and (min-width:992px) {
+    .nav-item {
+        line-height: 80px;
+    }
+}
+
+.fondonav {
+    background-color: #222F42;
+
+}
+
+/* LOGO CERDITO */
+span {
+    display: inline-block;
+    font-size: 3vh;
+
+
+}
+
+/* FOOTER */
+
+
+
+footer {
+    position: relative;
+    width: 100%;
+    padding: 0 var(--pg-margin);
+    background: var(--text-01);
+    padding: 80px 80px 0px;
+    margin-top: 80px;
+    display: flex;
+}
+
+#footer {
+   
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer ul {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 24px;
+    box-shadow: none;
+    flex: 1;
+    color: var(--light-01);
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 80px;
+
+}
+
+
+footer ul li a {
+    color: var(--light-01);
+    text-decoration: none;
+
+}
+
+footer ul li {
+    color: var(--light-01);
+    padding: 0;
+
+}
+
+
 /* BOTON */
 .button1 {
+    text-align: center;
     min-width: 140px;
     max-height: 45px;
     max-width: 100px;
@@ -202,7 +287,7 @@ form .btn {
     text-align: center;
     text-decoration: none;
     width: 100%;
-    padding: 12px 18px;
+
     color: #fff;
 
     font-size: 1.225em;
@@ -245,14 +330,6 @@ form .btn {
     top: 0;
     right: 0;
     margin: 10px;
-}
-  
-.cssbuttons-io-button:hover {
-    box-shadow: 0 0.5em 1.5em -0.5em #14a73e98;
-}
-  
-.cssbuttons-io-button:active {
-    box-shadow: 0 0.3em 1em -0.5em #14a73e98;
 }
 
 /* Cuando la ventana del navegador es de 600px o menos */

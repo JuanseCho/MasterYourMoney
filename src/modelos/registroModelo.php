@@ -12,7 +12,7 @@ class registroModelo
         $ruta = array();
         try {
             $verificacion = "SELECT * FROM usuarios WHERE email=:email";
-            $ObjVerificacion = Conexion::conectar()->prepare($verificacion);
+            $ObjVerificacion = conexion::conectar()->prepare($verificacion);
             $ObjVerificacion->bindParam(":email", $email);
             $ObjVerificacion->execute();
             $datos = $ObjVerificacion->fetch();
@@ -20,7 +20,7 @@ class registroModelo
                 $mensaje = array("codigo" => "202", "mensaje" => "El correo registrado ya se esta usando");
             } else {
                 $sql = "INSERT INTO usuarios(nombres,apellidos,email,contrasena,telefono)VALUES(:nombres,:apellidos,:email,:passsword,:telefono)";
-                $objrespuesta = Conexion::conectar()->prepare($sql);
+                $objrespuesta = conexion::conectar()->prepare($sql);
                 $objrespuesta->bindParam(":nombres", $nombres);
                 $objrespuesta->bindParam(":apellidos", $apellidos);
                 $objrespuesta->bindParam(":email", $email);

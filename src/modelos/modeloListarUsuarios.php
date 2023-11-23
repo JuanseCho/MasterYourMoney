@@ -8,7 +8,7 @@ class modeloListaUsuarios {
         $listarUsuarios = null;
         try {
             $sql = "SELECT * FROM usuarios";
-            $objRespuesta = Conexion::conectar()->prepare($sql);
+            $objRespuesta = conexion::conectar()->prepare($sql);
             $objRespuesta->execute();
             $listarUsuarios = $objRespuesta->fetchAll();
             $objRespuesta = null;
@@ -21,7 +21,7 @@ class modeloListaUsuarios {
     public static function mdlEditarUsuario($id,$nombres,$apellidos,$email,$telefono){
         $mensaje = array();
         try {
-            $objRespuesta = Conexion::conectar()->prepare("UPDATE usuarios SET nombres=:nombres,apellidos=:apellidos,email=:email,telefono=:telefono WHERE idusuario=:idusuario");
+            $objRespuesta = conexion::conectar()->prepare("UPDATE usuarios SET nombres=:nombres,apellidos=:apellidos,email=:email,telefono=:telefono WHERE idusuario=:idusuario");
             $objRespuesta->bindParam(":nombres",$nombres);
             $objRespuesta->bindParam(":apellidos",$apellidos);
             $objRespuesta->bindParam(":email",$email);
@@ -43,7 +43,7 @@ class modeloListaUsuarios {
         $mensaje = array();
         try {
             $sql = "DELETE FROM usuarios WHERE idusuario=:idusuario";
-            $objRespuesta = Conexion::conectar()->prepare($sql);
+            $objRespuesta = conexion::conectar()->prepare($sql);
             $objRespuesta->bindParam(":idusuario",$id);
             if ($objRespuesta->execute()){
                 $mensaje = array("codigo"=>"200","mensaje"=>"Insumo eliminado correctamente");

@@ -9,7 +9,7 @@ class loginModelo {
         $mensaje = array();
         try {
             $sql = "SELECT email, contrasena FROM usuarios WHERE email=:email AND contrasena=:password";
-            $objrespuesta = Conexion::conectar()->prepare($sql);
+            $objrespuesta = conexion::conectar()->prepare($sql);
             $objrespuesta->bindParam(":email", $email);
             $objrespuesta->bindParam(":password", $password);
             $objrespuesta->execute();

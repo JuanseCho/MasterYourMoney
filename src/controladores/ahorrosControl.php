@@ -12,7 +12,7 @@ class modeloAhorros
         $mensaje = array();
         try {
             $sql = "INSERT INTO ahorros (fecha,descripcion,monto,idCapital)VALUES (:fecha,:descripcion,:monto,:idCapital)";
-            $objRespuesta = Conexion::conectar()->prepare($sql);
+            $objRespuesta = conexion::conectar()->prepare($sql);
             $objRespuesta->bindParam(":fecha", $fecha);
             $objRespuesta->bindParam(":descripcion", $descripcion);
             $objRespuesta->bindParam(":monto", $monto);
@@ -38,7 +38,7 @@ class modeloAhorros
         try {
 
             $sql = "SELECT * FROM ahorros WHERE idCapital = :idCapital";
-            $objRespuesta = Conexion::conectar()->prepare($sql);
+            $objRespuesta = conexion::conectar()->prepare($sql);
             $objRespuesta->bindParam(":idCapital", $idCapital);
             $objRespuesta->execute();
             $listarAhorros = $objRespuesta->fetchAll();
@@ -56,7 +56,7 @@ class modeloAhorros
         $mensaje = array();
         try {
             $sql = "UPDATE ahorros SET fecha = :fecha, descripcion = :descripcion, monto = :monto WHERE idAhorro = :idAhorro";
-            $objRespuesta = Conexion::conectar()->prepare($sql);
+            $objRespuesta = conexion::conectar()->prepare($sql);
             $objRespuesta->bindParam(":idAhorro", $idAhorro);
             $objRespuesta->bindParam(":fecha", $fecha);
             $objRespuesta->bindParam(":descripcion", $descripcion);
@@ -80,7 +80,7 @@ class modeloAhorros
         $mensaje = array();
         try {
             $sql = "DELETE FROM ahorros WHERE idAhorro = :idAhorro";
-            $objRespuesta = Conexion::conectar()->prepare($sql);
+            $objRespuesta = conexion::conectar()->prepare($sql);
             $objRespuesta->bindParam(":idAhorro", $idAhorro);
 
             if ($objRespuesta->execute()) {
