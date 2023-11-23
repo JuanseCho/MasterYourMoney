@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
-
+    "use strict"
+    var tablaCapitalesDePresupuesto = null;
     $("#Tabla_De_Presupuestos").on("click", "#btn_Agregar_Al_Presupuesto", function () {
         $("#ventana_del_formulario_Capital_Has_Presupuesto").show();
         var idPresupuesto = $(this).attr("idPresupuesto");
@@ -68,8 +69,19 @@ $(document).ready(function () {
                                 location.reload();
                             }
                         });
-                        
-                        listarPresupuestos();
+
+
+                    } else if (response["codigo"] == "401") {
+                        Swal.fire({
+                            title: "No tienes suficiente dinero en el capital para el presupuesto planeado.",
+                            icon: "info",
+                            confirmButtonText: "Entendido",
+                            onClose: function () {
+                                location.reload();
+                            }
+                        });
+
+
                     } else {
                         Swal.fire({
                             title: "Error al agregar el capital",
@@ -78,12 +90,12 @@ $(document).ready(function () {
                             confirmButtonText: "Entendido"
                         });
                     }
-                    $("#ventana_del_formulario_Capital_Has_Presupuesto").hide();
+                    
                 }).catch(error => {
                     console.error("Error en la solicitud:", error);
 
                 });
-                
+
 
 
 
@@ -91,6 +103,146 @@ $(document).ready(function () {
 
         })
     })
+
+    $("#Tabla_De_Presupuestos").on("click", "#btn_Edit_Presupuesto", function (e) {
+        var idPresupuesto = $(this).attr('idPresupuesto');
+        listarCapitalesDePresupuesto(idPresupuesto);
+    });
+
+    function listarCapitalesDePresupuesto(idPresupuesto) {
+
+
+        var objData = new FormData();
+        objData.append("listarCapitalesDePresupuesto", "ok");
+        objData.append("IdPresupuesto", idPresupuesto);
+
+
+
+        fetch("src/controladores/ctrCapitalesDePresupuesto.php", {
+            method: "POST",
+            body: objData,
+        })
+            .then((response) => response.json())
+            .catch((error) => {
+                console.log(error);
+            })
+            .then((response) => {
+                console.log(response);
+                cargarDatosCapitaDePresupuesto(response);
+
+            });
+    }
+
+    function cargarDatosCapitaDePresupuesto(response) {
+        console.log(response);
+        var dataSet = [];
+        response.forEach(listarDatosCDP);
+
+        function listarDatosCDP(item, index) {
+            var objBotones = `
+            <div class="button-container">
+                <!--boton para editar-->
+                <button class="button" id="btn_Edit_CapitalDePresupuesto" idCapital="${item.idCapital}" nombreCapital="${item.descipcion}">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+    
+                <!--boton para eliminar-->
+                <button class="button" id="btn_Eliminar_CapitalDePresupuesto" idCapital="${item.idCapital}" valorDeducido="${item.valorDeducido}" idPresupuesto="${item.presupuestos_idPresupuesto}">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>`;
+            dataSet.push([item.fecha, item.descipcion, item.valorDeducido, objBotones]);
+        }
+
+        if (tablaCapitalesDePresupuesto != null) {
+            $("#tabla_capitalesDePresupuesto").dataTable().fnDestroy();
+        }
+        tablaCapitalesDePresupuesto = $("#tabla_capitalesDePresupuesto").DataTable({
+            data: dataSet,
+
+            search: {
+                return: true
+            },
+            paging: false,
+            scrollY: 300,
+            responsive: true
+        });
+    }
+
+    //funcion Eliminar Capital de presupuesto
+    $("#tabla_capitalesDePresupuesto").on("click", "#btn_Eliminar_CapitalDePresupuesto", function () {
+        var idCapital = $(this).attr("idCapital");
+        var idPresupuesto = $(this).attr("idPresupuesto");
+        var valorDeducido = $(this).attr("valorDeducido");
+
+        Swal.fire({
+            title: "¿Estas seguro de eliminar este capital del presupuesto?",
+            text: "Esta accion no se puede deshacer",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar",
+            confirmButton: {
+                text: "Eliminar",
+                id: "btnConfirmarEliminar", 
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var objData = new FormData();
+                objData.append("idCapital", idCapital);
+                objData.append("idPresupuesto", idPresupuesto);
+                objData.append("valorDeducido", valorDeducido);
+                objData.append("eliminarCapitalDePresupuesto", "ok");
+                fetch("src/controladores/ctrCapitalesDePresupuesto.php", {
+                    method: "POST",
+                    body: objData,
+                })
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                
+                    // Verificar si la respuesta es un objeto JSON
+                    const contentType = response.headers.get('Content-Type');
+                    if (contentType && contentType.includes('application/json')) {
+                        return response.json();
+                    }
+                
+                    // Si la respuesta no es JSON, intenta obtener el texto de la respuesta
+                    return response.text();
+                })
+                .then((responseData) => {
+                    var response = JSON.parse(responseData);
+                    if (response["codigo"] == 200) {
+                        Swal.fire({
+                            title: "Capital eliminado del presupuesto",
+                            icon: "success",
+                            confirmButtonText: "Entendido",
+                            onClose: function () {
+                                location.reload();
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error al eliminar el capital del presupuesto",
+                            text: response.error,
+                            icon: "error",
+                            confirmButtonText: "Entendido",
+                        });
+                    }
+                   
+                    listarCapitalesDePresupuesto(idPresupuesto)
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+                
+                
+                    
+            }
+        });
+    });
+
 
 
 })

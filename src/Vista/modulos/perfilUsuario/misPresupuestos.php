@@ -39,7 +39,7 @@
                 <table class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;" id="Tabla_De_Presupuestos">
                     <thead>
                         <tr>
-                            
+
                             <th> Descripcion </th>
                             <th>monto inicial</th>
                             <th>Monto actual</th>
@@ -184,18 +184,27 @@
             </div>
             <div class="modal-body">
                 <form id="form_Editar_Presupuesto">
-                    <div>
-                        <label for="" class="form-label">tipo de de Presupuesto</label>
-                        <select class="form-select" name="" id="select_edit_tipoPresupuesto">
-                        </select>
+
+                    <div id="contenedor">
+                        <div id="elemento1" style="display: inline-block; width: 70%;">
+                            <label for="" class="form-label">Descripcion de Presupuesto</label>
+                            <select class="form-select" name="" id="select_edit_tipoPresupuesto">
+                            </select>
+                        </div>
+                        <div id="elemento2" style="display: inline-block; width: 17%; margin-left: 2 vh;">
+                            <button class="btn" id="btn_Edit_Presupuesto_f" idPresupuestoF="">Editar</button>
+                        </div>
                     </div>
+
+
+
                     <div>
                         <label for="" class="form-label">
-                            limite presupuestal
+                            suma de capitales   
                         </label>
                         <input type="number" class="form-control" name="" id="txt_edit_Presupuesto" placeholder="$50.0000" disabled>
                     </div>
-                    <button class="btn" id="btn_Edit_Presupuesto_f" idPresupuestoF="">Editar</button>
+
 
                 </form>
 
@@ -206,13 +215,12 @@
                     <table id="tabla_capitalesDePresupuesto" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
                         <thead>
                             <tr>
-                                
+
                                 <th>fecha</th>
                                 <th> capitales </th>
                                 <th>valor asignado</th>
                                 <th>
-                                    acciones
-                                    <i class="bi bi-credit-card-2-front"></i>
+                                    acciones <i class="bi bi-credit-card-2-front"></i>
                                 </th>
                             </tr>
                         </thead>
@@ -228,18 +236,26 @@
     </div>
 </div>
 
-<!--Formulario de capital_has_presupuesto-->
-<div class="col-md-6 col-lg-5 col-sm-12 jsDiv form-emerge" id="ventana_del_formulario_Capital_Has_Presupuesto" style="display: none; ">
-    <button class="cssbuttons-io-button" id="cerrar-ventanaCP">
-        <i class="bi bi-x-lg"></i>
-    </button>
-    <h3 class="titulos">Asignar capital al presupuesto</h3>
-    <form id="form_Agregar_Capital_Has_Presupuesto">
+<!-- Button to Open the Modal -->
+
+<!-- The Modal -->
+<div class="modal" id="ventana_del_formulario_Capital_Has_Presupuesto">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+      <h3 class="titulos">Asignar capital al presupuesto</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+      <form id="form_Agregar_Capital_Has_Presupuesto">
         <div id="txt_presupuesto" idPresupuesto="" style="text-align: center; font-size: x-large;">
 
 
         </div>
-        
+
 
         <div>
 
@@ -259,5 +275,8 @@
 
         <button class="btn" id="Btn_new_Capital_presupuesto" type="submit" idPresupuestoF="">Agregar</button>
     </form>
+      </div>
 
+    </div>
+  </div>
 </div>

@@ -72,7 +72,7 @@
                 <form id="form_Agregar_Capital">
                     <div>
                         <label class="form-label">Monto</label>
-                        <input type="number" class="form-control" id="txt_monto" required>
+                        <input type="number" class="form-control" min="0" id="txt_monto" required>
 
                     </div>
                     <div>
@@ -92,7 +92,7 @@
                         </section>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" type="submit">Agregar</button>
+                        <button class="btn btn-primary" type="submit" data-bs-dismiss="modal">Agregar</button>
 
                     </div>
                 </form>

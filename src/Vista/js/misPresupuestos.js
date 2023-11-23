@@ -2,11 +2,12 @@
 $(document).ready(function () {
 
     "use strict";
+    
     listarTiposPresupuesto();
     listarPresupuestos();
 
     var tablaTipoPresupuesto = null;
-    var tablaCapitalesDePresupuesto = null;
+  
 
     // *******************************
     //   ¡CRUD PARA EL TIPO DE GASTOS!
@@ -116,6 +117,7 @@ $(document).ready(function () {
             $("#tabla_tipoDePresupuesto").dataTable().fnDestroy();
         }
         tablaTipoPresupuesto = $("#tabla_tipoDePresupuesto").DataTable({
+            data: dataSet,
             search: {
                 return: true
             },
@@ -420,7 +422,7 @@ $(document).ready(function () {
 
             var objBotones = `
             <div class="button-container">
-                <button class="button" id="btn_Agregar_Al_Presupuesto" idPresupuesto="${item.idPresupuesto}" idTipoPresupuesto="${item.tipopresupuesto_idTipoPresupuesto}" nombreTipoPresupuesto="${item.NombreTipoPresupuesto}" limitePresupuesto="${item.ValorAsignado}">
+                <button class="button" id="btn_Agregar_Al_Presupuesto" idPresupuesto="${item.idPresupuesto}" idTipoPresupuesto="${item.tipopresupuesto_idTipoPresupuesto}" nombreTipoPresupuesto="${item.NombreTipoPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Capital_Has_Presupuesto">
                      <i class="bi bi-cash-coin"></i>
                 </button>
                 <!-boton para editar-->
@@ -620,64 +622,6 @@ $(document).ready(function () {
     });
 
 
-    $("#Tabla_De_Presupuestos").on("click", "#btn_Edit_Presupuesto",function listarCapitalesDePresupuesto() {
-        var id = $(this).attr('idPresupuesto');
-        alert(id);
-        var objData = new FormData();
-        objData.append("listarCapitalesDePresupuesto", "ok");
-        objData.append("IdPresupuesto", id);
-
-
-
-        fetch("src/controladores/ctrCapitalesDePresupuesto.php", {
-            method: "POST",
-            body: objData,
-        })
-            .then((response) => response.json())
-            .catch((error) => {
-                console.log(error);
-            })
-            .then((response) => {
-                cargarDatosCapitaDePresupuesto(response);
-
-            });
-    });
-
-    function cargarDatosCapitaDePresupuesto(response) {
-        console.log(response);
-        var dataSet = [];
-        response.forEach(listarDatosCDP);
-
-        function listarDatosCDP(item, index) {
-            var objBotones = `
-            <div class="button-container">
-                <!--boton para editar-->
-                <button class="button" id="btn_Edit_CapitalDePresupuesto" idCapital="${item.idCapital}" nombreCapital="${item.descipcion}">
-                    <i class="bi bi-pencil-square"></i>
-                </button>
-    
-                <!--boton para eliminar-->
-                <button class="button" id="btn_Eliminar_CapitalDePresupuesto" idCapital="${item.idCapital}">
-                    <i class="bi bi-trash"></i>
-                </button>
-            </div>`;
-            dataSet.push([item.fecha, item.descipcion, item.valorDeducido, objBotones]);
-        }
-
-        if (tablaCapitalesDePresupuesto != null) {
-            $("#tabla_capitalesDePresupuesto").dataTable().fnDestroy();
-        }
-        tablaCapitalesDePresupuesto = $("#tabla_capitalesDePresupuesto").DataTable({
-            data: dataSet,
-
-            search: {
-                return: true
-            },
-            paging: false,
-            scrollY: 300,
-            responsive: true
-        });
-    }
 
     ////////////////////////////////////////////////////
     //eventos para mostrar y ocultar ventanas de formularios
@@ -693,19 +637,11 @@ $(document).ready(function () {
 
     });
 
-    $("#cerrar-ventanaCP").on("click touchstart", function () {
-        $("#ventana_del_formulario_Capital_Has_Presupuesto").hide();
-    });
 
     $("#Btn_Presupuestos").on("click touchstart", function () {
         $("#select_tipoPresupuesto").empty();
         listarTiposPresupuesto();
     });
-    $(document).on('click touchstart', '#btn_Edit_Presupuesto', function () {
-        listarCapitalesDePresupuesto();
-    });
-
-
     $("#btn_Cancelar_edit_tipo_Presupuesto").on("click touchstart", function () {
         $("#ventana_del_formulario_TG_Edit").hide();
 
@@ -722,16 +658,11 @@ $(document).ready(function () {
 
     })
     $("#Btn_new_Capital_presupuesto").on("click touchstart", function () {
-        $("#ventana_del_formulario_Capital_Has_Presupuesto").hide();
-
-        // Agrega un retraso de 2 segundos (ajusta según tus necesidades)
+ 
         setTimeout(function () {
             listarPresupuestos();
-        }, 2000); // 2000 milisegundos = 2 segundos
+        }, 2000); 
     });
-
-
-
 
 })
 
