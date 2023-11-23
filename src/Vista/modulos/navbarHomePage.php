@@ -19,29 +19,21 @@
         <div class=" collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav mx-auto ">
                 <li class="nav-item">
-                    <a class="nav-link mx-2 active" aria-current="page" href="login">Iniciar sesion</a>
+                    <a class="nav-link mx-2 active logoHome" aria-current="page" href="login"><i class="bi bi-box-arrow-in-right"></i></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="register">Registro</a>
+                    <a class="nav-link mx-2 logoHome" href="register"><i class="bi bi-person-add"></i></a>
                 </li>
-                <li class="nav-item d-none d-lg-block">
+                <!-- <li class="nav-item d-none d-lg-block">
                     <a class="nav-link mx-2" href="#">
                         <img src="src\Vista\img\5.png" height="80" />
                     </a>
+                </li> -->
+                <li class="nav-item " >
+                    <a class="nav-link mx-2 active logoHome" aria-current="page" href="HomePage"><i class=" bi bi-house "></i></a>
+
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link mx-2" href="#">Pricing</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Company
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Blog</a></li>
-                        <li><a class="dropdown-item" href="#">About Us</a></li>
-                        <li><a class="dropdown-item" href="#">Contact us</a></li>
-                    </ul>
-                </li>
+
             </ul>
         </div>
     </div>

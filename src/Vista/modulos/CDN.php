@@ -29,3 +29,4 @@
 <script src='src/Vista/js/ahorros.js'></script>
 <script src='src/Vista/js/login.js'></script>
 <script src='src/Vista/js/registro.js'></script>
+<script src='src/Vista/js/style.js'></script>

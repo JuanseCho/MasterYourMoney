@@ -1,12 +1,12 @@
 <footer class="footer-links footer">
     <ul>
-        Our Services
-        <li><a href="#">Grooming</a></li>
-        <li><a href="#">Boarding</a></li>
+        Nuestros servicios
+        <li><a href="#">Orientacion financiera</a></li>
+        <li><a href="#">Gestiona tus ingresos</a></li>
     </ul>
     <ul>
-        Our Company
-        <li><a href="#">Locations &amp; Hours</a></li>
-        <li><a href="#">About Us</a></li>
+        Nuestra compañia
+        <li><a href="#">Nuestra localizacion &amp; Horarios</a></li>
+        <li><a href="#">Sobre nosotros</a></li>
     </ul>
 </footer>
