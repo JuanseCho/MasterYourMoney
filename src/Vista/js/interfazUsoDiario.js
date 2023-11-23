@@ -110,9 +110,9 @@ $(function () {
 
        // Formulario de Edición ingreso al capital
 
-    var formAgregarIngresoCapital = document.querySelectorAll('#formAgregarIngresoCapital');
+    var formEditarIngresoCapital = document.querySelectorAll('#formEditarIngresoCapital');
 
-    Array.prototype.slice.call(formAgregarIngresoCapital)
+    Array.prototype.slice.call(formEditarIngresoCapital)
       .forEach(function (form) {
         form.addEventListener('submit', function (event) {
           if (!form.checkValidity()) {
@@ -122,11 +122,10 @@ $(function () {
           } else {
             event.preventDefault();
 
-            var idingreso = $('btnEditarIngresoCapital').attr('idingreso');
+            var idingreso = $('#btnEditarIngresoCapital').attr('idingreso');
             var montoIngreso = $("#txt-editmontoIngreso").val();
             var capitalIngreso = $("#txt-editcapitalIngreso").val();
             var formaPagoIngreso = $("#txt-editformaPagoIngreso").val();
-            // alert(fechaIngreso + " " + horaIngresoFormateada);
 
             var objData = new FormData();
 
@@ -279,10 +278,12 @@ $(function () {
       }
       
       function cargarDatosTransacciones(response) {
-        var dataSetTransaccionesCapital = [];      
+        var dataSetTransaccionesCapital = [];    
+        var numeroRegistro = 0;  
         response.forEach(listarDatos);
 
         function listarDatos(item, index) {
+          numeroRegistro += 1;
           var objBotones = '<div class="btn-group align-center">';
 
           if (item.tipoTransaccion === "Ingreso") {
@@ -303,13 +304,18 @@ $(function () {
 
           item.horaTransaccion = strTime;
             
-          dataSetTransaccionesCapital.push([item.horaTransaccion, item.tipoTransaccion,  item.descripcionTransaccion, parseFloat(item.montoTransaccion).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }), objBotones]);
+          dataSetTransaccionesCapital.push([numeroRegistro,item.horaTransaccion, item.tipoTransaccion,  item.descripcionTransaccion, parseFloat(item.montoTransaccion).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 }), objBotones]);
         }
       
-        if (tablaTransaccionesCapital != null) {
-        $("#tablaTransaccionesCapital").dataTable().fnDestroy();        
-        }
-        tablaTransaccionesCapital = $("#tablaTransaccionesCapital").DataTable({
+        $("#tablaTransaccionesCapital").DataTable({
+          buttons:[{
+            extend: 'colvis',
+            text: 'Columnas Visibles'
+          },'excel',{
+            extend: 'print',text:'Imprimir'
+          }],
+          dom: 'Bfrtip',
+          destroy: true,
           data: dataSetTransaccionesCapital
         });
       };
@@ -330,16 +336,9 @@ $(function () {
           $("#txt-editcapitalIngreso").val(descripcionTransaccion);
           $("#txt-editformaPagoIngreso").val(formaPago);
           alert(idtransaccion); 
-
-
-        } else if ($(this).attr('tipoTransaccion') === "Ahorro") {
-          alert("Ahorro");
         }
     
-        $("#txt-editcolor").val(color);
-        $("#txt-editmarca").val(marca);
-        $("#txt-editmodelo").val(modelo);
-        $("#txt-edittipoVehiculo").val(tipoVehiculo);
+        
       });
 
     

@@ -132,6 +132,13 @@ $(document).ready(function () {
             $("#tabla_Capital").dataTable().fnDestroy();
         }
         tablaCapital = $("#tabla_Capital").DataTable({
+            buttons:[{
+            extend: 'colvis',
+            text: 'Columnas Visibles'
+            },'excel',{
+            extend: 'print',text:'Imprimir'
+            }],
+            dom: 'Bfrtip',
             destroy:true,
             data: dataSet,
             search: {

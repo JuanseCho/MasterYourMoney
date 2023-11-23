@@ -27,6 +27,7 @@
             <table id="tablaTransaccionesCapital" class="table table-striped table-bordered shadow-lg">
                     <thead class="table-dark shadow-lg">
                         <tr>
+                            <th>#</th>
                             <th>Hora</th>
                             <th>Tipo de transacción</th>
                             <th>Descripción</th>

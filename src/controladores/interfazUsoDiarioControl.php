@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION["idUsuario"] = 1;
 
 include_once "../modelos/interfazUsoDiarioModelo.php";
 
@@ -13,11 +12,9 @@ class ingresoCapitalControl
     public $montoIngreso;
     public $capitalIngreso;
     public $formaPagoIngreso;
-    public $idusuario;
 
     public function ctrRegistrarIngresoCapital()
     {
-        $this->idusuario = $_SESSION["idUsuario"];
         $objRespuesta = ingresoCapitalModelo::mdlRegistrarIngresoCapital($this->fechaIngreso, $this->horaIngreso, $this->montoIngreso, $this->capitalIngreso, $this->formaPagoIngreso);
         echo json_encode($objRespuesta);
     }
@@ -26,7 +23,6 @@ class ingresoCapitalControl
     }
     public function ctrEditarIngresoCapital()
     {
-        $this->idusuario = $_SESSION["idUsuario"];
         $objRespuesta = ingresoCapitalModelo::mdlEditarIngresoCapital($this->idingreso, $this->montoIngreso, $this->capitalIngreso, $this->formaPagoIngreso);
         echo json_encode($objRespuesta);
     }
@@ -40,7 +36,6 @@ if (isset($_POST["regFechaIngreso"], $_POST["regHoraIngreso"], $_POST["regMontoI
     $objIngresoCapital->montoIngreso = $_POST["regMontoIngreso"];
     $objIngresoCapital->capitalIngreso = $_POST["regCapitalIngreso"];
     $objIngresoCapital->formaPagoIngreso = $_POST["regFormaPagoIngreso"];
-    //$objCapital->idUsuario = $_POST["idUsuario"];
     $objIngresoCapital->ctrRegistrarIngresoCapital();
 }
 if (isset($_POST["editIdIngreso"])) {
@@ -49,7 +44,6 @@ if (isset($_POST["editIdIngreso"])) {
     $objIngresoCapital->montoIngreso = $_POST["regMontoIngreso"];
     $objIngresoCapital->capitalIngreso = $_POST["regCapitalIngreso"];
     $objIngresoCapital->formaPagoIngreso = $_POST["regFormaPagoIngreso"];
-    //$objCapital->idUsuario = $_POST["idUsuario"];
     $objIngresoCapital->ctrEditarIngresoCapital();
 }
 
@@ -98,7 +92,6 @@ if (isset($_POST["regFechaAhorro"], $_POST["regHoraAhorro"], $_POST["regMontoAho
     $objAhorroCapital->montoAhorro = $_POST["regMontoAhorro"];
     $objAhorroCapital->descripcionAhorro = $_POST["regDescripcionAhorro"];
     $objAhorroCapital->capitalAhorro = $_POST["regCapitalAhorro"];
-    //$objCapital->idUsuario = $_POST["idUsuario"];
     $objAhorroCapital->ctrRegistrarAhorroCapital();
 }
 

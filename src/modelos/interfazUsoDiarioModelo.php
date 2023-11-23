@@ -55,24 +55,38 @@ include_once "conexion.php";
                 $consultaCapital->bindParam(":capitalIngreso", $capitalIngreso);
                 $consultaCapital->execute();
                 $capitalInicial = $consultaCapital->fetch();
-                $capitalFinal = $capitalInicial["Montoactual"] + $montoIngreso;
-        
+
+                $consultaIngreso = $db->prepare("SELECT monto_ingreso, capital_idCapital FROM ingresos WHERE idingreso = :idingreso");
+                $consultaIngreso->bindParam(":idingreso", $idingreso);
+                $consultaIngreso->execute();
+                $ingresoInicial = $consultaIngreso->fetch();
+
+                if ($montoIngreso > $ingresoInicial["monto_ingreso"]) {
+                    $capitalFinal = $capitalInicial["Montoactual"] + ($montoIngreso - $ingresoInicial["monto_ingreso"]);
+                } elseif ($montoIngreso < $ingresoInicial["monto_ingreso"]) {
+                    $capitalFinal = $capitalInicial["Montoactual"] - ($ingresoInicial["monto_ingreso"] - $montoIngreso);
+                } else {
+                    $capitalFinal = $capitalInicial["Montoactual"];
+                }
+
+                if ($ingresoInicial["capital_idCapital"] != $capitalIngreso) {
+                    
+                }
+                      
                 // Actualizar el capital
                 $actualizarMontoCapital = $db->prepare("UPDATE capital SET Montoactual = :capitalFinal WHERE idCapital = :capitalIngreso");
                 $actualizarMontoCapital->bindParam(":capitalFinal", $capitalFinal);
                 $actualizarMontoCapital->bindParam(":capitalIngreso", $capitalIngreso);
                 $actualizarMontoCapital->execute();
         
-                // Insertar el ingreso
-                $insertarIngreso = $db->prepare("INSERT INTO ingresos(fecha_ingreso, hora_ingreso, monto_ingreso, capital_idCapital, formapago_idFormaPago) VALUES(:fechaIngreso, :horaIngreso, :montoIngreso, :capitalIngreso, :formaPagoIngreso)");
-                $insertarIngreso->bindParam(":fechaIngreso", $fechaIngreso);
-                $insertarIngreso->bindParam(":horaIngreso", $horaIngreso);
-                $insertarIngreso->bindParam(":montoIngreso", $montoIngreso);
-                $insertarIngreso->bindParam(":capitalIngreso", $capitalIngreso);
-                $insertarIngreso->bindParam(":formaPagoIngreso", $formaPagoIngreso);
+                // Editar el ingreso
+                $editarIngreso = $db->prepare("INSERT INTO ingresos(monto_ingreso, capital_idCapital, formapago_idFormaPago) VALUES(:montoIngreso, :capitalIngreso, :formaPagoIngreso)");
+                $editarIngreso->bindParam(":montoIngreso", $montoIngreso);
+                $editarIngreso->bindParam(":capitalIngreso", $capitalIngreso);
+                $editarIngreso->bindParam(":formaPagoIngreso", $formaPagoIngreso);
         
-                if ($insertarIngreso->execute()) {
-                    $mensaje = array("codigo" => "200", "respuesta" => "El ingreso al Capital fue registrado correctamente");
+                if ($editarIngreso->execute()) {
+                    $mensaje = array("codigo" => "200", "respuesta" => "El ingreso al Capital fue editado correctamente");
                 } else {
                     $mensaje = array("codigo" => "425", "respuesta" => "No fue posible procesar su solicitud");
                 }
