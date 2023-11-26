@@ -58,7 +58,7 @@
 
 <!--Formulario para ingresar nuevos presupuestos-->
 
-<div class="col-md-6 col-lg-4 col-sm-10 jsDiv form-emerge" id="ventana_del_formulario_Presupuestos" style="display: none; background-image: url(src/Vista/img/pexels.jpg);min-height: 30vh;
+<div class="col-md-6 col-lg-4 col-sm-10 jsDiv form-emerge" id="ventana_del_formulario_Presupuestos" style="display: none; 
   background-color: black;
   background-size: cover;
   background-repeat: no-repeat;

@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION["idUsuario"] = 1;
 include_once "../modelos/presupuesto.php";
 
 class presupuestoControlador

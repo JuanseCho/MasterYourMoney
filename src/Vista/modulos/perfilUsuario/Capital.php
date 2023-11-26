@@ -1,4 +1,4 @@
-<div class="container p-2 jsContainer">
+<div class="container p-2 jsContainer" id="capital" >
     <div>
         <div class="row mt-4 mb-4 p-4">
             <div class="col-md-12">

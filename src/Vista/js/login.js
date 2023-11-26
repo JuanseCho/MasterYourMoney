@@ -29,6 +29,13 @@ $(function () {
                     }).then(response => {
                         if (response["codigo"] == "200") {
                             window.location = response["mensaje"];
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Bienvenido',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            
                         } else {
                             alert(response["mensaje"]);
                         }

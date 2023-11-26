@@ -35,13 +35,13 @@ class presupuesto
     }
 
     // funcion para mostrar presupuesto
-    public static function mostrarPresupuesto()
+    public static function mostrarPresupuesto($idUsuario)
     {
 
         $listaPresupuesto = null;
         try {
-            $objRespuesta = conexion::conectar()->prepare(" SELECT  p.*,  tp.NombreTipoPresupuesto AS NombreTipoPresupuesto,  c1.nombres_capitales FROM   presupuestos p   JOIN   tipopresupuesto tp   ON   p.tipopresupuesto_idTipoPresupuesto = tp.idTipoPresupuesto   LEFT JOIN (  SELECT  pc.presupuestos_idPresupuesto,  GROUP_CONCAT(c.descipcion) AS nombres_capitales FROM  capital_has_presupuestos pc  JOIN  capital c  ON  pc.capital_idCapital = c.idcapital  GROUP BY   pc.presupuestos_idPresupuesto) c1  ON p.idpresupuesto = c1.presupuestos_idPresupuesto ;");
-            //$objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_STR);
+            $objRespuesta = conexion::conectar()->prepare(" SELECT p.*, tp.NombreTipoPresupuesto , c1.nombres_capitales FROM presupuestos p JOIN tipopresupuesto tp ON p.tipopresupuesto_idTipoPresupuesto = tp.idTipoPresupuesto LEFT JOIN ( SELECT pc.presupuestos_idPresupuesto, GROUP_CONCAT(c.descipcion) AS nombres_capitales FROM capital_has_presupuestos pc JOIN capital c ON pc.capital_idCapital = c.idcapital GROUP BY pc.presupuestos_idPresupuesto) c1 ON p.idpresupuesto = c1.presupuestos_idPresupuesto JOIN capital_has_presupuestos pc ON pc.presupuestos_idPresupuesto = p.idPresupuesto JOIN capital c ON c.idCapital = pc.capital_idCapital JOIN usuarios u ON u.idUsuario = c.usuarios_idUsuario WHERE u.idUsuario = :idUsuario;");
+            $objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_STR);
 
             $objRespuesta->execute();
             $listaPresupuesto = $objRespuesta->fetchAll();
@@ -79,6 +79,7 @@ class presupuesto
 
         // Primero, validamos el usuario y la contraseña.
         if (self::validarUsuario($contraseña, $idUsuario)) {
+            
                
             
             $objRespuesta = conexion::conectar()->prepare("DELETE FROM capital_has_presupuestos WHERE presupuestos_idPresupuesto = :id");
@@ -110,13 +111,15 @@ class presupuesto
 
     // Esta es una función de ejemplo para validar el usuario y la contraseña.
     public static function validarUsuario($contraseña, $idUsuario)
+    
     {
+        $password = hash('sha512', $contraseña);
         $objRespuestaUsuario = conexion::conectar()->prepare("SELECT contrasena FROM usuarios WHERE idUsuario = :idUsuario");
         $objRespuestaUsuario->bindParam(":idUsuario", $idUsuario);
         $objRespuestaUsuario->execute();
         $result = $objRespuestaUsuario->fetch(PDO::FETCH_ASSOC);
         if ($result) {
-            if ($contraseña == $result['contrasena']) {
+            if ($password == $result['contrasena']) {
                 return true;
             } else {
                 return false;

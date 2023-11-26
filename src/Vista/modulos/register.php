@@ -1,33 +1,3 @@
-<!-- <div class="container">
-    <h1>Registro</h1>
-    <div class="col-4">
-        <form id="registroUsuarios">
-            <div>
-                <label for="txt-nombres">Nombres:</label>
-                <input class="form-control" type="text" id="txt-nombres">
-            </div>
-            <div>
-                <label for="txt-apellidos">Apellidos:</label>
-                <input class="form-control" type="text" id="txt-apellidos">
-            </div>
-            <div>
-                <label for="txt-email">Email:</label>
-                <input class="form-control" type="email" id="txt-email">
-            </div>
-            <div>
-                <label for="txt-password">Contraseña:</label>
-                <input class="form-control" type="password" id="txt-password">
-            </div>
-            <div>
-                <label for="txt-telefono">Telefono:</label>
-                <input class="form-control" type="text" id="txt-telefono">
-            </div>
-            <button type="submit">Enviar</button>
-        </form>
-    </div>
-</div> -->
-
-
 <div class="container containerLogin">
 
     <form id="registroUsuarios" class="form">
@@ -61,9 +31,8 @@
             <span class="span">Forgot password?</span>
         </div>
         <button type="submit" class="button-submit">Registrarse</button>
-        <p class="p">Don't have an account? <span class="span">Sign Up</span>
+        <<p class="p">¿ya tienes una cuenta? <a class="span" href="login">Iniciar sesión</a></p>
 
-        </p>
         <p class="p line">Or With</p>
 
         <div class="flex-row">
