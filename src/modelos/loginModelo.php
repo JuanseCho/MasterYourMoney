@@ -22,8 +22,8 @@ class loginModelo
                 // Acceder al ID del usuario
                 $_SESSION["idUsuario"] = $datos_usuario["idUsuario"];
                 // Mostrar el nombre y apellido del usuario logueado
-                $_SESSION["nombre"] = $datos_usuario["nombres"];
-                $_SESSION["apellido"] = $datos_usuario["apellidos"];
+                $_SESSION["nombres"] = $datos_usuario["nombres"];
+                $_SESSION["apellidos"] = $datos_usuario["apellidos"];
                 $_SESSION["ruta"] = "inicio";
                 $mensaje = array("codigo" => "200", "mensaje" => $_SESSION["ruta"]);
             } else {

@@ -88,58 +88,6 @@
     </form>
 
 </div>
-
-
-
-<!--Formulario pa ingresar nuevos tipos de Presupuestos-->
-
-<div class="col-md-6 col-lg-4 col-sm-8 jsDiv form-emerge" id="ventana_del_formulario_TG" style="padding: 2vh; display: none">
-    <button class="cssbuttons-io-button">
-        <i class="bi bi-x-lg"></i>
-    </button>
-
-    <h3 class="titulos">tipos de presupuesto</h3>
-
-    <div class="row">
-        <div class="col-md-12 col-sm-12 ">
-            <form id="form_Agregar_tipoDePresupuesto" class="needs-validation">
-                <div class="row">
-                    <div class="col-md-8 col-sm-12">
-                        <label for="" class="form-label">nombre</label>
-                        <input type="text" class="form-control" name="" id="txt_NombreTipoPresupuesto" placeholder="nombre describe " maxlength="50" required>
-
-
-                        <div class="valid-feedback">correcto</div>
-                        <div class="invalid-feedback">error rellena el campo</div>
-                    </div>
-
-                    <button class="btn col-md-3 col-sm-12">Agregar <i class="bi bi-plus-circle"></i></button>
-                </div>
-
-
-            </form>
-        </div>
-
-        <hr size="5" color="#455181">
-
-        <div class=" col-md-12" style="background-color: rgba(226, 225, 220, 0.397);">
-            <table id="tabla_tipoDePresupuesto" class="table table-striped nowrap dataTables_scrollBody" style="width: 100%;">
-                <thead>
-                    <tr>
-                        <th> Presupuestos </th>
-                        <th>
-                            acciones
-                            <i class="bi bi-credit-card-2-front"></i>
-                        </th>
-                    </tr>
-                </thead>
-
-            </table>
-        </div>
-    </div>
-
-</div>
-
 <!--Formulario para Editar tipos de Presupuestos-->
 
 <div class="col-md-3 jsDiv form-emerge" id="ventana_del_formulario_TG_Edit" style="padding: 2vh; display: none;">

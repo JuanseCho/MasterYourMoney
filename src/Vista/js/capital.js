@@ -117,7 +117,6 @@ $(document).ready(function () {
             <!-boton para eliminar-->
             
             <button class="button" id="btn_Eliminar_Capital" idCapital="${item.idCapital}">
-            <button class="button" id="btn_Eliminar_Ahorros" idCapital="${item.idCapital}">
                 <i class="bi bi-trash"></i>
             </button>
 
@@ -219,7 +218,7 @@ $(document).ready(function () {
     });
 
     //funcion para editar Capital
-    $("#tabla_Ahorros").on("click", "#Btn_Capital_Editar", function () {
+    $("#tabla_Capital").on("click", "#Btn_Capital_Editar", function () {
         var id = $(this).attr("idCapital");
         var monto = $(this).attr("monto");
         var descripcion = $(this).attr("descripcion");
