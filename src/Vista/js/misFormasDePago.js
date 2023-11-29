@@ -101,7 +101,10 @@ $(function () {
       });
 
       $("#txt-formaPagoIngreso").html(formasPago);
+      $("#txt_formaPagoIngreso").html(formasPago);
+
       $("#txt-editformaPagoIngreso").html(formasPago);
+      $("#txt_formaD_Pago").html(formasPago);
     }
 
     var formEdicion = document.querySelectorAll('#formEditarFormaPago');

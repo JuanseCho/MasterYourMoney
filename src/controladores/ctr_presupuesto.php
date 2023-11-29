@@ -8,14 +8,16 @@ class presupuestoControlador
 
     public $limitePresupuesto;
 
-    public $idTipoPresupuesto;
-    public $idUsuario ;
+    public $DescripcionPresupuesto;
+    public $idUsuario;
     public $contraseña;
 
 
     public function ctrAgregarPresupuesto()
     {
-        $objRespuesta = presupuesto::agregarPresupuesto($this->limitePresupuesto, $this->idTipoPresupuesto);
+        $this->idUsuario = $_SESSION["idUsuario"];
+
+        $objRespuesta = presupuesto::agregarPresupuesto($this->limitePresupuesto, $this->DescripcionPresupuesto,$this->idUsuario);
         echo json_encode($objRespuesta);
     }
 
@@ -28,25 +30,24 @@ class presupuestoControlador
 
     public function ctrEditarPresupuesto()
     {
-        $objRespuesta = presupuesto::actualizarPresupuesto($this->idPresupuesto, $this->limitePresupuesto, $this->idTipoPresupuesto);
+        $objRespuesta = presupuesto::actualizarPresupuesto($this->idPresupuesto, $this->limitePresupuesto, $this->DescripcionPresupuesto);
         echo json_encode($objRespuesta);
     }
 
     public function ctrEliminarPresupuesto()
-    
+
     {
         $this->idUsuario = $_SESSION["idUsuario"];
         $objRespuesta = presupuesto::EliminarPresupuesto($this->idPresupuesto, $this->contraseña, $this->idUsuario);
         echo json_encode($objRespuesta);
     }
-    
 }
 
 //verificar si se esta llamando a la clase o al metodo
 if (isset($_POST["limitePresupuesto"])) {
     $objAgregarPresupuesto = new presupuestoControlador();
     $objAgregarPresupuesto->limitePresupuesto = $_POST["limitePresupuesto"];
-    $objAgregarPresupuesto->idTipoPresupuesto = $_POST["tipoPresupuesto"];
+    $objAgregarPresupuesto->DescripcionPresupuesto = $_POST["descripcionPresupuesto"];
     $objAgregarPresupuesto->ctrAgregarPresupuesto();
 }
 
@@ -62,7 +63,7 @@ if (isset($_POST["editIdPresupuesto"])) {
     $objEditarPresupuesto = new presupuestoControlador();
     $objEditarPresupuesto->idPresupuesto = $_POST["editIdPresupuesto"];
     $objEditarPresupuesto->limitePresupuesto = $_POST["editLimitePresupuesto"];
-    $objEditarPresupuesto->idTipoPresupuesto = $_POST["editIdTipoPresupuesto"];
+    $objEditarPresupuesto->DescripcionPresupuesto = $_POST["editIdTipoPresupuesto"];
     $objEditarPresupuesto->ctrEditarPresupuesto();
 }
 
@@ -74,7 +75,3 @@ if (isset($_POST["IdPresupuesto_Eliminar"])) {
     $objEliminarPresupuesto->contraseña = $_POST["contrasena"];
     $objEliminarPresupuesto->ctrEliminarPresupuesto();
 }
-
-
-
-

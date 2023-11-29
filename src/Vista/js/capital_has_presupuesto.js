@@ -1,8 +1,13 @@
 $(document).ready(function () {
+    let objDataCapital = {"listarCapital":"ok"};
+    let objRespuesta = new CapitalUsuario(objDataCapital);
+    objRespuesta.listarCapital();
 
     "use strict"
     var tablaCapitalesDePresupuesto = null;
     $("#Tabla_De_Presupuestos").on("click", "#btn_Agregar_Al_Presupuesto", function () {
+        
+        objRespuesta.listarCapital();
         $("#ventana_del_formulario_Capital_Has_Presupuesto").show();
         var idPresupuesto = $(this).attr("idPresupuesto");
         var nombrePresupuesto = $(this).attr("nombreTipoPresupuesto");
@@ -20,6 +25,7 @@ $(document).ready(function () {
 
     formsCapitalHasPresupuesto.forEach(form => {
         form.querySelector("#Btn_new_Capital_presupuesto").addEventListener("click", function (event) {
+            
             event.preventDefault();
             if (form.checkValidity()) {
                 event.stopPropagation();
@@ -40,7 +46,7 @@ $(document).ready(function () {
                 data.append("idPresupuesto", idPresupuesto);
                 data.append("idCapital", idCapital);
                 data.append("valorAsignado", valorAsignado);
-                console.log(idPresupuesto);
+         
                 fetch("src/controladores/ctr_capital_has_presupuesto.php", {
                     method: "POST",
                     body: data
@@ -90,7 +96,10 @@ $(document).ready(function () {
                             confirmButtonText: "Entendido"
                         });
                     }
-                    
+                    let objPresupuesto = { "listarPresupuestos": "ok" };
+                    let objRespuestaPre = new presupuestos(objPresupuesto);
+                    objRespuestaPre.listarPresupuestos();
+
                 }).catch(error => {
                     console.error("Error en la solicitud:", error);
 

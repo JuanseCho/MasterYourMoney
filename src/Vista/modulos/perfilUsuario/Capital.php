@@ -84,10 +84,7 @@
                         <label class="form-label">Forma de pago</label>
                         <section>
                             <select class="form-select" id="txt_formaD_Pago" required>
-                                <option selected>seleccione el tipo de pago </option>
-                                <option value="1">efectivo</option>
-                                <option value="2">tarjeta</option>
-                                <option value="3">cheque</option>
+          
                             </select>
                         </section>
                     </div>

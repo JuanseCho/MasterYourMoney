@@ -1,4 +1,4 @@
-<div class="container p-2 jsContainer">
+<div class="container p-2 jsContainer" id="presupuestos">
     <div>
         <div class="row mt-4 mb-4 p-4">
             <div class="col-md-12">
@@ -17,9 +17,7 @@
                                 Agregar presupuesto
                             </span>
                         </button>
-                        <button class="button1" id="Btn_T-Presupuesto">
-                            <span>tipo Presupuestos</span>
-                        </button>
+
                     </div>
 
 
@@ -70,16 +68,15 @@
     <h3 class="titulos">Agregar presupuesto</h3>
     <form id="form_Agregar_Presupuesto">
         <div>
-            <label for="select_tipoPresupuesto" class="form-label">Tipo de presupuesto</label>
-            <select class="form-select" name="select_tipoPresupuesto" id="select_tipoPresupuesto" required>
-                <!-- Opciones del tipo de presupuesto -->
-            </select>
+            <label for="txt_NombrePresupuesto" class="form-label">Descripcion del presupuesto</label>
+           <input type="text" class="form-control" name="txt_NombrePresupuesto" id="txt_NombrePresupuesto" placeholder="nombre descriptivo " maxlength="50" required>
             <div class="valid-feedback">Correcto</div>
-            <div class="invalid-feedback">Por favor, selecciona un tipo de presupuesto</div>
+            <div class="invalid-feedback">Por favor, ingresa un nombre válido</div>
+
         </div>
         <div hidden>
             <label for="txt_Presupuesto" class="form-label">Valor presupuestal</label>
-            <input type="number" class="form-control" name="txt_Presupuesto" id="txt_Presupuesto" value="0" disabled required>
+            <input type="number" class="form-control" name="txt_Presupuesto" id="txt_Presupuesto" min="0" value="0" disabled required>
             <div class="valid-feedback">Correcto</div>
             <div class="invalid-feedback">Por favor, ingresa un valor presupuestal válido</div>
         </div>
@@ -119,9 +116,9 @@
 
 </div>
 
-<!--Formulario para Editar presupuesto-->
 
-<!-- The Modal -->
+
+<!-- The Modal para Editar presupuesto-->
 <div class="modal modal-lg " id="ventana_del_formulario_Presupuesto_Edit">
     <div class="modal-dialog">
         <div class="modal-content">

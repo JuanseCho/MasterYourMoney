@@ -27,6 +27,7 @@ function includeLoggedIn()
             case "Ahorro":
             case "Gastos":
             case "misPresupuestos":
+            case "misFormasDePago":
                 
                 includeModule($ruta);
                 break;
@@ -69,13 +70,20 @@ function includeLoggedOut()
 function includeModule($ruta)
 {
     if ($ruta == "inicio") {
+        include_once "src/Vista/modulos/perfilUsuario/Capital.php";
+        include_once "src/Vista/modulos/perfilUsuario/misPresupuestos.php";
+
+
+        echo "<script>document.querySelector('#capital').style.display = 'none';</script>";
+        echo "<script>document.querySelector('#presupuestos').style.display = 'none';</script>";
+
         include_once "src/Vista/modulos/interfazUsoDiario.php";
 
     } elseif ($ruta == "logout") {
         include_once "src/Vista/modulos/$ruta.php";
     }elseif ($ruta == "perfilUsuario/perfil") {
         include_once "src/Vista/modulos/perfilUsuario/perfilUsuario.php";
-    } elseif($ruta == "Capital" || $ruta == "Ahorro" || $ruta == "Gastos" || $ruta == "misPresupuestos"){
+    } elseif($ruta == "Capital" || $ruta == "Ahorro" || $ruta == "Gastos" || $ruta == "misPresupuestos" || $ruta == "misFormasDePago"){
         include_once "src/Vista/modulos/perfilUsuario/perfilUsuario.php";
         if ($ruta == "misPresupuestos") {
             include_once "src/Vista/modulos/perfilUsuario/Capital.php";

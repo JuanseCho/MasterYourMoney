@@ -21,6 +21,8 @@
                 <li><a href="Ahorro" title=""><i class="icono-perfil fas fa-info-circle"></i> Ahorros</a></li>
                 <li><a href="Gastos" title=""><i class="icono-perfil fas fa-grin"></i> Gastos</a></li>
                 <li><a href="misPresupuestos" title=""><i class="icono-perfil fas fa-camera"></i> presupuestos</a></li>
+                <li><a href="misFormasDePago" title=""><i class="icono-perfil fas fa-camera"></i> formas de pago</a></li>
+
             </ul>
         </div>
     </div>

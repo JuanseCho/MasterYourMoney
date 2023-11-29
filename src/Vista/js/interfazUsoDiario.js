@@ -1,4 +1,7 @@
 $(function () {
+  let objPresupuesto = { "listarPresupuestos": "ok" };
+  let objRespuestaPre = new CapitalUsuario(objPresupuesto);
+  objRespuestaPre.listarPresupuestos();
 
   var tablaTransaccionesCapital = null;
   listarTransaccionesCapital();

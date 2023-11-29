@@ -4,6 +4,7 @@ class CapitalUsuario{
         this._objCapital = objData;
     }
 
+    tablaCapital = null;
 
     listarCapital(){
         var objData = new FormData();
@@ -67,16 +68,16 @@ class CapitalUsuario{
             $(".actualCajaForm").html(formattedTotal);
             $("#montoTotal").html(formattedTotal);
             $("#capitalActual").html(formattedTotal);
-            $("#txt-capitalIngreso").html(selectedOptions);
+            $(".txt-capitalIngreso").html(selectedOptions);
             $("#txt-capitalAhorro").html(selectedOptions);
             $("#txt-capitalGasto").html(selectedOptions);
+            $("#select_tipoCapital").html(selectedOptions);
+
 
         })
         .catch((error) => {
             console.log(error);
         });
     }
-
-
-
 }
+

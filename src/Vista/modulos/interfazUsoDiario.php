@@ -17,7 +17,7 @@
                     <div class="containerCaja2 d-flex flex-row">
                         <div class="d-flex flex-row">
                             <button class="botonIngreso" id="btn-agregarIngresoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarIngresoCapital"><img src="src/Vista/img/ingresoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
-                            <button class="botonGasto" id="btn-agregarGastoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarGastoCapital"><img src="src/Vista/img/gastoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
+                            <button class="botonGasto" id="btn-agregarGasto" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarGastoCapital"><img src="src/Vista/img/gastoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
                         </div>                        
                         <div id="capitalActual" class="actualCaja"></div>    
                     </div>
@@ -78,7 +78,7 @@
                       </div>
                       <div class=" mx-3 mt-4">
                           <label for="txt-nombreCapitalIngreso" class="form-label">Capital:</label>
-                          <select type="text" class="form-select py-1 shadow-sm" id="txt-capitalIngreso" placeholder="Seleccione el Capital destino de ingreso" name="cat" required>
+                          <select type="text" class="form-select py-1 shadow-sm  txt-capitalIngreso" id="txt-capitalIngreso" placeholder="Seleccione el Capital destino de ingreso" name="cat" required>
                           <option selected disabled>Seleccione el Capital destino de ingreso</option>
                             
                             </select>
@@ -226,7 +226,7 @@
     <div class="modal" id="ventanaAgregarGastoCapital">
             <div class="modal-dialog">
                 <div class="modal-content rounded-5">
-                    <form id="formAgregarGastoCapital" action="" class="modal-body needs-validated shadow-lg rounded-5 text-center" novalidate>
+                    <form id="formAgregarGasto" action="" class="modal-body needs-validated shadow-lg rounded-5 text-center" novalidate>
                       <h5 class="pt-3"><dt>AGREGAR GASTO</dt></h5> 
                       <div class="d-flex flex-around cajaDisponibleForm">
                         <h5 class="pt-3"><dt>Disponible:</dt></h5>
@@ -246,12 +246,17 @@
                           <div class="invalid-feedback">Por favor llene este campo.</div>
                       </div>
                       <div class=" mx-3 mt-4">
-                          <label for="txt-capitalGasto" class="form-label">Capital:</label>
-                          <select type="text" class="form-select py-1 shadow-sm" id="txt-capitalGasto" placeholder="Seleccione el Capital origen del gasto" name="cat" required>
-                          <option selected disabled>Seleccione el Capital origen del gasto</option>
-                            <!-- <option value="1">Salario</option>
-                            <option value="2">Cuenta bancaria</option>
-                            <option value="3">sueldo</option> -->
+                          <label for="txt-presupuesto" class="form-label">presupuesto:</label>
+                          <select type="text" class="form-select py-1 shadow-sm" id="slc-presupuesto" placeholder="Seleccione el Capital origen del gasto" name="cat" required>
+                          <option selected disabled>Seleccione el presupuesto de origen del gasto</option>
+                            </select>
+                          <div class="valid-feedback">Correcto.</div>
+                          <div class="invalid-feedback">Por favor llene este campo.</div>
+                      </div>
+                      <div class=" mx-3 mt-4">
+                          <label for="txt-FormaPagoIngresoCapital" class="form-label">Forma de pago:</label>
+                          <select type="text" class="form-select py-1 shadow-sm" id="slc-formaPago" placeholder="Seleccione la Forma de pago del Ingreso" name="cat" required>
+                            <option selected disabled>Seleccione La forma de pago del Ingreso</option>
                             </select>
                           <div class="valid-feedback">Correcto.</div>
                           <div class="invalid-feedback">Por favor llene este campo.</div>
