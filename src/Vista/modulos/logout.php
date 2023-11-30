@@ -1,4 +1,4 @@
 <?php
 
 session_destroy();
-echo "<script>window.location = 'inicio'</script>";
+echo "<script>window.location = 'homePage'</script>";

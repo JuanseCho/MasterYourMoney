@@ -20,7 +20,9 @@ if (isset($_SESSION["ruta"])) {
     if (isset($_GET["ruta"])) {
         if (
             $_GET["ruta"] == "login" ||
-            $_GET["ruta"] == "register"
+            $_GET["ruta"] == "register"||
+            $_GET["ruta"] == "homePage"||
+            $_GET["ruta"] == "RecuperarContrasena"
         ) {
 
             include_once("src/Vista/modulos/" . $_GET["ruta"] . ".php");
