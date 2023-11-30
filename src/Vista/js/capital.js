@@ -21,10 +21,10 @@ $(document).ready(function () {
                 const mes = fecha.getMonth() + 1; // Sumamos 1 para obtener un valor de mes entre 1 y 12
                 const dia = fecha.getDate();
                 const fechaFormateada = `${año}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
+                
                 let monto = $("#txt_monto").val();
                 let descripcion = $("#txt_descripcion").val();
                 let formaDePago = $("#txt_formaD_Pago").val();
-
 
                 let objData = new FormData();
                 objData.append("fecha", fechaFormateada);
@@ -49,7 +49,7 @@ $(document).ready(function () {
                                 icon: 'success',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1000,
+                                timer: 10000,
                                 customClass: {
                                     title: 'swal'
                                 }
@@ -63,7 +63,7 @@ $(document).ready(function () {
                                 icon: 'error',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1000
+                                timer: 100000
                             });
                         }
                         $("#txt_monto").val("");

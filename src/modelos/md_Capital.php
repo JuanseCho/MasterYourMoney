@@ -41,7 +41,7 @@ class Capital
 
         $mensaje = [];
         try {
-            $objRespuesta = conexion::conectar()->prepare("SELECT C.idCapital, C.Montoactual, C.descipcion, C.usuarios_idUsuario, C.formapago_idFormaPago, F.nombreFormaPago , C.fecha FROM capital C INNER JOIN Formapago F ON C.formapago_idFormaPago = F.idFormaPago WHERE C.usuarios_idUsuario = :idUsuario");
+            $objRespuesta = conexion::conectar()->prepare("SELECT C.idCapital, C.Montoactual, C.descipcion, C.usuarios_idUsuario, C.formapago_idFormaPago, F.NombreFormaPago , C.fecha FROM capital C INNER JOIN formapago F ON C.formapago_idFormaPago = F.idFormaPago WHERE C.usuarios_idUsuario = :idUsuario");
             $objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
             $objRespuesta->execute();
             $mensaje = $objRespuesta->fetchAll();

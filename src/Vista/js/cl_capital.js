@@ -42,7 +42,7 @@ class CapitalUsuario{
                                 </div>`;
     
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                dataSet.push([item.fecha, item.Montoactual, item.descipcion, item.nombreFormaPago, objBotones]);
+                dataSet.push([item.fecha, item.Montoactual, item.descipcion, item.NombreFormaPago, objBotones]);
                 selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
             }
             if (tablaCapital != null) {
@@ -68,8 +68,9 @@ class CapitalUsuario{
             $(".actualCajaForm").html(formattedTotal);
             $("#montoTotal").html(formattedTotal);
             $("#capitalActual").html(formattedTotal);
-            $(".txt-capitalIngreso").html(selectedOptions);
-            $("#txt-capitalAhorro").html(selectedOptions);
+            $("#txt-capitalIngreso").html(selectedOptions);
+            $("#txt-editcapitalIngreso").html(selectedOptions);
+            $("#txt-capitalRegAhorro").html(selectedOptions);
             $("#txt-capitalGasto").html(selectedOptions);
             $("#select_tipoCapital").html(selectedOptions);
 
