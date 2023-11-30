@@ -9,9 +9,7 @@
         </div>
     </div>
     <div class="container-fluid">
-        <a class="navbar-brand d-block d-md-none" href="#">
-            <img src="src\Vista\img\5.png" height="80" />
-        </a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -19,11 +17,7 @@
         <div class=" collapse navbar-collapse" id="navbarNavDropdown" style="text-align: center;">
             <ul class="navbar-nav mx-auto ">
        
-                <li class="nav-item d-none d-md-block">
-                    <a class="nav-link mx-2" href="#    ">
-                        <img src="src\Vista\img\5.png" height="80" />
-                    </a>
-                </li>
+     
                 <li class="nav-item">
                     <a class="nav-link mx-2 active logoHome" aria-current="page" href="inicio" data-bs-toggle="tooltip" title="Inicio"><i class="bi bi-house"></i></a>
                 </li>

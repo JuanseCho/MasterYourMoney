@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION["idUsuario"] = 1;
+
 
 include_once "../modelos/md_capital_has_presupuesto.php";
 

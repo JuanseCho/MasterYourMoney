@@ -440,6 +440,8 @@ class presupuestos {
                 });
 
                 $("#txt-presupuesto").html(selectedOptions);
+                $("#slc-presupuesto").html(selectedOptions);
+
             })
             .catch((error) => {
                 console.log(error);

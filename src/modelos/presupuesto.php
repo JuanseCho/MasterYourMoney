@@ -10,12 +10,13 @@ class presupuesto
 
         $mensaje = [];
         try {
-            $objRespuesta = conexion::conectar()->prepare("INSERT INTO presupuestos (descripcionPresupuesto, ValorAsignado,usuario ) VALUES (:DescripcionPresupuesto, :limite , :idUsuario)");
+            $objRespuesta = conexion::conectar()->prepare("INSERT INTO presupuestos (descripcionPresupuesto, ValorAsignado,montoActual ,usuario ) VALUES (:DescripcionPresupuesto, :limite ,:montoActual, :idUsuario)");
             $objRespuesta->bindParam(":DescripcionPresupuesto", $DescripcionPresupuesto, PDO::PARAM_STR);
             $objRespuesta->bindParam(":limite", $limitePresupuesto, PDO::PARAM_INT);
+            $objRespuesta->bindParam(":montoActual", $limitePresupuesto, PDO::PARAM_INT);
             $objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
 
-            
+
             if ($objRespuesta->execute()) {
                 $mensaje = array("codigo" => "200", "mensaje" => "Presupuesto registrado correctamente");
             } else {
@@ -74,13 +75,50 @@ class presupuesto
         if (self::validarUsuario($contraseña, $idUsuario)) {
 
 
+            // eliminar la relacion entre el presupuesto y el capital
+            //dividir lo que queda del presupuesto en el  numero de capitales que estan relacionado con el presupuesto
+            // actualizar el monto actual de cada capital
+            // eliminar la relacion entre el presupuesto y el capital
+            $objRespuesta = conexion::conectar()->prepare("SELECT capital_idCapital FROM capital_has_presupuestos WHERE presupuestos_idPresupuesto = :id");
+            $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
+            $objRespuesta->execute();
+            $listaCapitales = $objRespuesta->fetchAll();
+
+            $montoPresupuesto = conexion::conectar()->prepare("SELECT montoActual FROM presupuestos WHERE idPresupuesto = :id");
+            $montoPresupuesto->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
+            $montoPresupuesto->execute();
+            $montoPresupuesto = $montoPresupuesto->fetch(PDO::FETCH_ASSOC);
+            $montoPresupuesto = $montoPresupuesto['montoActual'];
+            // si montopresupuesto es diferente de 0 entonces se debe devolver el dinero a los capitales
+            if ($montoPresupuesto != 0) {
+                $devolucion_A_Capital = $montoPresupuesto / count($listaCapitales);
+
+                foreach ($listaCapitales as $capital) {
+                    $objRespuesta = conexion::conectar()->prepare("UPDATE capital SET Montoactual = Montoactual + :devolucion_A_Capital WHERE idCapital = :id");
+                    $objRespuesta->bindParam(":devolucion_A_Capital", $devolucion_A_Capital, PDO::PARAM_INT);
+                    $objRespuesta->bindParam(":id", $capital['capital_idCapital'], PDO::PARAM_INT);
+                    $objRespuesta->execute();
+                }
+            }
+
 
             $objRespuesta = conexion::conectar()->prepare("DELETE FROM capital_has_presupuestos WHERE presupuestos_idPresupuesto = :id");
             $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
             $objRespuesta->execute();
 
-            $objRespuesta = conexion::conectar()->prepare("DELETE FROM gastos WHERE idPresupuesto = :id");
+
+            // colocar lo  que esta en el camppo de descripcionPresupuesto de la tabla gpresupuestos en el campo de presupuesto de la tabla gastos
+
+            $objRespuesta = conexion::conectar()->prepare("SELECT descripcionPresupuesto FROM presupuestos WHERE idPresupuesto = :id");
             $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
+            $objRespuesta->execute();
+            $descripcionPresupuesto = $objRespuesta->fetch(PDO::FETCH_ASSOC);
+            $descripcionPresupuesto = $descripcionPresupuesto['descripcionPresupuesto'];
+
+            // actualizar el campo de presupuesto de la tabla gastos
+            $objRespuesta = conexion::conectar()->prepare("UPDATE gastos SET presupuesto = :descripcionPresupuesto, idPresupuesto = NULL  WHERE idPresupuesto = :id");
+            $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
+            $objRespuesta->bindParam(":descripcionPresupuesto", $descripcionPresupuesto, PDO::PARAM_STR);
             $objRespuesta->execute();
 
             try {

@@ -16,7 +16,6 @@ class presupuestoControlador
     public function ctrAgregarPresupuesto()
     {
         $this->idUsuario = $_SESSION["idUsuario"];
-
         $objRespuesta = presupuesto::agregarPresupuesto($this->limitePresupuesto, $this->DescripcionPresupuesto,$this->idUsuario);
         echo json_encode($objRespuesta);
     }

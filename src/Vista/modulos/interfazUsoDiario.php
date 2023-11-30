@@ -235,7 +235,7 @@
                       </div>
                       <div class=" mx-3 mt-5">
                           <label for="txt-montoGasto" class="form-label">Monto:</label>
-                          <input type="number" class="form-control py-1 shadow-sm" id="txt-montoGasto" placeholder="Ingrese el monto a gastar del capital" name="desc" required>
+                          <input type="number" class="form-control py-1 shadow-sm" id="txt-montoGasto" placeholder="Ingrese el monto a gastar " name="desc" required>
                           <div class="valid-feedback">Correcto.</div>
                           <div class="invalid-feedback">Por favor llene este campo.</div>
                       </div>

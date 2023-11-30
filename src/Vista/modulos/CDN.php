@@ -46,6 +46,7 @@
 <script src='src/Vista/js/cl_capital.js'></script>
 <script src='src/Vista/js/misPresupuestos.js'></script>
 <script src='src/Vista/js/capital_has_presupuesto.js'></script>
+<script src='src/Vista/js/gastos.js'></script>
 
 
  <script src='src/Vista/js/login.js'></script>  
