@@ -126,8 +126,8 @@ include_once "conexion.php";
                 $objRespuesta = conexion::conectar()->prepare("SELECT 'Ingreso' AS tipoTransaccion, i.idingreso AS idTransaccion, i.capital_idCapital AS idCapital, i.formapago_idFormaPago AS idFormaPago, i.hora_ingreso AS horaTransaccion, c.descipcion AS descripcionTransaccion, i.monto_ingreso AS montoTransaccion 
                                                                 FROM ingresos i INNER JOIN capital c ON i.capital_idCapital = c.idCapital
                                                                 WHERE i.fecha_ingreso = :fechaTransacciones
-                                                                -- UNION
-                                                                -- SELECT 'Ahorro' AS tipoTransaccion, ra.idRegAhorro AS idTransaccion, capital_idCapital AS idCapital, 'Efectivo' AS idFormaPago, hora_ahorro AS horaTransaccion, descripcion_ahorro AS descripcionTransaccion, monto_ahorro AS montoTransaccion
+                                                                UNION
+                                                                SELECT 'Ahorro' AS tipoTransaccion, ra.idRegAhorro AS idTransaccion, capital_idCapital AS idCapital, 'Efectivo' AS idFormaPago, hora_ahorro AS horaTransaccion, descripcion_ahorro AS descripcionTransaccion, monto_ahorro AS montoTransaccion
                                                                 -- FROM ahorros
                                                                 -- WHERE fecha_ahorro = :fechaTransacciones
                                                                 ORDER BY horaTransaccion");
@@ -214,7 +214,7 @@ include_once "conexion.php";
                 // Actualizar el capital
                 $actualizarMontoCapital = $db->prepare("UPDATE capital SET Montoactual = :capitalFinal WHERE idCapital = :capitalRegAhorro");
                 $actualizarMontoCapital->bindParam(":capitalFinal", $capitalFinal);
-                $actualizarMontoCapital->bindParam(":capitalRegAhorro", $capitalAhorro);
+                $actualizarMontoCapital->bindParam(":capitalRegAhorro", $capitalRegAhorro);
                 $actualizarMontoCapital->execute();
 
                 $objRespuesta = conexion::conectar()->prepare("INSERT INTO regahorros(fecha_regAhorro, hora_regAhorro, monto_regAhorro, ahorro_idAhorro) VALUES(:fechaRegAhorro,:horaRegAhorro,:montoRegAhorro,:ahorroRegAhorro)");

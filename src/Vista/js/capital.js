@@ -212,7 +212,9 @@ $(document).ready(function () {
                                 timer: 1000
                             });
                         }
-                        listarCapital();
+                        let objDataCapital = { "listarCapital": "ok" };
+                        let objRespuesta = new CapitalUsuario(objDataCapital);
+                        objRespuesta.listarCapital();
 
                     });
             }
@@ -232,7 +234,7 @@ $(document).ready(function () {
 
         $("#txt_montoEditar").val(monto);
         $("#txt_descripcionEditar").val(descripcion);
-        $("#txt_form_PagoEditar").val(formaPago);
+        $("#txt_formaD_PagoEditar").val(formaPago);
     });
 
     const formsEditar = document.querySelectorAll("#form_Editar_Capital");
@@ -288,7 +290,9 @@ $(document).ready(function () {
                                 timer: 1000
                             });
                         }
-                        listarCapital();
+                        let objDataCapital = { "listarCapital": "ok" };
+                        let objRespuesta = new CapitalUsuario(objDataCapital);
+                        objRespuesta.listarCapital();
 
                     })
                     .catch((error) => {

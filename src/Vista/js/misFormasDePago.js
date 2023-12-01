@@ -105,6 +105,7 @@ $(function () {
 
       $("#txt-editformaPagoIngreso").html(formasPago);
       $("#txt_formaD_Pago").html(formasPago);
+      $("#txt_formaD_PagoEditar").html(formasPago);
     }
 
     var formEdicion = document.querySelectorAll('#formEditarFormaPago');

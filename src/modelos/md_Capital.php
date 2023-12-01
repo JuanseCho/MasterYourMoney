@@ -15,7 +15,7 @@ class Capital
      
         $mensaje = [];
         try {
-            $objRespuesta = conexion::conectar()->prepare("INSERT INTO Capital (Montoactual, descipcion, usuarios_idUsuario , formapago_idFormaPago,fecha) VALUES (:Montoactual, :descipcion, :idUsuario, :formapago_idFormaPago, :fecha)");
+            $objRespuesta = conexion::conectar()->prepare("INSERT INTO capital (Montoactual, descipcion, usuarios_idUsuario, formapago_idFormaPago, fecha) VALUES (:Montoactual, :descipcion, :idUsuario, :formapago_idFormaPago, :fecha)");
             $objRespuesta->bindParam(":Montoactual", $MontoActual, PDO::PARAM_STR);
             $objRespuesta->bindParam(":descipcion", $descipcion, PDO::PARAM_STR);
             $objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
