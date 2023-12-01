@@ -3,6 +3,5 @@
 <script src="src/Vista/js/registro.js"></script>
 <script src="src/Vista/js/Usuarios.js"></script>
 <script src="src/Vista/js/chart.js"></script>
-<script src="src/Vista/js/prueba.js"></script>
 
 </html>

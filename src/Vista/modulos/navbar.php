@@ -4,8 +4,8 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="mynavbar">
-      <ul class="navbar-nav me-auto" style="margin-left: 90%;">
+    <div class="collapse navbar-collapse" id="mynavbar" style="width: 90%;">
+      <ul class="navbar-nav me-auto" style="margin-left: 80%;">
         <li class="nav-item">
           <a class="nav-link" href="ListaUsuarios">ListaUsuarios</a>
         </li>
