@@ -1,24 +1,22 @@
-$(document).ready(function () {
 
+$(Document).ready(function () {
 
+    tablaGastos = null;
+    listarGastos();
+    const formularioGastos = document.querySelectorAll("#formAgregarGasto");
 
-    // let obj_Gasto = { "listarGastos": "ok" };
-    // let objRespuestaGastos = new gastos(obj_Gasto);
-    // objRespuestaGastos.listarGastos();
-
-    const forms = document.querySelectorAll("#formAgregarGasto");
-    Array.from(forms).forEach((form) => {
-        form.addEventListener("submit", (event) => {
+    Array.from(formularioGastos).forEach((form) => {
+        form.addEventListener("submit", (evento) => {
             if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
+                evento.preventDefault();
+                evento.stopPropagation();
                 form.classList.add("was-validated");
             } else {
-                event.preventDefault();
+                evento.preventDefault();
 
                 const fecha = new Date();
                 const año = fecha.getFullYear();
-                const mes = fecha.getMonth() + 1; // Sumamos 1 para obtener un valor de mes entre 1 y 12
+                const mes = fecha.getMonth() + 1;
                 const dia = fecha.getDate();
                 const fechaFormateada = `${año}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
 
@@ -27,18 +25,19 @@ $(document).ready(function () {
                 const segundos = fecha.getSeconds();
                 const horaFormateada = `${hora.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}:${segundos.toString().padStart(2, '0')}`;
 
-                var descripcion = $("#txt-descripcionGasto").val();
-                var monto = $("#txt-montoGasto").val();
-                var presupuesto = $("#slc-presupuesto").val();
-                var formaPago = $("#slc-formaPago").val();
+                const monto = $("#txt-montoGasto").val();
+                const descripcion = $("#txt-descripcionGasto").val();
+                const presupuesto = $("#slc-presupuesto").val();
+                const formaPago = $("#slc-formaPago").val();
 
                 var objData = new FormData();
-                objData.append("horaGasto", horaFormateada);
-                objData.append("fechaGasto", fechaFormateada);
-                objData.append("descripcionGasto", descripcion);
                 objData.append("montoGasto", monto);
+                objData.append("descripcionGasto", descripcion);
+                objData.append("fechaGasto", fechaFormateada);
+                objData.append("horaGasto", horaFormateada);
                 objData.append("IdPresupuesto", presupuesto);
                 objData.append("formaPagoGasto", formaPago);
+
                 fetch("src/controladores/ctr_gastos.php", {
                     method: "POST",
                     body: objData,
@@ -61,17 +60,8 @@ $(document).ready(function () {
                                     title: 'swal'
                                 }
                             });
-                            // cerrar modal
-                            $("#btn_Cerrar_Modal_Gasto").click();
 
-                        } else if (response["codigo"] == "425"){
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'info',
-                                title: response["mensaje"],
-                                showConfirmButton: false,
-                                timer: 2000
-                            });
+                            listarGastos();
                         } else {
                             Swal.fire({
                                 position: 'center',
@@ -81,87 +71,218 @@ $(document).ready(function () {
                                 timer: 1000
                             });
                         }
-                        form.reset();
-                        $("#ventanaAgregarGasto").modal('toggle');
-                        objRespuestaGastos.listarGastos();
+                        $("#txt-montoGasto").val("");
+                        $("#txt-descripcionGasto").val("");
+                        $("#slc-presupuesto").val("");
+                        $("#slc-formaPago").val("");
+                        listarGastos();
+                        // vaciar los campos
+
+
+
                     })
                     .catch((error) => {
-                        console.log(error);
+                        console.error("Error:", error);
                     });
 
             }
+
         });
 
     });
 
 
+    // listar gastos en la tabla
 
-    class gastos {
-        constructor(objData) {
-            this._objData = objData;
-        }
+    function listarGastos() {
+        const fecha = new Date();
+        const año = fecha.getFullYear();
+        const mes = fecha.getMonth() + 1;
+        const dia = fecha.getDate();
+        const fechaFormateada = `${año}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
 
-        tablaGastos = null;
-
-        listarGastos() {
-            var objData = new FormData();
-            objData.append("listarGastos", this._objData.listarGastos);
-            fetch("src/controladores/ctr_gastos.php", {
-                method: "POST",
-                body: objData,
+        
+        var objData = new FormData();
+        objData.append("listarGastos", "ok");
+        objData.append("fechaActual", fechaFormateada);
+        fetch("src/controladores/ctr_gastos.php", {
+            method: "POST",
+            body: objData,
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
             })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then((response) => {
-                    var dataSet = [];
-                    var selectedOptions = [];
-                    response.forEach(listarDatosC);
-                    function listarDatosC(item, index) {
-
-                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        var objBotones = `
-                                <div class="button-container">
-                                    <!-boton para editar-->
-                                    <button class="button" id="Btn_Capital_Editar" idCapital="${item.idCapital}" monto="${item.Montoactual}" descripcion="${item.descipcion}" formaPago="${item.formapago_idFormaPago}" data-bs-toggle="modal" data-bs-target="#modalFormulaioEditarCapital">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </button>
-                        
-                                    <!-boton para eliminar-->
-                                    
-                                    <button class="button" id="btn_Eliminar_Capital" idCapital="${item.idCapital}">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                        
-                                </div>`;
-
-                        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                        dataSet.push([item.fecha, item.Montoactual, item.descipcion, item.nombreFormaPago, objBotones]);
-                        selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
-                    }
-                    if (tablaCapital != null) {
-                        $("#tabla_Capital").dataTable().fnDestroy();
-                    }
-                    tablaCapital = $("#tabla_Capital").DataTable({
-                        destroy: true,
-                        data: dataSet,
-                        search: {
-                            return: true
-                        },
-                        paging: false,
-                        scrollY: 300
-                    });
-
-                    //sumar los datos de MontoInicial
-
-
-                })
+            .then((response) => {
+                cargarDatosGasto(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        function cargarDatosGasto(response) {
+            var dataSet = [];
+            response.forEach(listarDatosG);
+            function listarDatosG(item, index) {
+                var objBotones = `
+                        <div class="button-container">
+                            <!-boton para editar-->
+                            <button class="button" id="Btn_Gasto_Editar" idGasto="${item.idGasto}" monto="${item.monto}" descripcion="${item.descipcionGasto}" formaPago="${item.formapago_idFormaPago}" idPresupuesto="${item.idPresupuesto}" data-bs-toggle="modal" data-bs-target="#modalFormulaioEditarCapital">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                
+                            <!-boton para eliminar-->
+                            
+                            <button class="button btn_Eliminar_Gasto"  id="btn_Eliminar_Gasto" idGasto="${item.idGasto}" idPresupuesto="${item.idPresupuesto}"  monto="${item.monto}" >
+                                <i class="bi bi-trash"></i>
+                            </button>
+                
+                        </div>`;
+                dataSet.push([item.hora, item.fecha, item.monto, item.descripcionGasto, item.NombreFormaPago, item.descripcionPresupuesto, objBotones]);
+            }
+            if (tablaGastos != null) {
+                $("#tabla_Gastos").dataTable().fnDestroy();
+            }
+            var tablaGastos = $("#tabla_Gastos").dataTable({
+                data: dataSet,
+                search: {
+                    return: true
+                },
+                paging: false,
+                scrollY: 300,
+                responsive: true,
+                bDestroy: true
+            });
         }
-
-
     }
 
+    // funcion para cargar los datos en la tabla
+
+
+
+    // funcion para eliminar gastos
+    $(document).on("click", "#btn_Eliminar_Gasto", function () {
+        const idGasto = $(this).attr("idGasto");
+        const idPresupuesto = $(this).attr("idPresupuesto");
+        const monto = $(this).attr("monto");
+        Swal.fire({
+            title: '¿Está seguro de eliminar este gasto?',
+            text: "¡No podrás revertir esto!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3CB371',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Sí, eliminar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var objData = new FormData();
+                objData.append("idGastoEliminado", idGasto);
+                objData.append("IdPresupuestoEliminado", idPresupuesto);
+                objData.append("montoEliminado", monto);
+
+                fetch("src/controladores/ctr_gastos.php", {
+                    method: "POST",
+                    body: objData,
+                })
+                .then((response) => response.json())
+                .catch((error) => {
+                    console.log(error);
+                })
+                .then((response) => {
+                    listarGastos();
+                    if (response["codigo"] == "200") {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: response["mensaje"],
+                            showConfirmButton: false,
+                            timer: 1000,
+                            customClass: {
+                                title: 'swal'
+                            }
+                        });
+
+                    } else {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: response["mensaje"],
+                            showConfirmButton: false,
+                            timer: 1000
+                        });
+                    }
+
+
+                })    
+            }
+        })
+    });
+
 });
+
+
+class GastosUsuario {
+    constructor(objData) {
+        this._objCapital = objData;
+        
+    }
+
+    ListarGastosInterfaz() {
+        var objData = new FormData();
+        objData.append("listarGastosInterfaz", this._objCapital.listarGastos);
+
+        fetch("src/controladores/ctr_gastos.php", {
+            method: "POST",
+            body: objData,
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((response) => {
+            cargarDatosGasto(response);
+            var dataSet = [];
+            response.forEach(listarDatosC);
+
+            function listarDatosC(item, index) {
+                var objBotones = `
+                    <div class="button-container">
+                        <!-- Botón para editar -->
+                        <button class="button" id="Btn_Gasto_Editar" idGasto="${item.idGasto}" monto="${item.monto}" descripcion="${item.descipcionGasto}" formaPago="${item.formapago_idFormaPago}" idPresupuesto="${item.idPresupuesto}" data-bs-toggle="modal" data-bs-target="#modalFormulaioEditarCapital">
+                            <i class="bi bi-pencil-square"></i>
+                        </button>
+
+                        <!-- Botón para eliminar -->
+                        <button class="button btn_Eliminar_Gasto" id="btn_Eliminar_Gasto" idGasto="${item.idGasto}" idPresupuesto="${item.idPresupuesto}" monto="${item.monto}">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>`;
+
+                dataSet.push([item.hora, item.NombreFormaPago, item.descripcionGasto, item.monto, objBotones]);
+            }
+
+            if (tablaTransaccionesCapital != null) {
+                $("#tablaTransaccionesCapital").DataTable().destroy();
+            }
+
+            tablaTransaccionesCapital = $("#tablaTransaccionesCapital").DataTable({
+                destroy: true,
+                data: dataSet,
+                search: {
+                    return: true
+                },
+                paging: false,
+                scrollY: 300,
+                responsive: true,
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
+}
+

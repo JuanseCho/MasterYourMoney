@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark p-3 fondonav" id="headerNav">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top p-3 fondonav" id="headerNav">
     <div class="container-fluid">
         <div class="container">
             <nav class="navbar ">
@@ -9,7 +9,6 @@
         </div>
     </div>
     <div class="container-fluid">
-
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

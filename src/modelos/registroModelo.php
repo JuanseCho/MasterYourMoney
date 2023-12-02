@@ -38,3 +38,27 @@ class registroModelo
         return $mensaje;
     }
 }
+
+class mdlRestablecerPassword
+{
+
+    public static function restablecerPassword($passsword, $email)
+    {
+        $mensaje = array();
+        $passsword = hash('sha512',$passsword);
+        try {
+            $sql = "UPDATE usuarios SET contrasena = :passsword WHERE email = :email";
+            $objrespuesta = conexion::conectar()->prepare($sql);
+            $objrespuesta->bindParam(":passsword", $passsword);
+            $objrespuesta->bindParam(":email", $email);
+            if ($objrespuesta->execute()) {
+                $mensaje = array("codigo" => "200", "mensaje" => "Contraseña actualizada correctamente", "ruta" => "login");
+            } else {
+                $mensaje = array("codigo" => "425", "mensaje" => "Error al actualizar la contraseña");
+            }
+        } catch (Exception $e) {
+            $mensaje = array("codigo" => "425", "mensaje" => $e->getMessage());
+        }
+        return $mensaje;
+    }
+}

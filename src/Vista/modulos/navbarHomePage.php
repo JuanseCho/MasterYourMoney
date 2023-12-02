@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark p-3 fondonav" id="headerNav">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top p-3 fondonav" id="headerNav">
     <div class="container-fluid">
         
             <nav class="navbar ">

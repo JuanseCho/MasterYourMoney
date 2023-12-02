@@ -1,16 +1,16 @@
 $(document).ready(function () {
-    let objDataCapital = {"listarCapital":"ok"};
+    let objDataCapital = { "listarCapital": "ok" };
     let objRespuesta = new CapitalUsuario(objDataCapital);
     objRespuesta.listarCapital();
 
     "use strict"
     var tablaCapitalesDePresupuesto = null;
     $("#Tabla_De_Presupuestos").on("click", "#btn_Agregar_Al_Presupuesto", function () {
-        
+
         objRespuesta.listarCapital();
         $("#ventana_del_formulario_Capital_Has_Presupuesto").show();
         var idPresupuesto = $(this).attr("idPresupuesto");
-        var nombrePresupuesto = $(this).attr("nombreTipoPresupuesto");
+        var nombrePresupuesto = $(this).attr("nombrePresupuesto");
         var valorActual = $(this).attr("limitePresupuesto");
         $("#Btn_new_Capital_presupuesto").attr("idPresupuestoF", idPresupuesto);
         $("#txt_presupuesto").html(nombrePresupuesto + " tiene asignado: $" + valorActual);
@@ -25,7 +25,7 @@ $(document).ready(function () {
 
     formsCapitalHasPresupuesto.forEach(form => {
         form.querySelector("#Btn_new_Capital_presupuesto").addEventListener("click", function (event) {
-            
+
             event.preventDefault();
             if (form.checkValidity()) {
                 event.stopPropagation();
@@ -46,7 +46,7 @@ $(document).ready(function () {
                 data.append("idPresupuesto", idPresupuesto);
                 data.append("idCapital", idCapital);
                 data.append("valorAsignado", valorAsignado);
-         
+
                 fetch("src/controladores/ctr_capital_has_presupuesto.php", {
                     method: "POST",
                     body: data
@@ -70,12 +70,23 @@ $(document).ready(function () {
                         Swal.fire({
                             title: "Capital agregado al presupuesto",
                             icon: "success",
+                            animation: false,
                             confirmButtonText: "Entendido",
                             onClose: function () {
                                 location.reload();
+                            },
+                            allowOutsideClick: false,
+                            backdrop: false,
+                            showClass:
+                            {
+                                popup: 'swal2-show',
+                                backdrop: 'swal2-backdrop-show',
+                                icon: 'swal2-icon-show'
                             }
                         });
 
+                    //hacer clic en un boton internamente para que se actualicen los presupuestos
+                    $("#btnPresupuestos").click();
 
                     } else if (response["codigo"] == "401") {
                         Swal.fire({
@@ -96,9 +107,14 @@ $(document).ready(function () {
                             confirmButtonText: "Entendido"
                         });
                     }
+                    //vaciar los campos
+                    $("#txt_valorAsignado").val("");
+                    $("#select_tipoCapital").val("");
+
                     let objPresupuesto = { "listarPresupuestos": "ok" };
                     let objRespuestaPre = new presupuestos(objPresupuesto);
                     objRespuestaPre.listarPresupuestos();
+
 
                 }).catch(error => {
                     console.error("Error en la solicitud:", error);
@@ -150,10 +166,7 @@ $(document).ready(function () {
         function listarDatosCDP(item, index) {
             var objBotones = `
             <div class="button-container">
-                <!--boton para editar-->
-                <button class="button" id="btn_Edit_CapitalDePresupuesto" idCapital="${item.idCapital}" nombreCapital="${item.descipcion}">
-                    <i class="bi bi-pencil-square"></i>
-                </button>
+              
     
                 <!--boton para eliminar-->
                 <button class="button" id="btn_Eliminar_CapitalDePresupuesto" idCapital="${item.idCapital}" valorDeducido="${item.valorDeducido}" idPresupuesto="${item.presupuestos_idPresupuesto}">
@@ -193,7 +206,7 @@ $(document).ready(function () {
             cancelButtonText: "Cancelar",
             confirmButton: {
                 text: "Eliminar",
-                id: "btnConfirmarEliminar", 
+                id: "btnConfirmarEliminar",
             },
         }).then((result) => {
             if (result.isConfirmed) {
@@ -206,48 +219,53 @@ $(document).ready(function () {
                     method: "POST",
                     body: objData,
                 })
-                .then((response) => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                
-                    // Verificar si la respuesta es un objeto JSON
-                    const contentType = response.headers.get('Content-Type');
-                    if (contentType && contentType.includes('application/json')) {
-                        return response.json();
-                    }
-                
-                    // Si la respuesta no es JSON, intenta obtener el texto de la respuesta
-                    return response.text();
-                })
-                .then((responseData) => {
-                    var response = JSON.parse(responseData);
-                    if (response["codigo"] == 200) {
-                        Swal.fire({
-                            title: "Capital eliminado del presupuesto",
-                            icon: "success",
-                            confirmButtonText: "Entendido",
-                            onClose: function () {
-                                location.reload();
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            title: "Error al eliminar el capital del presupuesto",
-                            text: response.error,
-                            icon: "error",
-                            confirmButtonText: "Entendido",
-                        });
-                    }
-                   
-                    listarCapitalesDePresupuesto(idPresupuesto)
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-                
-                
-                    
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+
+                        // Verificar si la respuesta es un objeto JSON
+                        const contentType = response.headers.get('Content-Type');
+                        if (contentType && contentType.includes('application/json')) {
+                            return response.json();
+                        }
+
+                        // Si la respuesta no es JSON, intenta obtener el texto de la respuesta
+                        return response.text();
+                    })
+                    .then((responseData) => {
+                        var response = JSON.parse(responseData);
+                        if (response["codigo"] == 200) {
+                            Swal.fire({
+                                title: "Capital eliminado del presupuesto",
+                                icon: "success",
+                                confirmButtonText: "Entendido",
+                                onClose: function () {
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Error al eliminar el capital del presupuesto",
+                                text: response.error,
+                                icon: "error",
+                                confirmButtonText: "Entendido",
+                            });
+                        }
+
+                        listarCapitalesDePresupuesto(idPresupuesto);
+
+
+                        let objPresupuesto = { "listarPresupuestos": "ok" };
+                        let objRespuestaPre = new CapitalUsuario(objPresupuesto);
+                        objRespuestaPre.listarPresupuestos();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+
+
             }
         });
     });

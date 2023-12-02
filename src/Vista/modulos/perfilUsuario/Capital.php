@@ -6,7 +6,7 @@
                     <div class="col-lg-4">
                         <h2>
                             <p style="font-size: 3rem;">
-                                <span style="color: blue;">
+                                <span style="color: blue; font-size: 2rem;">
                                     Mi
                                 </span>
                                 Capital
@@ -29,11 +29,8 @@
         </div>
         <hr size="5" color="#000000">
         <div class="row jsDivR p-4 ">
-            <div class=" col-md-12 col-lg-1 sm-12 user-profile">
-                <img class="col-md-2 user-profile-avatar" src="src\Vista\img\2.jpeg" />
-                <i>Sebastian</i>
-            </div>
-            <div class="col-md-12 col-lg-8 sm-12  jsDiv">
+    
+            <div class="col-md-12 col-lg-12 sm-12  jsDiv">
                 <h3 class="titulos">CAPITALES </h3>
                 <table id="tabla_Capital" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
                     <thead>

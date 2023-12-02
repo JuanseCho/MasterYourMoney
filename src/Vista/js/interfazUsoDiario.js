@@ -3,6 +3,19 @@ $(function () {
   let objRespuestaPre = new CapitalUsuario(objPresupuesto);
   objRespuestaPre.listarPresupuestos();
 
+
+  // Este código JavaScript crea un objeto llamado objGasto con una propiedad listarGastosInterfaz que tiene un valor de "ok". Luego, se crea una nueva instancia de la clase CapitalUsuario, pasando objGasto como argumento al constructor. Finalmente, se llama al método ListarGastosInterfaz en la instancia objGastopre de la clase CapitalUsuario.
+  // Sugerencias para el próximo paso:
+  // Verificar la definición de la clase GastosUsuario y su método ListarGastosInterfaz.
+  // Asegurarse de que objGasto tiene todas las propiedades necesarias para la clase GastosUsuario.
+  // Comprobar si el método ListarGastosInterfaz devuelve algún valor o realiza alguna operación en objGastopre.
+ 
+ 
+  let objGasto = { "listarGastosInterfaz": "ok" };
+  let objGastopre = new GastosUsuario(objGasto);
+  objGastopre.ListarGastosInterfaz();
+
+
   var tablaTransaccionesCapital = null;
   listarTransaccionesCapital();
   
@@ -11,6 +24,7 @@ $(function () {
     var day = date.getDate();
     var month = months[date.getMonth()];
     var year = date.getFullYear();
+
     document.querySelector('.barraFecha').innerHTML = '<div class="d-flex flex-row">';
     document.querySelector('.barraFecha').innerHTML += '<div>'+ day + ' de ' + month + ' de ' + year+'</div>';
     document.querySelector('.barraFecha').innerHTML += '<a href="#myModal" data-toggle="modal"><img src="src/Vista/img/calendario.png" alt="" style="width:28px;" class="ms-3"></a>';

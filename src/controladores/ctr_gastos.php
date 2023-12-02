@@ -2,7 +2,8 @@
 session_start();
 include_once "../modelos/mdl_gastos.php";
 
-class ctr_gastos{
+class ctr_gastos
+{
     public $horaGasto;
     public $fechaGasto;
     public $descripcionGasto;
@@ -12,21 +13,37 @@ class ctr_gastos{
     public $idgasto;
     public $contraseña;
     public $idUsuario;
+    public $fechaActual;
 
-    public function ctrAgregarGasto(){
+    public function ctrAgregarGasto()
+    {
         $this->idUsuario = $_SESSION["idUsuario"];
-        $objRespuesta = gastosModelo::mdlRegistrarGasto($this->horaGasto,$this->fechaGasto,$this->descripcionGasto,$this->montoGasto,$this->IdPresupuesto,$this->formaPagoGasto,$this->idUsuario);
+        $objRespuesta = gastosModelo::mdlRegistrarGasto($this->horaGasto, $this->fechaGasto, $this->descripcionGasto, $this->montoGasto, $this->IdPresupuesto, $this->formaPagoGasto, $this->idUsuario);
         echo json_encode($objRespuesta);
     }
-
+    /*
     public function ctrEditarGasto(){
         $objRespuesta = gastosModelo::mdlEditarGasto($this->idgasto,$this->montoGasto,$this->formaPagoGasto);
         echo json_encode($objRespuesta);
     }
-
-    public function ctrEliminarGasto(){
+*/
+    public function ctrMostrarGastos()
+    {
         $this->idUsuario = $_SESSION["idUsuario"];
-        $objRespuesta = gastosModelo::mdlEliminarGasto($this->idgasto,$this->contraseña,$this->idUsuario);
+        $objRespuesta = gastosModelo::mdlMostrarGastos($this->idUsuario);
+        echo json_encode($objRespuesta);
+    }
+    
+    public function ctrEliminarGasto()
+    {
+        $objRespuesta = gastosModelo::mdlEliminarGasto($this->idgasto, $this->IdPresupuesto, $this->montoGasto);
+        echo json_encode($objRespuesta);
+    }
+
+    public function ctrMostrarGastosInterfaz()
+    {
+        $this->idUsuario = $_SESSION["idUsuario"];
+        $objRespuesta = gastosModelo::mdlMostrarGastosInterfaz($this->idUsuario, $this->fechaActual);
         echo json_encode($objRespuesta);
     }
 }
@@ -40,4 +57,28 @@ if (isset($_POST["horaGasto"]) && isset($_POST["fechaGasto"]) && isset($_POST["d
     $objAgregarGasto->IdPresupuesto = $_POST["IdPresupuesto"];
     $objAgregarGasto->formaPagoGasto = $_POST["formaPagoGasto"];
     $objAgregarGasto->ctrAgregarGasto();
+}
+
+// verificar si se llama la funcion de obtener gastos
+
+
+// verificar si se llama la funcion de eliminar gasto
+if (isset($_POST["listarGastos"]) == "ok") {
+    $objMostrarGastos = new ctr_gastos();
+    $objMostrarGastos->ctrMostrarGastos();
+}
+
+if (isset($_POST["idGastoEliminado"])) {
+    $objEliminarGasto = new ctr_gastos();
+    $objEliminarGasto->idgasto = $_POST["idGastoEliminado"];
+    $objEliminarGasto->IdPresupuesto = $_POST["IdPresupuestoEliminado"];
+    $objEliminarGasto->montoGasto = $_POST["montoEliminado"];
+    $objEliminarGasto->ctrEliminarGasto();
+}
+
+if (isset($_POST["listarGastosInterfaz"])) {
+    $objMostrarGastosInterfaz = new ctr_gastos();
+    $objMostrarGastosInterfaz->fechaActual = $_POST["fechaActual"];
+    $objMostrarGastosInterfaz->ctrMostrarGastosInterfaz();
+    
 }

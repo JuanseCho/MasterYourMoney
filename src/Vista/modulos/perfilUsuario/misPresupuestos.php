@@ -1,6 +1,6 @@
 <div class="container p-2 jsContainer" id="presupuestos">
     <div>
-        <div class="row mt-4 mb-4 p-4">
+        <div class="row mt- mb-4 p-4">
             <div class="col-md-12">
                 <div class="titulo_categoria">
                     <h2>
@@ -12,9 +12,9 @@
                         </p>
                     </h2>
                     <div style="display: flex; flex-direction: row;">
-                        <button class="button1" id="Btn_Presupuestos">
+                        <button class="button1" id="Btn_Presupuestos" data-bs-toggle="modal" data-bs-target="#AgregarPresupuesto">
                             <span>
-                                Agregar presupuesto
+                                Inicializar presupuesto
                             </span>
                         </button>
 
@@ -25,14 +25,11 @@
             </div>
         </div>
 
-        <hr size="5" color="#455181">
+     
         <div class="row jsDivR p-4 ">
-            <div class=" col-md-12 col-sm-12 col-lg-2  user-profile">
-                <img class="col-md-2 user-profile-avatar" src="src\Vista\img\2.jpeg" />
-                <i>Sebastian</i>
-            </div>
+           
 
-            <div class="col-md-10 col-sm-12 col-lg-10  jsDiv">
+            <div class="col-md-12 col-sm-12 col-lg-12  jsDiv">
 
                 <table class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;" id="Tabla_De_Presupuestos">
                     <thead>
@@ -54,19 +51,21 @@
     </div>
 </div>
 
-<!--Formulario para ingresar nuevos presupuestos-->
+<!--Formulario en modal para ingresar  Presupuestos -->
+<div class="modal" id="AgregarPresupuesto">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-<div class="col-md-6 col-lg-4 col-sm-10 jsDiv form-emerge" id="ventana_del_formulario_Presupuestos" style="display: none; 
-  background-color: black;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  max-height: 40vh;">
-    <button class="cssbuttons-io-button" id="cerrar-ventana">
-        <i class="bi bi-x-lg"></i>
-    </button>
-    <h3 class="titulos">Agregar presupuesto</h3>
-    <form id="form_Agregar_Presupuesto">
+      <!-- Modal Header -->
+      <div class="modal-header">
+      <h3 class="titulos">Agregar presupuesto</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        
+      <form id="form_Agregar_Presupuesto">
         <div>
             <label for="txt_NombrePresupuesto" class="form-label">Descripcion del presupuesto</label>
            <input type="text" class="form-control" name="txt_NombrePresupuesto" id="txt_NombrePresupuesto" placeholder="nombre descriptivo " maxlength="50" required>
@@ -84,38 +83,11 @@
         <button class="btn" id="Btn_new_presupuesto">Agregar</button>
     </form>
 
-</div>
-<!--Formulario para Editar tipos de Presupuestos-->
+      </div>
 
-<div class="col-md-3 jsDiv form-emerge" id="ventana_del_formulario_TG_Edit" style="padding: 2vh; display: none;">
-    <button class="cssbuttons-io-button">
-        <i class="bi bi-x-lg"></i>
-    </button>
-    <h3 class="titulos">tipos de Presupuestos</h3>
-    <div class="row">
-        <div class="col-md-12 col-sm-10">
-            <form id="form_Editar_tipoDePresupuesto" class="needs-validation">
-                <div>
-                    <label for="" class="form-label">nombre</label>
-                    <input type="text" class="form-control" name="" id="txt_edit_NombreTipoPresupuesto" placeholder="nombre descriptivo " maxlength="50" required>
-
-
-                    <div class="valid-feedback">correcto</div>
-                    <div class="invalid-feedback">error rellena el campo</div>
-
-                </div>
-
-                <button class="btn" id="btn_Edit_tipo_Presupuesto_f" idTipoPresupuestof="">Editar <i class="bi bi-plus-circle"></i></button>
-
-                <button class="btn" id="btn_Cancelar_edit_tipo_Presupuesto">Cancelar <i class="bi bi-plus-circle"></i></button>
-
-            </form>
-
-        </div>
     </div>
-
+  </div>
 </div>
-
 
 
 <!-- The Modal para Editar presupuesto-->
@@ -133,21 +105,12 @@
                     <div id="contenedor">
                         <div id="elemento1" style="display: inline-block; width: 70%;">
                             <label for="" class="form-label">Descripcion de Presupuesto</label>
-                            <select class="form-select" name="" id="select_edit_tipoPresupuesto">
-                            </select>
+                            <input type="text" class="form-control" name="" id="txt_edit_Presupuesto" placeholder="nueva Descripcion " >
+
                         </div>
                         <div id="elemento2" style="display: inline-block; width: 17%; margin-left: 2 vh;">
-                            <button class="btn" id="btn_Edit_Presupuesto_f" idPresupuestoF="">Editar</button>
+                            <button class="btn" id="btn_Edit_Presupuesto_f" idpresupuestoF="">Editar</button>
                         </div>
-                    </div>
-
-
-
-                    <div>
-                        <label for="" class="form-label">
-                            suma de capitales
-                        </label>
-                        <input type="number" class="form-control" name="" id="txt_edit_Presupuesto" placeholder="$50.0000" disabled>
                     </div>
 
 
@@ -182,6 +145,7 @@
 </div>
 
 <!-- Button to Open the Modal -->
+<button class="btn" id="btnPresupuestos"  disabled style="display: none;">recarga</button>
 
 <!-- The Modal -->
 <div class="modal" id="ventana_del_formulario_Capital_Has_Presupuesto">

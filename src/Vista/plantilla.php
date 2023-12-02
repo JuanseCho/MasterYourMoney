@@ -83,8 +83,12 @@ function includeModule($ruta)
         include_once "src/Vista/modulos/$ruta.php";
     }elseif ($ruta == "perfilUsuario/perfil") {
         include_once "src/Vista/modulos/perfilUsuario/perfilUsuario.php";
+        include_once "src/Vista/modulos/perfilUsuario/cartasDeMenuUsuario.php";
+
     } elseif($ruta == "Capital" || $ruta == "Ahorro" || $ruta == "Gastos" || $ruta == "misPresupuestos" || $ruta == "misFormasDePago"){
         include_once "src/Vista/modulos/perfilUsuario/perfilUsuario.php";
+        include_once "src/Vista/modulos/perfilUsuario/cartasDeMenuUsuario.php";
+
         if ($ruta == "misPresupuestos") {
             include_once "src/Vista/modulos/perfilUsuario/Capital.php";
             //dar estilo hide al contenedor de  id capital

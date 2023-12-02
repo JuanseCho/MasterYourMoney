@@ -10,18 +10,17 @@
                         Formas de pago
                     </p>
                 </h2>
-                <button class="btn" id="btn-agregarFormaPago" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarFormaPago">
-                    Agregar Forma de pago
+                <button class="button1" id="btn-agregarFormaPago" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarFormaPago">
+                    <span>
+                        Agregar Forma de pago
+                    </span>
+
                 </button>
             </div>
         </div>
     </div>
     <hr size="5" color="#455181">
     <div class="row jsDivR p-4">
-        <div class=" col-md-12 col-sm-12 col-lg-2  user-profile">
-            <img class="col-md-2 user-profile-avatar" src="src\Vista\img\2.jpeg" />
-            <i>Sebastian</i>
-        </div>
 
         <div class="col-md-10 col-sm-12 col-lg-10 table-small jsDiv">
             <button id="editBtn" style="display: none;">Editar</button>

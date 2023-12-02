@@ -16,7 +16,7 @@
     width: 100%;
 }
 .contenedor-perfil {
-    max-width: 1024px;
+    
     margin-left: auto;
     margin-right: auto;
 }
@@ -191,7 +191,7 @@
         margin-right: auto;
         padding-top: 2.5rem;
         width: 70%;
-        background-color: #fff;
+        background-color: #aa7777;
         border-radius: 12px;
         box-shadow: 0 0 12px 2px rgba(0, 0, 0, .1);
     }
@@ -199,3 +199,115 @@
         display: inline-block;
     }
 }
+
+
+/* cartas  */
+.card-responsive{
+    margin-left: 2vw;
+    margin-right: 2vw;
+}
+
+@media (min-width: 992px) and (max-width: 1500px) {
+    .card-responsive {
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+}
+
+@media (min-width: 192px) and (max-width: 570px) {
+    .card-responsive {
+        margin-left: 20vw;
+       
+    }
+}
+.card {
+    background-color: #4cb0c600;
+    --primary-clr:rgb(230, 218, 218);
+    --play: hsl(195, 74%, 62%);
+    width: 270px;
+    height: 250px;
+    border-radius: 10px;
+    border: rgba(28, 32, 75, 0);
+  
+    
+   }
+   a {
+    text-decoration: none;
+   }
+   
+   .card {
+    font-family: "Arial";
+    color: #000000;
+    display: grid;
+    cursor: pointer;
+    grid-template-rows: 50px 1fr;
+    
+   }
+   
+   .card:hover .img-section {
+    transform: translateY(-1.2em);
+    
+   }
+   .card .img-section {
+    text-align: end;
+    
+   }
+   .card-desc {
+    border-radius: 10px;
+    padding: 15px;
+    position: relative;
+    top: -10px;
+    display: grid;
+    gap: 10px;
+    background: var(--primary-clr);
+    box-shadow: #222f42 0px 20px 20px -20px;
+   }
+   
+   .card-time {
+    font-size: 1.7em;
+    font-weight: 500;
+   }
+   
+   .img-section {
+    transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background: hsla(195, 74%, 62%, 0);
+    position: relative;
+    z-index: 1;
+   }
+   
+   .card-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+   }
+   
+   .card-title {
+    flex: 1;
+    font-size: 0.9em;
+    font-weight: 500;
+   }
+   
+   .card-menu {
+    display: flex;
+    gap: 4px;
+    margin-inline: auto;
+   }
+   
+   .card svg {
+    float: right;
+    max-width: 100%;
+    max-height: 100%;
+   }
+   
+
+   
+   .card .recent {
+    line-height: 0;
+    font-size: 0.8em;
+   }
+
+   .swal2-success-line-tip, .swal2-success-line-long {
+    font-size: 16px !important;
+  }

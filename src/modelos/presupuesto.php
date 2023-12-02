@@ -47,14 +47,14 @@ class presupuesto
     }
 
     // funcion para actualizar presupuesto
-    public static function actualizarPresupuesto($idPresupuesto, $limitePresupuesto, $DescripcionPresupuesto)
+    public static function actualizarPresupuesto($idPresupuesto, $DescripcionPresupuesto)
     {
         $mensaje = [];
         try {
-            $objRespuesta = conexion::conectar()->prepare("UPDATE presupuestos SET ValorAsignado = :limite, tipopresupuesto_idTipoPresupuesto = :DescripcionPresupuesto WHERE idpresupuesto = :id");
-            $objRespuesta->bindParam(":limite", $limitePresupuesto, PDO::PARAM_STR);
-            $objRespuesta->bindParam(":DescripcionPresupuesto", $DescripcionPresupuesto, PDO::PARAM_INT);
+            $objRespuesta = conexion::conectar()->prepare("UPDATE presupuestos SET descripcionPresupuesto = :DescripcionPresuuesto WHERE presupuestos.idPresupuesto =  :id");
             $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
+            $objRespuesta->bindParam(":DescripcionPresuuesto",$DescripcionPresupuesto, PDO::PARAM_STR);
+          
             if ($objRespuesta->execute()) {
                 $mensaje = array("codigo" => "200", "mensaje" => "Presupuesto actualizado correctamente");
             } else {

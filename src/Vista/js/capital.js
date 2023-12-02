@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    let objDataCapital = { "listarCapital": "ok" };
-    let objRespuesta = new CapitalUsuario(objDataCapital);
-    objRespuesta.listarCapital();
+    // let objDataCapital = { "listarCapital": "ok" };
+    // let objRespuesta = new CapitalUsuario(objDataCapital);
+    // objRespuesta.listarCapital();
 
     tablaCapital = null;
-
+    listarCapital();
     //funcion para agregar Capital
     const forms = document.querySelectorAll("#form_Agregar_Capital");
     Array.from(forms).forEach((form) => {
@@ -54,8 +54,8 @@ $(document).ready(function () {
                                     title: 'swal'
                                 }
                             });
-                            // cerrar modal 
-                            $("#btn_Cerrar_Modal_Capital").click();
+                            // cerrar modal de agregar Capital
+                            $("#modalFormulaioAgregarCapital").modal("hide");
 
                         } else {
                             Swal.fire({
@@ -79,7 +79,7 @@ $(document).ready(function () {
             }
         });
     });
-    /*
+    
         //funcion para listar Capital
         function listarCapital() {
             var objData = new FormData();
@@ -162,7 +162,7 @@ $(document).ready(function () {
     
     
         }
-    */
+    
 
     //funcion para eliminar Capital
 

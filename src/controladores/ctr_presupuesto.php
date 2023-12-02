@@ -29,7 +29,7 @@ class presupuestoControlador
 
     public function ctrEditarPresupuesto()
     {
-        $objRespuesta = presupuesto::actualizarPresupuesto($this->idPresupuesto, $this->limitePresupuesto, $this->DescripcionPresupuesto);
+        $objRespuesta = presupuesto::actualizarPresupuesto($this->idPresupuesto, $this->DescripcionPresupuesto);
         echo json_encode($objRespuesta);
     }
 
@@ -61,8 +61,7 @@ if (isset($_POST["listarPresupuestos"]) == "ok") {
 if (isset($_POST["editIdPresupuesto"])) {
     $objEditarPresupuesto = new presupuestoControlador();
     $objEditarPresupuesto->idPresupuesto = $_POST["editIdPresupuesto"];
-    $objEditarPresupuesto->limitePresupuesto = $_POST["editLimitePresupuesto"];
-    $objEditarPresupuesto->DescripcionPresupuesto = $_POST["editIdTipoPresupuesto"];
+    $objEditarPresupuesto->DescripcionPresupuesto = $_POST["editPresupuesto"];
     $objEditarPresupuesto->ctrEditarPresupuesto();
 }
 
