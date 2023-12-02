@@ -15,7 +15,7 @@ class Capital
      
         $mensaje = [];
         try {
-            $objRespuesta = conexion::conectar()->prepare("INSERT INTO Capital (Montoactual, descipcion, usuarios_idUsuario , formapago_idFormaPago,fecha) VALUES (:Montoactual, :descipcion, :idUsuario, :formapago_idFormaPago, :fecha)");
+            $objRespuesta = conexion::conectar()->prepare("INSERT INTO capital (Montoactual, descipcion, usuarios_idUsuario, formapago_idFormaPago, fecha) VALUES (:Montoactual, :descipcion, :idUsuario, :formapago_idFormaPago, :fecha)");
             $objRespuesta->bindParam(":Montoactual", $MontoActual, PDO::PARAM_STR);
             $objRespuesta->bindParam(":descipcion", $descipcion, PDO::PARAM_STR);
             $objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
@@ -41,7 +41,7 @@ class Capital
 
         $mensaje = [];
         try {
-            $objRespuesta = conexion::conectar()->prepare("SELECT C.idCapital, C.Montoactual, C.descipcion, C.usuarios_idUsuario, C.formapago_idFormaPago, F.nombreFormaPago , C.fecha FROM capital C INNER JOIN Formapago F ON C.formapago_idFormaPago = F.idFormaPago WHERE C.usuarios_idUsuario = :idUsuario");
+            $objRespuesta = conexion::conectar()->prepare("SELECT C.idCapital, C.Montoactual, C.descipcion, C.usuarios_idUsuario, C.formapago_idFormaPago, F.NombreFormaPago , C.fecha FROM capital C INNER JOIN formapago F ON C.formapago_idFormaPago = F.idFormaPago WHERE C.usuarios_idUsuario = :idUsuario");
             $objRespuesta->bindParam(":idUsuario", $idUsuario, PDO::PARAM_INT);
             $objRespuesta->execute();
             $mensaje = $objRespuesta->fetchAll();

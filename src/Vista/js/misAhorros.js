@@ -1,10 +1,26 @@
 $(function () {
 
-    var tabla = null;
-    var dataSet = null;
-    listarFormasPago();
+  let months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+  let dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+  let date = new Date();
+  let day = date.getDate();
+  let dayNumber = date.getDay();
+  let dayName = dayNames[dayNumber];
+  let monthName = months[date.getMonth()];
+  const mes = date.getMonth() + 1; // Sumamos 1 para obtener un valor de mes entre 1 y 12
+  let year = date.getFullYear();
+  // let horaActual = date.getHours();
+  // let minutosActuales = date.getMinutes();
+  // let segundosActuales = date.getSeconds();
 
-    const forms = document.querySelectorAll("#formAgregarFormaPago");
+  const fechaFormateada = `${year}-${mes.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+  // let horaFormateada = `${horaActual}:${minutosActuales.toString().padStart(2, '0')}:${segundosActuales.toString().padStart(2, '0')}`; 
+
+    var tabla = null;
+    // var dataSet = null;
+    listarAhorros();
+
+    const forms = document.querySelectorAll("#formAgregarAhorro");
     Array.from(forms).forEach((form) => {
         form.addEventListener("submit", (event) => {
             if (!form.checkValidity()) {
@@ -13,11 +29,19 @@ $(function () {
                 form.classList.add("was-validated");
             } else {
                 event.preventDefault();
-                let nombreFormaPago = $("#txt-nombreFormaPago").val();
-                let objData = new FormData();
-                objData.append("regNombreFormaPago", nombreFormaPago);
 
-                fetch("src/controladores/misFormasDePagoControl.php", {
+                let descripcionAhorro = $("#txt-descripcionAhorro").val();
+                let montoInicialAhorro = $("#txt-montoInicialAhorro").val();
+                let montoMetaAhorro = $("#txt-montoMetaAhorro").val();
+                alert(descripcionAhorro);
+
+                let objData = new FormData();
+                objData.append("regFechaAhorro", fechaFormateada);
+                objData.append("regDescripcionAhorro", descripcionAhorro);
+                objData.append("regMontoInicialAhorro", montoInicialAhorro);
+                objData.append("regMontoMetaAhorro", montoMetaAhorro);
+
+                fetch("src/controladores/misAhorrosControl.php", {
                     method: "POST",
                     body: objData,
                 })
@@ -40,7 +64,7 @@ $(function () {
                                 }
                             });
                             // cerrar modal
-                            $("#btn_Cerrar_Modal_Capital").click();
+                            // $("#btn_Cerrar_Modal_Capital").click();
 
                         } else {
                             Swal.fire({
@@ -51,9 +75,9 @@ $(function () {
                                 timer: 1000
                             });
                         }
+                        $("#ventanaAgregarAhorro").modal('toggle');
                         form.reset();
-                        $("#ventanaAgregarFormaPago").modal('toggle');
-                        listarFormasPago();
+                        listarAhorros();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -62,11 +86,11 @@ $(function () {
         });
     });
 
-    function listarFormasPago() {
+    function listarAhorros() {
       var objData = new FormData();
-      objData.append("listaFormasPago", "ok");
+      objData.append("listaAhorros", "ok");
 
-      fetch("src/controladores/misFormasDePagoControl.php", {
+      fetch("src/controladores/misAhorrosControl.php", {
         method: 'POST',
         body: objData
       }).then(response => response.json()).catch(error => {
@@ -78,57 +102,35 @@ $(function () {
 
     function cargarDatos(response) {
       var dataSet = [];
-      var formasPago ='';
-      formasPago += '<option selected disabled>Seleccione la forma de pago del Ingreso</option>';
+      var ahorros =[];
+      ahorros += '<option selected disabled>Seleccione la ahorro del Ingreso</option>';
 
       response.forEach(listarDatos);
 
       function listarDatos(item, index) {
+        var objBotones = '<div class="btn-group">';
+        objBotones += '<button id="btnEditar" type="button" class="btn btn-warning" idahorro="' + item.idAhorro + '" descripcionAhorro="' + item.descripcion_ahorro + '" montoInicialAhorro="' + item.montoInicial_ahorro + '" montoActualAhorro="' + item.montoActual_ahorro + '" montoMetaAhorro="' + item.montoMeta_ahorro + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarAhorro">Editar</button>';
+        objBotones += '<button id="btnEliminar" type="button" class="btn btn-danger" idahorro="' + item.idAhorro + '">Eliminar</button>';
+        objBotones += '</div>';
 
-        var objBotones = `
-        <div class="button-container">
-            <!-boton para editar-->
-            <button class="button" id="btnEditar" dformaPago="${item.idFormaPago }" nombreFormaPago="${item.NombreFormaPago}" data-bs-toggle="modal" data-bs-target="#ventanaEditarFormaPago">
-                <i class="bi bi-pencil-square"></i>
-            </button>
-
-            <!-boton para eliminar-->
-            
-            <button class="button "  id="btnEliminar" idformaPago="${item.idFormaPago}">
-                <i class="bi bi-trash"></i>
-            </button>
-
-        </div>`;
-
-        dataSet.push([item.NombreFormaPago,objBotones]);
-        formasPago += '<option value="'+item.idFormaPago+'">'+item.NombreFormaPago+'</option>';
+        dataSet.push([item.fecha_ahorro, item.descripcion_ahorro, item.montoInicial_ahorro, item.montoActual_ahorro, item.montoMeta_ahorro, objBotones]);
+        ahorros += '<option value="'+item.idAhorro+'">'+item.descripcion_ahorro+'</option>';
       }
 
       if (tabla != null) {
-      $("#tablaFormasPago").dataTable().fnDestroy();
+      $("#tablaAhorros").dataTable().fnDestroy();
       }
-      tabla = $("#tablaFormasPago").DataTable({
-        data: dataSet,
-        search: {
-            return: true
-        },
-        paging: false,
-        scrollY: 300,
-        responsive: true,
-        bDestroy: true
+      tabla = $("#tablaAhorros").DataTable({
+        data: dataSet
       });
 
-      $("#txt-formaPagoIngreso").html(formasPago);
-      $("#txt_formaPagoIngreso").html(formasPago);
-
-      $("#txt-editformaPagoIngreso").html(formasPago);
-      $("#txt_formaD_Pago").html(formasPago);
-      $("#slc-formaPago").html(formasPago);
-
-      $("#txt_formaD_PagoEditar").html(formasPago);
+      $("#txt-ahorroRegAhorro").html(ahorros);
+      // $("#txt-editahorroIngreso").html(ahorros);
     }
 
-    var formEdicion = document.querySelectorAll('#formEditarFormaPago');
+
+
+    var formEdicion = document.querySelectorAll('#formEditarAhorro');
 
     Array.prototype.slice.call(formEdicion)
       .forEach(function (form) {
@@ -140,12 +142,12 @@ $(function () {
           } else {
             event.preventDefault();
 
-            var idformaPago = $("#btnEditarFormaPago").attr("idformaPago");
-            var nombreFormaPago = $("#txt-editnombreFormaPago").val();
+            var idahorro = $("#btnEditarAhorro").attr("idahorro");
+            var descripcionAhorro = $("#txt-editdescripcionAhorro").val();
 
             var objData = new FormData();
-            objData.append("editIdFormaPago", idformaPago);
-            objData.append("regNombreFormaPago", nombreFormaPago);
+            objData.append("editIdAhorro", idahorro);
+            objData.append("regDescripcionAhorro", descripcionAhorro);
 
             fetch('src/controladores/misFormasDePagoControl.php', {
               method: 'POST',
@@ -175,8 +177,8 @@ $(function () {
                   });
             }
             form.reset();
-            $("#ventanaEditarFormaPago").modal('toggle');
-            listarFormasPago();
+            $("#ventanaEditarAhorro").modal('toggle');
+            listarAhorros();
             });
 
           }
@@ -184,20 +186,24 @@ $(function () {
       })
 
 
-    $("#tablaFormasPago").on("click", "#btnEditar", function () {
-      var idformaPago = $(this).attr('idformaPago');
-      var nombreFormaPago = $(this).attr('nombreFormaPago');
+    $("#tablaAhorros").on("click", "#btnEditar", function () {
+      var idahorro = $(this).attr('idahorro');
+      var descripcionAhorro = $(this).attr('descripcionAhorro');
+      var montoInicialAhorro = $(this).attr('montoInicialAhorro');
+      var montoMetaAhorro = $(this).attr('montoMetaAhorro');
 
-      $("#txt-editnombreFormaPago").val(nombreFormaPago);
-      $("#btnEditarFormaPago").attr("idformaPago",idformaPago);
+      $("#btnEditarAhorro").attr("idahorro",idahorro);
+      $("#txt-editdescripcionAhorro").val(descripcionAhorro);
+      $("#txt-editmontoInicialAhorro").val(montoInicialAhorro);
+      $("#txt-editmontoMetaAhorro").val(montoMetaAhorro);
     });
 
    
-    $("#tablaFormasPago").on("click", "#btnEliminar", function () {
-      var idformaPago = $(this).attr('idformaPago');
+    $("#tablaAhorros").on("click", "#btnEliminar", function () {
+      var idahorro = $(this).attr('idahorro');
   
       Swal.fire({
-          title: '¿Estás seguro de eliminar esta Forma de pago?',
+          title: '¿Estás seguro de eliminar esta Ahorro?',
           text: "Esta acción no se puede deshacer.",
           icon: 'warning',
           showCancelButton: true,
@@ -208,7 +214,7 @@ $(function () {
       }).then((result) => {
           if (result.isConfirmed) {
               var objData = new FormData();
-              objData.append("idformaPago", idformaPago);
+              objData.append("idahorro", idahorro);
   
               fetch('src/controladores/misFormasDePagoControl.php', {
                   method: 'POST',
@@ -216,7 +222,7 @@ $(function () {
               }).then(response => response.json()).catch(error => {
                   console.log('error: ', error);
               }).then(response => {
-                  listarFormasPago();
+                  listarAhorros();
   
                   if (response["codigo"] === "200") {
                       Swal.fire({
@@ -230,7 +236,7 @@ $(function () {
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
-                        title: 'Hubo un problema al eliminar la forma de pago',
+                        title: 'Hubo un problema al eliminar la ahorro',
                         showConfirmButton: false,
                         timer: 2500
                     });

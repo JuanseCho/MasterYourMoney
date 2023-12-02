@@ -24,7 +24,7 @@ function includeLoggedIn()
                 includeModule($ruta);
                 break;
             case "Capital":
-            case "Ahorro":
+            case "misAhorros":
             case "Gastos":
             case "misPresupuestos":
             case "misFormasDePago":
@@ -84,8 +84,7 @@ function includeModule($ruta)
     }elseif ($ruta == "perfilUsuario/perfil") {
         include_once "src/Vista/modulos/perfilUsuario/perfilUsuario.php";
         include_once "src/Vista/modulos/perfilUsuario/cartasDeMenuUsuario.php";
-
-    } elseif($ruta == "Capital" || $ruta == "Ahorro" || $ruta == "Gastos" || $ruta == "misPresupuestos" || $ruta == "misFormasDePago"){
+    } elseif($ruta == "Capital" || $ruta == "misAhorros" || $ruta == "Gastos" || $ruta == "misPresupuestos" || $ruta == "misFormasDePago"){
         include_once "src/Vista/modulos/perfilUsuario/perfilUsuario.php";
         include_once "src/Vista/modulos/perfilUsuario/cartasDeMenuUsuario.php";
 
