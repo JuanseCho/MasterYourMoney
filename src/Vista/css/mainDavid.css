@@ -14,7 +14,6 @@
     width: 50%;
     height: 100vh;
     /* background-color: #566E87; */
-    clip-path: polygon(0 0%, 100% 0, 100% 100%, 100% 100%);
 }
 .containerFecha {
     width: 80%;
@@ -44,15 +43,16 @@
     margin-top: 4%;
 }
 .containerCaja {
-    display: flex;
-    justify-content: flex;
-    width: 75%;
-    height: 25%;
-    background-color: #6F8572;
-    border-radius: 10px;
-    border: 1px solid #4E4E4E;
-    margin-left: 5%;
-    margin-top: -2%;
+        display: flex;
+        justify-content: flex;
+        width: 75%;
+        height: 25%;
+        background-color: #6F8572;
+        border-radius: 10px;
+        border: 1px solid #4E4E4E;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: -2%;
 }
 .containerCaja1 {
     display: flex;
@@ -65,12 +65,17 @@
     height: 50%;
     margin-top: 3%;
 }
+.btn-groupTransacciones {
+    margin-bottom: 1%;
+    margin-right: 5%;
+}
 .botonAhorro {
     border-radius: 10px;
     height: 50%;
     margin: 3%;
     background-color: #CCD1DF;
-    border: 1px solid #0F175C;    
+    border: 1px solid #0F175C;
+    box-shadow: inset;
 }
 .botonIngreso {
     border-radius: 10px;
@@ -95,15 +100,15 @@
 }
 .inicioCaja {
     font-family: monda;
-    font-size: 3.5ch;
+    font-size: 4ch;
     color: #EDEDED;
     margin-right: 5%;
 }
-.gastoCaja {
+.ingresoCaja {
     font-family: monda;
     font-size: 2.7ch;
     font-weight: 600;
-    color: #605050;
+    color: #a9d2b1;
     text-align: end;
     margin-left: 5%;
 }
@@ -135,15 +140,16 @@
     padding-inline: 6%;
 }
 .containerListadoTransacciones {
-    justify-content: flex;
+
     width: 73%;
     height: 35%;
-    background-color: #ABAAAA;
+    background-color: #a9a9a9;
     border-radius: 10px;
     border: 1px solid #464646;
     margin-left: 5%;
-    margin-top: 4%;
+    margin-top: 3%;
 }
+
 .tipoTransaccion{
     width: 17ch;
     justify-content: start;
@@ -163,5 +169,124 @@
     justify-content: end;
     border-left: 1px solid #8E8E8E;
     text-align: center;
+}
 
+.col-acciones {
+    /* Alinear texto en el centro */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* background-color: #484848; */
+    /*Cambiar el colo de texto*/
+    color: #e3e3e3;
+    width: 5%;
+}
+.col-descripcion {
+    /* Alinear texto en el centro */
+    justify-content: right;
+    align-items: center;
+    text-align: right;
+    /* background-color: #484848; */
+    /*Cambiar el colo de texto*/
+    color: #e3e3e3;
+}
+.col-monto {
+    /* Alinear texto en el centro */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* background-color: #484848; */
+    /*Cambiar el colo de texto*/
+    color: #e3e3e3;
+    width: 30%;
+}
+.col-tipo {
+    /* Alinear texto en el centro */
+    justify-content: right;
+    align-items: center;
+    text-align: right;
+    /* background-color: #484848; */
+    /*Cambiar el colo de texto*/
+    color: #e3e3e3;
+    width: 13%;
+}
+.col-hora {
+    /* Alinear texto en el centro */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /* background-color: #484848; */
+    /*Cambiar el colo de texto*/
+    color: #e3e3e3;
+    width: 16%;
+
+}
+.btn-transac {
+    /*Quitar el color de fondo*/
+    background-color: transparent;
+    /*Quitar el borde*/
+    border: none;
+}
+.tr-tablaTransaccionesHora {
+    /*Cambiar la fuente dek texto*/
+    font-family: 'Inconsolata', monospace;
+    font-weight: 900;
+    color: #3f3f3f;
+    /*Cambiar tamaño del text wrap*/
+    padding: 5%;
+    
+    /*Cambiar color del text wrap*/
+    background-color: #a4a4a4;
+    /*Cambiar tamaño del text wrap*/
+    font-size: 2.2ch;
+    border-bottom: 1px solid #8E8E8E;
+    border-right: 1px solid #8E8E8E;
+
+
+}
+.tr-tablaTransaccionesTipo {
+    text-align: center;
+    font-size: 2ch;
+    border-right: 1px solid #8E8E8E;
+    border-bottom: 1px solid #8E8E8E;
+    
+
+}
+.tr-tablaTransaccionesDescripcion {
+    text-align: right;
+    font-family: 'Alata', sans-serif;
+    color: #474747;
+    font-size: 2.1ch;
+    border-bottom: 1px solid #8E8E8E;
+
+}
+.tr-tablaTransaccionesMonto {
+    text-align: right;
+    padding-right: 5%;
+    font-family: 'Monda', sans-serif;
+    color: #474747;
+    font-size: 2.1ch;
+    border-bottom: 1px solid #8E8E8E;
+
+}
+.tr-tablaTransaccionesAcciones {
+    text-align: right;
+    color: #474747;
+    font-size: 2ch;
+    border-bottom: 1px solid #8E8E8E;
+    border-left: 1px solid #8E8E8E;
+    padding-block: 0.5ch;
+
+}
+.emptyTableHoy {
+    /*Cambiar la fuente dek texto*/
+    font-family: 'Inconsolata', monospace;
+    font-weight: 900;
+    color: #3f3f3f;
+    /*Cambiar tamaño del text wrap*/
+    padding: 5%;
+    /*Cambiar color del text wrap*/
+    /*Cambiar tamaño del text wrap*/
+    font-size: 2.3ch;
+    text-align: center;
 }

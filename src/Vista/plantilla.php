@@ -1,30 +1,116 @@
 <?php
 
 session_start();
+
 include_once("src/Vista/modulos/cabecera.php");
 
-include_once("src\Vista\modulos/navbar.php");
-include_once("src\Vista\modulos\interfazUsoDiario.php");
-// include_once("src\Vista\modulos\perfilUsuario\misFormasDePago.php");
-include_once("src\Vista\modulos\perfilUsuario\Capital.php");
+// Verificar si hay una sesión activa
+if (isset($_SESSION["ruta"])) {
+    includeLoggedIn();
+} else {
+     includeLoggedOut();
+}
 
+// Incluye los archivos necesarios para un usuario autenticado
+function includeLoggedIn()
+{
+    include_once "src/vista/modulos/navbar.php";
 
-if (isset($_SESSION["ruta"])) { 
-
-    if (
- 
-    $_GET["ruta"] == "inicioCliente" ||
-    $_GET["ruta"] == "interfazUsoDiario" ||
-    $_GET["ruta"] == "cerrarSesion") {
-        
-        include_once("src/Vista/modulos/".$_GET["ruta"].".php");
-
+    if (isset($_GET["ruta"])) {
+        $ruta = $_GET["ruta"];
+        switch ($ruta) {
+            case "perfil":   
+                $ruta = "perfilUsuario/$ruta";
+                includeModule($ruta);
+                break;
+            case "Capital":
+            case "misAhorros":
+            case "Gastos":
+            case "misPresupuestos":
+            case "misFormasDePago":
+                
+                includeModule($ruta);
+                break;
+            case "inicio":
+            case "logout":
+                includeModule($ruta);
+                break;
+            default:
+                includeDefault();
+        } 
+    } else {
+        includeDefault();
     }
-    
-
-}else {
     
 }
 
+// Incluye los archivos necesarios para un usuario no autenticado
+function includeLoggedOut()
+{
+    include_once "src/vista/modulos/navbarHomePage.php";
+    if (isset($_GET["ruta"])) {
+        $ruta = $_GET["ruta"];
+        switch ($ruta) {
+            case "login":
+            case "register":
+                case "homePage":
+                includeModule($ruta);
 
+                break;
+            default:
+            headerDefault();
+                includeDefault();
+        }
+    } else{
+        includeDefault();
+    }
+}
+
+// Incluye el módulo correspondiente según la ruta proporcionada
+function includeModule($ruta)
+{
+    if ($ruta == "inicio") {
+        include_once "src/Vista/modulos/perfilUsuario/Capital.php";
+        include_once "src/Vista/modulos/perfilUsuario/misPresupuestos.php";
+
+
+        echo "<script>document.querySelector('#capital').style.display = 'none';</script>";
+        echo "<script>document.querySelector('#presupuestos').style.display = 'none';</script>";
+
+        include_once "src/Vista/modulos/interfazUsoDiario.php";
+
+    } elseif ($ruta == "logout") {
+        include_once "src/Vista/modulos/$ruta.php";
+    }elseif ($ruta == "perfilUsuario/perfil") {
+        include_once "src/Vista/modulos/perfilUsuario/perfilUsuario.php";
+        include_once "src/Vista/modulos/perfilUsuario/cartasDeMenuUsuario.php";
+    } elseif($ruta == "Capital" || $ruta == "misAhorros" || $ruta == "Gastos" || $ruta == "misPresupuestos" || $ruta == "misFormasDePago"){
+        include_once "src/Vista/modulos/perfilUsuario/perfilUsuario.php";
+        include_once "src/Vista/modulos/perfilUsuario/cartasDeMenuUsuario.php";
+
+        if ($ruta == "misPresupuestos") {
+            include_once "src/Vista/modulos/perfilUsuario/Capital.php";
+            //dar estilo hide al contenedor de  id capital
+            //echo "<script>document.querySelector('#capital').style.display = 'none';</script>";
+
+        }
+        include_once "src/Vista/modulos/perfilUsuario/$ruta.php";
+    }
+    else {
+        include_once "src/Vista/modulos/$ruta.php";
+    }
+}
+function headerDefault()
+{
+    echo '<script>window.location.replace("homePage");</script>';
+
+}
+// Incluye la página de inicio por defecto si no hay ruta específica
+function includeDefault()
+{
+    
+    include_once "src/Vista/modulos/homePage.php";
+}
+
+include_once "src/Vista/modulos/footer.php";
 include_once("src/Vista/modulos/pie.php");

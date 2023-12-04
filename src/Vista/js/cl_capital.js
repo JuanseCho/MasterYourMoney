@@ -2,8 +2,10 @@ class CapitalUsuario{
 
     constructor(objData){
         this._objCapital = objData;
+        
     }
 
+   
 
     listarCapital(){
         var objData = new FormData();
@@ -41,7 +43,7 @@ class CapitalUsuario{
                                 </div>`;
     
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                dataSet.push([item.fecha, item.Montoactual, item.descipcion, item.nombreFormaPago, objBotones]);
+                dataSet.push([item.fecha, item.Montoactual, item.descipcion, item.NombreFormaPago, objBotones]);
                 selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
             }
             if (tablaCapital != null) {
@@ -68,15 +70,16 @@ class CapitalUsuario{
             $("#montoTotal").html(formattedTotal);
             $("#capitalActual").html(formattedTotal);
             $("#txt-capitalIngreso").html(selectedOptions);
-            $("#txt-capitalAhorro").html(selectedOptions);
+            $("#txt-editcapitalIngreso").html(selectedOptions);
+            $("#txt-capitalRegAhorro").html(selectedOptions);
             $("#txt-capitalGasto").html(selectedOptions);
+            $("#select_tipoCapital").html(selectedOptions);
+
 
         })
         .catch((error) => {
             console.log(error);
         });
     }
-
-
-
 }
+

@@ -10,18 +10,17 @@
                         Formas de pago
                     </p>
                 </h2>
-                <button class="btn" id="btn-agregarFormaPago" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarFormaPago">
-                    Agregar Forma de pago
+                <button class="button1" id="btn-agregarFormaPago" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarFormaPago">
+                    <span>
+                        Agregar Forma de pago
+                    </span>
+
                 </button>
             </div>
         </div>
     </div>
     <hr size="5" color="#455181">
     <div class="row jsDivR p-4">
-        <div class=" col-md-12 col-sm-12 col-lg-2  user-profile">
-            <img class="col-md-2 user-profile-avatar" src="src\Vista\img\2.jpeg" />
-            <i>Sebastian</i>
-        </div>
 
         <div class="col-md-10 col-sm-12 col-lg-10 table-small jsDiv">
             <button id="editBtn" style="display: none;">Editar</button>
@@ -119,13 +118,8 @@
         <i class="bi bi-x-lg"></i>
     </button>
     <h3 class="titulos">Editar Forma de pago</h3>
-<<<<<<< HEAD
-    <div class="row modal-dialog modal-content">
-        <div class="col-md-12 col-sm-10 modal-body">
-=======
     <div class="row">
         <div class="col-md-12 col-sm-10">
->>>>>>> a373d0f6b2d629c55619c55892e8348fee287a4c
             <form id="form_Editar_tipoDeGastos" class="needs-validation">
                 <div>
                     <label for="" class="form-label">Nombre</label>
@@ -145,8 +139,4 @@
         </div>
     </div>
 
-<<<<<<< HEAD
-</div> -->
-=======
 </div>
->>>>>>> a373d0f6b2d629c55619c55892e8348fee287a4c

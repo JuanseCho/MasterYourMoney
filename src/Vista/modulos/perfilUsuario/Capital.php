@@ -1,4 +1,4 @@
-<div class="container p-2 jsContainer">
+<div class="container p-2 jsContainer" id="capital">
     <div>
         <div class="row mt-4 mb-4 p-4">
             <div class="col-md-12">
@@ -6,7 +6,7 @@
                     <div class="col-lg-4">
                         <h2>
                             <p style="font-size: 3rem;">
-                                <span style="color: blue;">
+                                <span style="color: blue; font-size: 2rem;">
                                     Mi
                                 </span>
                                 Capital
@@ -15,7 +15,7 @@
                     </div>
                     <div style="display: flex; flex-wrap: wrap; justify-content: space-between;" class="col-lg-8">
                         <div id="montoTotal" style="flex-grow: 1;"></div>
-                        
+
                         <button style="flex-grow: 0;" class="button1" data-bs-toggle="modal" data-bs-target="#modalFormCapital">
                             <span>
                                 Agregar al capital
@@ -29,20 +29,16 @@
         </div>
         <hr size="5" color="#000000">
         <div class="row jsDivR p-4 ">
-            <div class=" col-md-12 col-lg-1 sm-12 user-profile">
-                <img class="col-md-2 user-profile-avatar" src="src\Vista\img\2.jpeg" />
-                <i>Sebastian</i>
-            </div>
-            <div class="col-md-12 col-lg-8 sm-12  jsDiv">
+    
+            <div class="col-md-12 col-lg-12 sm-12  jsDiv">
                 <h3 class="titulos">CAPITALES </h3>
-                <table id="tabla_Capital" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
+                <table id="tabla_Capital" class="table table-striped nowrap dataTables_scrollBody tabla_Capital" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>fecha</th>
                             <th>monto</th>
                             <th>Descripcion</th>
                             <th>forma de pago </th>
-
                             <th> acciones </th>
                         </tr>
                     </thead>
@@ -72,7 +68,7 @@
                 <form id="form_Agregar_Capital">
                     <div>
                         <label class="form-label">Monto</label>
-                        <input type="number" class="form-control" id="txt_monto" required>
+                        <input type="number" class="form-control" min="0" id="txt_monto" required>
 
                     </div>
                     <div>
@@ -84,15 +80,12 @@
                         <label class="form-label">Forma de pago</label>
                         <section>
                             <select class="form-select" id="txt_formaD_Pago" required>
-                                <option selected>seleccione el tipo de pago </option>
-                                <option value="1">efectivo</option>
-                                <option value="2">tarjeta</option>
-                                <option value="3">cheque</option>
+          
                             </select>
                         </section>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-primary" type="submit">Agregar</button>
+                        <button class="btn btn-primary" type="submit" data-bs-dismiss="modal">Agregar</button>
 
                     </div>
                 </form>
@@ -153,3 +146,4 @@
 
 
     </div>
+</div>

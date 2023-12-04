@@ -84,10 +84,21 @@ $(function () {
       response.forEach(listarDatos);
 
       function listarDatos(item, index) {
-        var objBotones = '<div class="btn-group">';
-        objBotones += '<button id="btnEditar" type="button" class="btn btn-warning" idformaPago="' + item.idFormaPago + '" nombreFormaPago="' + item.NombreFormaPago + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarFormaPago">Editar</button>';
-        objBotones += '<button id="btnEliminar" type="button" class="btn btn-danger" idformaPago="' + item.idFormaPago + '">Eliminar</button>';
-        objBotones += '</div>';
+
+        var objBotones = `
+        <div class="button-container">
+            <!-boton para editar-->
+            <button class="button" id="btnEditar" dformaPago="${item.idFormaPago }" nombreFormaPago="${item.NombreFormaPago}" data-bs-toggle="modal" data-bs-target="#ventanaEditarFormaPago">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+
+            <!-boton para eliminar-->
+            
+            <button class="button "  id="btnEliminar" idformaPago="${item.idFormaPago}">
+                <i class="bi bi-trash"></i>
+            </button>
+
+        </div>`;
 
         dataSet.push([item.NombreFormaPago,objBotones]);
         formasPago += '<option value="'+item.idFormaPago+'">'+item.NombreFormaPago+'</option>';
@@ -97,11 +108,24 @@ $(function () {
       $("#tablaFormasPago").dataTable().fnDestroy();
       }
       tabla = $("#tablaFormasPago").DataTable({
-        data: dataSet
+        data: dataSet,
+        search: {
+            return: true
+        },
+        paging: false,
+        scrollY: 300,
+        responsive: true,
+        bDestroy: true
       });
 
       $("#txt-formaPagoIngreso").html(formasPago);
+      $("#txt_formaPagoIngreso").html(formasPago);
+
       $("#txt-editformaPagoIngreso").html(formasPago);
+      $("#txt_formaD_Pago").html(formasPago);
+      $("#slc-formaPago").html(formasPago);
+
+      $("#txt_formaD_PagoEditar").html(formasPago);
     }
 
     var formEdicion = document.querySelectorAll('#formEditarFormaPago');
