@@ -16,7 +16,7 @@
                     <div class="containerCaja2 d-flex flex-row">
                         <div class="d-flex flex-row btn-groupTransacciones">
                             <button class="botonIngreso border" id="btn-agregarIngresoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarIngresoCapital"><img src="src/Vista/img/ingresoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
-                            <button class="botonGasto border" id="btn-agregarGastoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarGastoCapital"><img src="src/Vista/img/gastoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
+                            <button class="botonGasto border" id="btn-agregarGastoCapital" type="button" data-bs-toggle="modal" data-bs-target="#modalFormularioAgregarGasto"><img src="src/Vista/img/gastoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
                         </div>                        
                         <div id="capitalActual" class="actualCaja"></div>    
                     </div>
@@ -253,10 +253,10 @@
 
 
     <!-- Formulario modal agregar Gasto del Capital-->
-    <div class="modal" id="ventanaAgregarGastoCapital">
+    <div class="modal" id="modalFormularioAgregarGasto">
             <div class="modal-dialog">
                 <div class="modal-content rounded-5">
-                    <form id="formAgregarGastoCapital" action="" class="modal-body needs-validated shadow-lg rounded-5 text-center" novalidate>
+                    <form id="formAgregarGasto" action="" class="modal-body needs-validated shadow-lg rounded-5 text-center" novalidate>
                       <h5 class="pt-3"><dt>AGREGAR GASTO</dt></h5> 
                       <div class="d-flex flex-around cajaDisponibleForm">
                         <h5 class="pt-3"><dt>Disponible:</dt></h5>
@@ -276,12 +276,19 @@
                           <div class="invalid-feedback">Por favor llene este campo.</div>
                       </div>
                       <div class=" mx-3 mt-4">
-                          <label for="txt-capitalGasto" class="form-label">Capital:</label>
-                          <select type="text" class="form-select py-1 shadow-sm" id="txt-capitalGasto" placeholder="Seleccione el Capital origen del gasto" name="cat" required>
+                          <label for="slc-presupuesto" class="form-label">Presupuesto:</label>
+                          <select type="text" class="form-select py-1 shadow-sm" id="slc-presupuesto" placeholder="Seleccione el Capital origen del gasto" name="cat" required>
                           <option selected disabled>Seleccione el Capital origen del gasto</option>
-                            <!-- <option value="1">Salario</option>
-                            <option value="2">Cuenta bancaria</option>
-                            <option value="3">sueldo</option> -->
+
+                            </select>
+                          <div class="valid-feedback">Correcto.</div>
+                          <div class="invalid-feedback">Por favor llene este campo.</div>
+                      </div>
+                      <div class=" mx-3 mt-4">
+                          <label for="slc-formaPago" class="form-label">forma de pago:</label>
+                          <select type="text" class="form-select py-1 shadow-sm" id="slc-formaPago" placeholder="Seleccione el Capital origen del gasto" name="cat" required>
+                          <option selected disabled>Seleccione la forma de pago del gasto</option>
+
                             </select>
                           <div class="valid-feedback">Correcto.</div>
                           <div class="invalid-feedback">Por favor llene este campo.</div>

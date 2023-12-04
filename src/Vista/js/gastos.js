@@ -78,7 +78,8 @@ $(Document).ready(function () {
                         listarGastos();
                         // vaciar los campos
 
-
+                        // cerrar modal
+                        $("#modalFormularioAgregarGasto").modal("hide");
 
                     })
                     .catch((error) => {
@@ -101,7 +102,7 @@ $(Document).ready(function () {
         const dia = fecha.getDate();
         const fechaFormateada = `${año}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
 
-        
+
         var objData = new FormData();
         objData.append("listarGastos", "ok");
         objData.append("fechaActual", fechaFormateada);
@@ -186,36 +187,36 @@ $(Document).ready(function () {
                     method: "POST",
                     body: objData,
                 })
-                .then((response) => response.json())
-                .catch((error) => {
-                    console.log(error);
-                })
-                .then((response) => {
-                    listarGastos();
-                    if (response["codigo"] == "200") {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: response["mensaje"],
-                            showConfirmButton: false,
-                            timer: 1000,
-                            customClass: {
-                                title: 'swal'
-                            }
-                        });
+                    .then((response) => response.json())
+                    .catch((error) => {
+                        console.log(error);
+                    })
+                    .then((response) => {
+                        listarGastos();
+                        if (response["codigo"] == "200") {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: response["mensaje"],
+                                showConfirmButton: false,
+                                timer: 1000,
+                                customClass: {
+                                    title: 'swal'
+                                }
+                            });
 
-                    } else {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: response["mensaje"],
-                            showConfirmButton: false,
-                            timer: 1000
-                        });
-                    }
+                        } else {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: response["mensaje"],
+                                showConfirmButton: false,
+                                timer: 1000
+                            });
+                        }
 
 
-                })    
+                    })
             }
         })
     });
@@ -226,7 +227,7 @@ $(Document).ready(function () {
 class GastosUsuario {
     constructor(objData) {
         this._objCapital = objData;
-        
+
     }
 
     ListarGastosInterfaz() {
@@ -237,19 +238,19 @@ class GastosUsuario {
             method: "POST",
             body: objData,
         })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then((response) => {
-            cargarDatosGasto(response);
-            var dataSet = [];
-            response.forEach(listarDatosC);
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then((response) => {
+                cargarDatosGasto(response);
+                var dataSet = [];
+                response.forEach(listarDatosC);
 
-            function listarDatosC(item, index) {
-                var objBotones = `
+                function listarDatosC(item, index) {
+                    var objBotones = `
                     <div class="button-container">
                         <!-- Botón para editar -->
                         <button class="button" id="Btn_Gasto_Editar" idGasto="${item.idGasto}" monto="${item.monto}" descripcion="${item.descipcionGasto}" formaPago="${item.formapago_idFormaPago}" idPresupuesto="${item.idPresupuesto}" data-bs-toggle="modal" data-bs-target="#modalFormulaioEditarCapital">
@@ -262,27 +263,27 @@ class GastosUsuario {
                         </button>
                     </div>`;
 
-                dataSet.push([item.hora, item.NombreFormaPago, item.descripcionGasto, item.monto, objBotones]);
-            }
+                    dataSet.push([item.hora, item.NombreFormaPago, item.descripcionGasto, item.monto, objBotones]);
+                }
 
-            if (tablaTransaccionesCapital != null) {
-                $("#tablaTransaccionesCapital").DataTable().destroy();
-            }
+                if (tablaTransaccionesCapital != null) {
+                    $("#tablaTransaccionesCapital").DataTable().destroy();
+                }
 
-            tablaTransaccionesCapital = $("#tablaTransaccionesCapital").DataTable({
-                destroy: true,
-                data: dataSet,
-                search: {
-                    return: true
-                },
-                paging: false,
-                scrollY: 300,
-                responsive: true,
+                tablaTransaccionesCapital = $("#tablaTransaccionesCapital").DataTable({
+                    destroy: true,
+                    data: dataSet,
+                    search: {
+                        return: true
+                    },
+                    paging: false,
+                    scrollY: 300,
+                    responsive: true,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
             });
-        })
-        .catch((error) => {
-            console.log(error);
-        });
     }
 }
 

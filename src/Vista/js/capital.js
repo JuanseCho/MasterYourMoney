@@ -130,16 +130,17 @@ $(document).ready(function () {
                 selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
             }
             if (tablaCapital != null) {
-                $("#tabla_Capital").dataTable().fnDestroy();
+                $(".tabla_Capital").dataTable().fnDestroy();
             }
-            tablaCapital = $("#tabla_Capital").DataTable({
+            tablaCapital = $(".tabla_Capital").DataTable({
                 data: dataSet,
                 search: {
                     return: true
                 },
                 paging: false,
                 scrollY: 300,
-                responsive: true
+                responsive: true,
+                destroy: true
             });
     
             //sumar los datos de MontoActual
@@ -157,10 +158,7 @@ $(document).ready(function () {
             $("#txt-editcapitalIngreso").html(selectedOptions);
             $("#txt-capitalAhorro").html(selectedOptions);
             $("#txt-capitalGasto").html(selectedOptions);
-    
-    
-    
-    
+
         }
     
 

@@ -2,9 +2,10 @@ class CapitalUsuario{
 
     constructor(objData){
         this._objCapital = objData;
+        
     }
 
-    tablaCapital = null;
+   
 
     listarCapital(){
         var objData = new FormData();

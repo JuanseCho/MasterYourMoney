@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     let objDataCapital = { "listarCapital": "ok" };
     let objRespuesta = new CapitalUsuario(objDataCapital);
     objRespuesta.listarCapital();

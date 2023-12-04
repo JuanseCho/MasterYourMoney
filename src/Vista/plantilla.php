@@ -91,7 +91,7 @@ function includeModule($ruta)
         if ($ruta == "misPresupuestos") {
             include_once "src/Vista/modulos/perfilUsuario/Capital.php";
             //dar estilo hide al contenedor de  id capital
-            echo "<script>document.querySelector('#capital').style.display = 'none';</script>";
+            //echo "<script>document.querySelector('#capital').style.display = 'none';</script>";
 
         }
         include_once "src/Vista/modulos/perfilUsuario/$ruta.php";
