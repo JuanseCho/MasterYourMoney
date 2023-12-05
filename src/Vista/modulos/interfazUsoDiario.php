@@ -47,7 +47,7 @@
         <div class="container2Interfaz">
             <div class="col-lg-11 col-lg-8 sm-12 m-5 jsDiv">
                 <h3 class="titulos">CAPITALES </h3>
-                <table id="tabla_Capital" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
+                <table id="tabla_CapitalInterfaz" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
                     <thead class="thead-tablaTransacciones">
                         <tr>
                             <th>fecha</th>
@@ -283,8 +283,8 @@
                       </div>
                       <div class=" mx-3 mt-4">
                           <label for="slc-presupuesto" class="form-label">Presupuesto:</label>
-                          <select type="text" class="form-select py-1 shadow-sm" id="slc-presupuesto" placeholder="Seleccione el Capital origen del gasto" name="cat" required>
-                          <option selected disabled>Seleccione el Capital origen del gasto</option>
+                          <select type="text" class="form-select py-1 shadow-sm" id="slc-presupuesto" placeholder="Seleccione el presupuesto para el gasto" name="cat" required>
+                          <option selected disabled>Seleccione el presupuesto para el gasto</option>
 
                             </select>
                           <div class="valid-feedback">Correcto.</div>

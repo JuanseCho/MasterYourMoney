@@ -46,9 +46,9 @@ class CapitalUsuario{
                 selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
             }
             if (tablaCapital != null) {
-                $("#tabla_Capital").dataTable().fnDestroy();
+                $("#tabla_CapitalInterfaz").dataTable().fnDestroy();
             }
-            tablaCapital = $("#tabla_Capital").DataTable({
+            tablaCapital = $("#tabla_CapitalInterfaz").DataTable({
                 destroy:true,
                 data: dataSet,
                 search: {

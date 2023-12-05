@@ -277,3 +277,6 @@ $(document).ready(function () {
 
 
 
+var objData = {listarValoresAmenu: "ok"};
+var instance = new cartasMenuUsuario(objData);
+instance.listarValoresAmenu();

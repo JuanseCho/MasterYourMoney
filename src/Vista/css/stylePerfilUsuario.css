@@ -224,8 +224,8 @@
     background-color: #4cb0c600;
     --primary-clr:rgb(230, 218, 218);
     --play: hsl(195, 74%, 62%);
-    width: 270px;
-    height: 250px;
+    width: 250px;
+    height: 220px;
     border-radius: 10px;
     border: rgba(28, 32, 75, 0);
   

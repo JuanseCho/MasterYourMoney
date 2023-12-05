@@ -80,6 +80,7 @@ $(Document).ready(function () {
 
                         // cerrar modal
                         $("#modalFormularioAgregarGasto").modal("hide");
+                        instance.listarValoresAmenu();
 
                     })
                     .catch((error) => {
@@ -215,7 +216,7 @@ $(Document).ready(function () {
                             });
                         }
 
-
+                        instance.listarValoresAmenu();
                     })
             }
         })
@@ -287,3 +288,6 @@ class GastosUsuario {
     }
 }
 
+var objData = {listarValoresAmenu: "ok"};
+var instance = new cartasMenuUsuario(objData);
+instance.listarValoresAmenu();
