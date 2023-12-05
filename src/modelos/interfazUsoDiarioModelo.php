@@ -4,7 +4,7 @@ include_once "conexion.php";
 
     class ingresoCapitalModelo{
 
-        public static function mdlRegistrarIngresoCapital($fechaIngreso,$horaIngreso,$montoIngreso,$capitalIngreso,$formaPagoIngreso){
+        public static function mdlRegistrarIngresoCapital($fechaIngreso,$horaIngreso,$montoIngreso,$capitalIngreso,$formaPagoIngreso,$idUsuario){
 
             $mensaje = array();
             try {
@@ -25,12 +25,13 @@ include_once "conexion.php";
                 $actualizarMontoCapital->execute();
         
                 // Insertar el ingreso
-                $insertarIngreso = $db->prepare("INSERT INTO ingresos(fecha_ingreso, hora_ingreso, monto_ingreso, capital_idCapital, formapago_idFormaPago) VALUES(:fechaIngreso, :horaIngreso, :montoIngreso, :capitalIngreso, :formaPagoIngreso)");
+                $insertarIngreso = $db->prepare("INSERT INTO ingresos(fecha_ingreso, hora_ingreso, monto_ingreso, capital_idCapital, formapago_idFormaPago, usuario_ingreso) VALUES(:fechaIngreso, :horaIngreso, :montoIngreso, :capitalIngreso, :formaPagoIngreso, :usuario_ingreso)");
                 $insertarIngreso->bindParam(":fechaIngreso", $fechaIngreso);
                 $insertarIngreso->bindParam(":horaIngreso", $horaIngreso);
                 $insertarIngreso->bindParam(":montoIngreso", $montoIngreso);
                 $insertarIngreso->bindParam(":capitalIngreso", $capitalIngreso);
                 $insertarIngreso->bindParam(":formaPagoIngreso", $formaPagoIngreso);
+                $insertarIngreso->bindParam(":usuario_ingreso", $idUsuario);
         
                 if ($insertarIngreso->execute()) {
                     $mensaje = array("codigo" => "200", "respuesta" => "El ingreso al Capital fue registrado correctamente");
@@ -98,6 +99,30 @@ include_once "conexion.php";
                     $actualizarMontoCapital->bindParam(":capitalIngreso", $capitalIngreso);
                     $actualizarMontoCapital->execute();
                     }                     
+                } elseif ($ingresoInicial["capital_idCapital"] != $capitalIngreso) {
+                        // Obtener el monto del capital anterior y nuevo destino del ingreso
+                        $consultaMontoCapitalAnterior = $db->prepare("SELECT Montoactual FROM capital WHERE idCapital = :capitalAnterior");
+                        $consultaMontoCapitalAnterior->bindParam(":capitalAnterior", $ingresoInicial["capital_idCapital"]);
+                        $consultaMontoCapitalAnterior->execute();
+                        $montoCapitalAnterior = $consultaMontoCapitalAnterior->fetch();
+                        $montoCapitalAnteriorFinal = $montoCapitalAnterior["Montoactual"] - $ingresoInicial["monto_ingreso"];
+    
+                        $consultaMontoCapitalNuevo = $db->prepare("SELECT Montoactual FROM capital WHERE idCapital = :capitalNuevo");
+                        $consultaMontoCapitalNuevo->bindParam(":capitalNuevo", $capitalIngreso);
+                        $consultaMontoCapitalNuevo->execute();
+                        $montoCapitalNuevo = $consultaMontoCapitalNuevo->fetch();
+                        $montoCapitalNuevoFinal = $montoCapitalNuevo["Montoactual"] + $montoIngreso;
+    
+                        //Actualizar el capital anterior y nuevo destino del ingreso
+                        $actualizarMontoCapitalAnterior = $db->prepare("UPDATE capital SET Montoactual = :montoFinalCapitalAnterior WHERE idCapital = :capitalAnterior");
+                        $actualizarMontoCapitalAnterior->bindParam(":montoFinalCapitalAnterior", $montoCapitalAnteriorFinal);
+                        $actualizarMontoCapitalAnterior->bindParam(":capitalAnterior", $ingresoInicial["capital_idCapital"]);
+                        $actualizarMontoCapitalAnterior->execute();
+    
+                        $actualizarMontoCapitalNuevo = $db->prepare("UPDATE capital SET Montoactual = :montoCapitalNuevoFinal WHERE idCapital = :capitalNuevo");
+                        $actualizarMontoCapitalNuevo->bindParam(":montoCapitalNuevoFinal", $montoCapitalNuevoFinal);
+                        $actualizarMontoCapitalNuevo->bindParam(":capitalNuevo", $capitalIngreso);
+                        $actualizarMontoCapitalNuevo->execute();
                 }
                         
                 // Editar el ingreso
@@ -119,19 +144,20 @@ include_once "conexion.php";
         }
 
 
-        public static function mdlListarIngresosCapital($fechaTransacciones){
+        public static function mdlListarIngresosCapital($fechaTransacciones, $idUsuario){
 
             $listaIngresosCapital = null;
             try {
-                $objRespuesta = conexion::conectar()->prepare("SELECT 'Ingreso' AS tipoTransaccion, i.idingreso AS idTransaccion, i.capital_idCapital AS idCapital, i.formapago_idFormaPago AS idFormaPago, i.hora_ingreso AS horaTransaccion, c.descipcion AS descripcionTransaccion, i.monto_ingreso AS montoTransaccion 
+                $objRespuesta = conexion::conectar()->prepare("SELECT 'Ingreso' AS tipoTransaccion, i.idingreso AS idTransaccion, i.capital_idCapital AS idFuente, i.formapago_idFormaPago AS idFormaPago, i.hora_ingreso AS horaTransaccion, c.descipcion AS descripcionTransaccion, i.monto_ingreso AS montoTransaccion 
                                                                 FROM ingresos i INNER JOIN capital c ON i.capital_idCapital = c.idCapital
-                                                                WHERE i.fecha_ingreso = :fechaTransacciones
+                                                                WHERE i.fecha_ingreso = :fechaTransacciones AND i.usuario_ingreso = :idUsuario
                                                                 UNION
-                                                                SELECT 'Ahorro' AS tipoTransaccion, ra.idRegAhorro AS idTransaccion, capital_idCapital AS idCapital, 'Efectivo' AS idFormaPago, hora_ahorro AS horaTransaccion, descripcion_ahorro AS descripcionTransaccion, monto_ahorro AS montoTransaccion
-                                                                -- FROM ahorros
-                                                                -- WHERE fecha_ahorro = :fechaTransacciones
+                                                                SELECT 'Ahorro' AS tipoTransaccion, ra.idRegAhorro AS idTransaccion, ra.ahorro_idAhorro AS idFuente, ra.capital_idCapital AS idFormaPago, ra.hora_regAhorro AS horaTransaccion, a.descripcion_ahorro AS descripcionTransaccion, ra.monto_regAhorro AS montoTransaccion
+                                                                FROM capital_has_ahorro ra INNER JOIN ahorro a ON ra.ahorro_idAhorro = a.idAhorro
+                                                                WHERE ra.fecha_regAhorro = :fechaTransacciones AND ra.usuario_regAhorro = :idUsuario
                                                                 ORDER BY horaTransaccion");
                 $objRespuesta->bindParam(":fechaTransacciones", $fechaTransacciones);
+                $objRespuesta->bindParam(":idUsuario", $idUsuario);
                 $objRespuesta->execute();
                 $listaIngresosCapital = $objRespuesta->fetchAll();
                 $objRespuesta = null;
@@ -197,7 +223,7 @@ include_once "conexion.php";
 
     class ahorroCapitalModelo{
 
-        public static function mdlRegistrarAhorroCapital($fechaRegAhorro,$horaRegAhorro,$montoRegAhorro,$ahorroRegAhorro,$capitalRegAhorro){
+        public static function mdlRegistrarAhorroCapital($fechaRegAhorro,$horaRegAhorro,$montoRegAhorro,$ahorroRegAhorro,$capitalRegAhorro,$idUsuario){
 
             $mensaje = array();
             try {
@@ -217,14 +243,32 @@ include_once "conexion.php";
                 $actualizarMontoCapital->bindParam(":capitalRegAhorro", $capitalRegAhorro);
                 $actualizarMontoCapital->execute();
 
-                $objRespuesta = conexion::conectar()->prepare("INSERT INTO regahorros(fecha_regAhorro, hora_regAhorro, monto_regAhorro, ahorro_idAhorro) VALUES(:fechaRegAhorro,:horaRegAhorro,:montoRegAhorro,:ahorroRegAhorro)");
+                // Obtener el monto actual del ahorro destino del registro de ahorro.
+                $consultaAhorro = $db->prepare("SELECT montoActual_ahorro FROM ahorro WHERE idAhorro = :ahorroRegAhorro");
+                $consultaAhorro->bindParam(":ahorroRegAhorro", $ahorroRegAhorro);
+                $consultaAhorro->execute();
+                $ahorroInicial = $consultaAhorro->fetch();
+                $ahorroFinal = $ahorroInicial["montoActual_ahorro"] + $montoRegAhorro;
+
+                // Actualizar el ahorro.
+                $actualizarMontoAhorro = $db->prepare("UPDATE ahorro SET montoActual_ahorro = :ahorroFinal WHERE idAhorro = :ahorroRegAhorro");
+                $actualizarMontoAhorro->bindParam(":ahorroFinal", $ahorroFinal);
+                $actualizarMontoAhorro->bindParam(":ahorroRegAhorro", $ahorroRegAhorro);
+                $actualizarMontoAhorro->execute();
+
+
+                $objRespuesta = conexion::conectar()->prepare("INSERT INTO capital_has_ahorro(fecha_regAhorro, hora_regAhorro, monto_regAhorro, ahorro_idAhorro, capital_idCapital, usuario_regAhorro) VALUES(:fechaRegAhorro,:horaRegAhorro,:montoRegAhorro,:ahorroRegAhorro,:capital_idCapital, :usuario_regAhorro)");
                 $objRespuesta->bindParam(":fechaRegAhorro",$fechaRegAhorro);
                 $objRespuesta->bindParam(":horaRegAhorro",$horaRegAhorro);
                 $objRespuesta->bindParam(":montoRegAhorro",$montoRegAhorro);
                 $objRespuesta->bindParam(":ahorroRegAhorro",$ahorroRegAhorro);
+                $objRespuesta->bindParam(":capital_idCapital",$capitalRegAhorro);
+                $objRespuesta->bindParam(":usuario_regAhorro",$idUsuario);
+                
+
 
                 if ($objRespuesta->execute()) {
-                    $mensaje = array("codigo"=>"200", "respuesta"=>"El ahorro del Capital fue registrado correctamente");
+                    $mensaje = array("codigo"=>"200", "respuesta"=>"El ahorro   del Capital fue registrado correctamente");
                 }else {
                     $mensaje = array("codigo"=>"425", "respuesta"=>"No fue posible procesar su solicitud");
                 }
@@ -234,38 +278,61 @@ include_once "conexion.php";
             return $mensaje;
         }
 
-        public static function mdlListarAhorrosCapital(){
 
-            $listaAhorrosCapital = null;
-            try {
-                $objRespuesta = conexion::conectar()->prepare("SELECT hora_ahorro, descripcion_ahorro, monto_ahorro FROM ahorros");
-                $objRespuesta->execute();
-                $listaAhorrosCapital = $objRespuesta->fetchAll();
-                $objRespuesta = null;
-            } catch (exception $e) {
-                $listaAhorrosCapital = $e->getMessage();
-            }
-            return $listaAhorrosCapital;
-        }
 
-        public static function mdlEliminarAhorroCapital($idahorro){
+
+
+        public static function mdlEliminarAhorroCapital($idregahorro){
 
             $mensaje = array();
             try {
                 //Conectar a la base de datos
                 $db = conexion::conectar();
 
-                // Obtener el monto del ahorro que se va a eliminar
-                $consultaMontoAhorro = $db->prepare("SELECT monto_ahorro, capital_idCapital FROM ahorros WHERE idAhorro = :idahorro");
+                // Obtener el monto del registro de ahorro que se va a eliminar
+                $consultaMontoRegAhorro = $db->prepare("SELECT monto_regAhorro, ahorro_idAhorro, capital_idCapital FROM regahorros WHERE idRegAhorro = :idregahorro");
+                $consultaMontoRegAhorro->bindParam(":idregahorro", $idregahorro);
+                $consultaMontoRegAhorro->execute();
+                $montoRegAhorro = $consultaMontoRegAhorro->fetch();
 
-                $objRespuesta = conexion::conectar()->prepare("DELETE FROM ahorros WHERE idAhorro = :idahorro");
-                $objRespuesta->bindParam(":idahorro", $idahorro);
+                // Obtener el monto actual del ahorro donde se realizó el ahorro
+                $consultaMontoAhorro = $db->prepare("SELECT montoActual_ahorro FROM ahorro WHERE idAhorro = :ahorroRegAhorro");
+                $consultaMontoAhorro->bindParam(":ahorroRegAhorro", $montoRegAhorro["ahorro_idAhorro"]);
+                $consultaMontoAhorro->execute();
+                $montoAhorro = $consultaMontoAhorro->fetch();
+                $montoAhorroFinal = $montoAhorro["montoActual_ahorro"] - $montoRegAhorro["monto_regAhorro"];
+
+                // Actualizar el monto actual del ahorro donde se realizó el registro de ahorro
+                $actualizarMontoAhorro = $db->prepare("UPDATE ahorro SET montoActual_ahorro = :montoAhorroFinal WHERE idAhorro = :ahorroRegAhorro");
+                $actualizarMontoAhorro->bindParam(":montoAhorroFinal", $montoAhorroFinal);
+                $actualizarMontoAhorro->bindParam(":ahorroRegAhorro", $montoRegAhorro["ahorro_idAhorro"]);
+                $actualizarMontoAhorro->execute();  
+
+                // Obtener el monto actual del capital donde se realizó el ahorro
+                $consultaMontoCapital = $db->prepare("SELECT Montoactual FROM capital WHERE idCapital = :capitalAhorro");
+                $consultaMontoCapital->bindParam(":capitalAhorro", $montoRegAhorro["capital_idCapital"]);
+                $consultaMontoCapital->execute();
+                $montoCapital = $consultaMontoCapital->fetch();
+                $montoCapitalFinal = $montoCapital["Montoactual"] + $montoRegAhorro["monto_regAhorro"];
+                
+                // Actualizar el monto actual del capital donde se realizó el ahorro
+                $actualizarMontoCapital = $db->prepare("UPDATE capital SET Montoactual = :montoCapitalFinal WHERE idCapital = :capitalAhorro");
+                $actualizarMontoCapital->bindParam(":montoCapitalFinal", $montoCapitalFinal);
+                $actualizarMontoCapital->bindParam(":capitalAhorro", $montoRegAhorro["capital_idCapital"]);
+                $actualizarMontoCapital->execute();
+
+                // Eliminar el ahorro
+                $objRespuesta = $db->prepare("DELETE FROM regahorros WHERE idRegAhorro = :idregahorro");
+                $objRespuesta->bindParam(":idregahorro", $idregahorro);
+                $objRespuesta->execute();
+
 
                 if ($objRespuesta->execute()) {
                     $mensaje = array("codigo" => "200", "respuesta" => "Ahorro de capital eliminado correctamente");
                 } else {
                     $mensaje = array("codigo" => "425", "respuesta" => "No fue posible procesar la solicitud de eliminación");
                 }
+                
             } catch (Exception $e) {
                 $mensaje = array("codigo" => "425", "mensaje" => $e->getMessage());
             }

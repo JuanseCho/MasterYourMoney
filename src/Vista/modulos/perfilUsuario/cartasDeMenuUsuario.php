@@ -18,7 +18,7 @@
                 </div>
             </div>
         </a>
-        <a href="Ahorro" class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-3 card-responsive">
+        <a href="misAhorros" class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-3 card-responsive">
             <div class="card ">
                 <div class="img-section">
 

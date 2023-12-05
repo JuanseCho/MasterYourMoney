@@ -259,6 +259,7 @@
         var dataSetTransaccionesCapital = [];  
         var inicioCaja = 0;
         var totalIngreso = 0;  
+        var totalAhorro = 0;  
         response.forEach(listarDatos);
 
         function listarDatos(item, index) {
@@ -266,12 +267,13 @@
 
           if (item.tipoTransaccion === "Ingreso") {
             totalIngreso += parseFloat(item.montoTransaccion);
-            objBotones += '<button id="btnEditar" type="button" class="btn-transac" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" idFormaPago="' + item.idFormaPago + '" tipoTransaccion="' + item.tipoTransaccion + '" horaTransaccion="' + item.horaTransaccion + '" descripcionTransaccion="' + item.descripcionTransaccion + '" montoTransaccion="' + item.montoTransaccion + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarIngresoCapital"><img src="src/Vista/img/editarTransaccion2.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
+            // objBotones += '<button id="btnEditar" type="button" class="btn-transac" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" idFormaPago="' + item.idFormaPago + '" tipoTransaccion="' + item.tipoTransaccion + '" horaTransaccion="' + item.horaTransaccion + '" descripcionTransaccion="' + item.descripcionTransaccion + '" montoTransaccion="' + item.montoTransaccion + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarIngresoCapital"><img src="src/Vista/img/editarTransaccion2.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
             objBotones += '<button id="btnEliminar" tipoTransaccion="' + item.tipoTransaccion + '" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" type="button" class="btn-transac"><img src="src/Vista/img/eliminarTransaccion2.png" alt="" style="width:30px;" class="p-2"></button>';
             item.tipoTransaccion = '<img src="src/Vista/img/ingresoBoton.png" alt="Ingreso" style="width:15px;">';
             
           } else if (item.tipoTransaccion === "Ahorro") {
-            objBotones += '<button id="btnEditar" type="button" class="btn-transac" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" idFormaPago="' + item.idFormaPago + '" tipoTransaccion="' + item.tipoTransaccion + '" horaTransaccion="' + item.horaTransaccion + '" descripcionTransaccion="' + item.descripcionTransaccion + '" montoTransaccion="' + item.montoTransaccion + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarAhorroCapital"><img src="src/Vista/img/editarTransaccion2.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
+            totalAhorro += parseFloat(item.montoTransaccion);
+           // objBotones += '<button id="btnEditar" type="button" class="btn-transac" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" idFormaPago="' + item.idFormaPago + '" tipoTransaccion="' + item.tipoTransaccion + '" horaTransaccion="' + item.horaTransaccion + '" descripcionTransaccion="' + item.descripcionTransaccion + '" montoTransaccion="' + item.montoTransaccion + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarAhorroCapital"><img src="src/Vista/img/editarTransaccion2.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
             objBotones += '<button id="btnEliminar" tipoTransaccion="' + item.tipoTransaccion + '" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" type="button" class="btn-transac"><img src="src/Vista/img/eliminarTransaccion2.png" alt="" style="width:30px;" class="p-2"></button>';
             item.tipoTransaccion = '<img src="src/Vista/img/ahorroBoton.png" alt="Ingreso" style="width:19px;">';
           }
@@ -306,9 +308,13 @@
         });
 
         var formattedTotalIngreso = totalIngreso.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+        var formattedTotalAhorro = totalAhorro.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
         $("#ingresoCaja").html('+'+formattedTotalIngreso);
+        $("#ahorroCaja").html('-'+formattedTotalAhorro);
 
-        inicioCaja = parseFloat($("#capitalActual").html().replace(/[^\d-]/g, '')) - totalIngreso;
+        var transaccionesCapital = totalIngreso - totalAhorro;
+        
+        inicioCaja = parseFloat($("#capitalActual").html().replace(/[^\d-]/g, '')) - transaccionesCapital;
         var formattedInicioCaja = inicioCaja.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
         $("#inicioCaja").html(formattedInicioCaja);
       

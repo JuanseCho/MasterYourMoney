@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    // let objDataCapital = { "listarCapital": "ok" };
-    // let objRespuesta = new CapitalUsuario(objDataCapital);
-    // objRespuesta.listarCapital();
+    let objDataCapital = { "listarCapital": "ok" };
+    let objRespuesta = new CapitalUsuario(objDataCapital);
+    objRespuesta.listarCapital();
 
     tablaCapital = null;
-    listarCapital();
+
     //funcion para agregar Capital
     const forms = document.querySelectorAll("#form_Agregar_Capital");
     Array.from(forms).forEach((form) => {
@@ -54,8 +54,8 @@ $(document).ready(function () {
                                     title: 'swal'
                                 }
                             });
-                            // cerrar modal de agregar Capital
-                            $("#modalFormulaioAgregarCapital").modal("hide");
+                            // cerrar modal 
+                            $("#btn_Cerrar_Modal_Capital").click();
 
                         } else {
                             Swal.fire({
@@ -79,7 +79,7 @@ $(document).ready(function () {
             }
         });
     });
-    
+    /*
         //funcion para listar Capital
         function listarCapital() {
             var objData = new FormData();
@@ -130,17 +130,16 @@ $(document).ready(function () {
                 selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
             }
             if (tablaCapital != null) {
-                $(".tabla_Capital").dataTable().fnDestroy();
+                $("#tabla_Capital").dataTable().fnDestroy();
             }
-            tablaCapital = $(".tabla_Capital").DataTable({
+            tablaCapital = $("#tabla_Capital").DataTable({
                 data: dataSet,
                 search: {
                     return: true
                 },
                 paging: false,
                 scrollY: 300,
-                responsive: true,
-                destroy: true
+                responsive: true
             });
     
             //sumar los datos de MontoActual
@@ -158,9 +157,12 @@ $(document).ready(function () {
             $("#txt-editcapitalIngreso").html(selectedOptions);
             $("#txt-capitalAhorro").html(selectedOptions);
             $("#txt-capitalGasto").html(selectedOptions);
-
-        }
     
+    
+    
+    
+        }
+    */
 
     //funcion para eliminar Capital
 
