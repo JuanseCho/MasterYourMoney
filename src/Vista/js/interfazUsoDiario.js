@@ -317,6 +317,22 @@
         inicioCaja = parseFloat($("#capitalActual").html().replace(/[^\d-]/g, '')) - transaccionesCapital;
         var formattedInicioCaja = inicioCaja.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
         $("#inicioCaja").html(formattedInicioCaja);
+
+        if (totalIngreso == 0 && totalAhorro == 0) {
+          $("#inicioCaja").hide();
+        } else {
+          $("#inicioCaja").show();
+        }
+        if (totalIngreso == 0) {
+          $("#ingresoCaja").hide();
+        } else {
+          $("#ingresoCaja").show();
+        }
+        if (totalAhorro == 0) {
+          $("#ahorroCaja").hide();
+        } else {
+          $("#ahorroCaja").show();
+        }
       
       };
       
