@@ -3,7 +3,9 @@ $(document).ready(function () {
 
     "use strict";
 
-
+    instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
+    var instance = new cartasMenuUsuario(objData);
+    instance.listarValoresAmenu();
     var tablaPresupuesto = null;
     listarPresupuestos();
     // function para agregar presupuesto
@@ -77,7 +79,7 @@ $(document).ready(function () {
                         $("#txt_Presupuesto").val("");
                         $("#ventana_del_formulario_Presupuestos").hide();
                         listarPresupuestos();
-
+                        instance.listarValoresAmenu();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -233,6 +235,9 @@ $(document).ready(function () {
                         $("#txt_edit_Presupuesto").val("");
 
                         listarPresupuestos();
+
+
+                        instance.listarValoresAmenu();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -303,6 +308,8 @@ $(document).ready(function () {
                                     });
                                 }
                                 listarPresupuestos();
+
+                                instance.listarValoresAmenu();
                             });
                     }
                 });
@@ -381,7 +388,6 @@ class presupuestos {
                 return response.json();
             })
             .then((response) => {
-                console.log(response);
                 var dataSetP = [];
                 var selectedOptions = [];
 
@@ -432,4 +438,6 @@ class presupuestos {
             });
     }
 }
+
+
 
