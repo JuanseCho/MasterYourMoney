@@ -116,10 +116,12 @@ class presupuesto
             $descripcionPresupuesto = $descripcionPresupuesto['descripcionPresupuesto'];
 
             // actualizar el campo de presupuesto de la tabla gastos
+
             $objRespuesta = conexion::conectar()->prepare("UPDATE gastos SET presupuesto = :descripcionPresupuesto, idPresupuesto = NULL  WHERE idPresupuesto = :id");
             $objRespuesta->bindParam(":id", $idPresupuesto, PDO::PARAM_INT);
             $objRespuesta->bindParam(":descripcionPresupuesto", $descripcionPresupuesto, PDO::PARAM_STR);
             $objRespuesta->execute();
+      
 
             try {
                 $objRespuesta = conexion::conectar()->prepare("DELETE FROM presupuestos WHERE idpresupuesto = :id");

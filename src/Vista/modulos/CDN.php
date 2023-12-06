@@ -65,7 +65,7 @@
 
 <script src='src/Vista/js/gastos.js'></script>
 <script src='src/Vista/js/misAhorros.js'></script>
-<script src='src/Vista/js/interfazUsoDiario.js'></script>
+<script src='src/Vista/js/interfazUsoDiario.js'></script> 
 
  <script src='src/Vista/js/login.js'></script>  
 

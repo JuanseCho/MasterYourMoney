@@ -11,6 +11,7 @@ class registroControl {
     public $passsword;
     public $telefono;
     public $idusuario;
+    
 
     public function ctrIniciarSesion(){
         $ObjRespuesta = registroModelo::mdlRegistro($this->nombres, $this->apellidos,$this->email,$this->passsword,$this->telefono);
@@ -31,6 +32,26 @@ class ctrRestablecerPassword {
 
 }
 
+class recuperarContraseñaControl {
+
+    public $email;
+    public $codigoU;
+
+    public function ctrEnviarEmail(){
+        $ObjRespuesta = mdlRecuperarPassword::enviarEmail($this->email);
+        echo json_encode($ObjRespuesta);
+    
+    }
+
+    public function ctrValidarCodigo(){
+        $ObjRespuesta = mdlRecuperarPassword::validarCodigo($this->codigoU);
+        echo json_encode($ObjRespuesta);
+    
+    }
+
+
+}
+
 
 if (isset($_POST["registro_Nombres"],$_POST["registro_Apellidos"],$_POST["registro_Email"],$_POST["registro_Password"],$_POST["registro_Telefono"])) {
     $objLogin = new registroControl();
@@ -47,4 +68,16 @@ if (isset($_POST["restablecer_Password"],$_POST["restablecer_Email"])) {
     $objLogin-> passsword = $_POST["restablecer_Password"];
     $objLogin-> email = $_POST["restablecer_Email"];
     $objLogin->ctrRestablecerPassword();
+}
+
+if (isset($_POST["recuperar_Email"])) {
+    $objRecuperarContraseña = new recuperarContraseñaControl();
+    $objRecuperarContraseña-> email = $_POST["recuperar_Email"];
+    $objRecuperarContraseña->ctrEnviarEmail();
+}
+
+if (isset($_POST["validar_Codigo"])) {
+    $objRecuperarContraseña = new recuperarContraseñaControl();
+    $objRecuperarContraseña->codigoU = $_POST["validar_Codigo"];
+    $objRecuperarContraseña->ctrValidarCodigo();
 }

@@ -3,9 +3,9 @@ $(document).ready(function () {
 
     "use strict";
 
-    instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
-    var instance = new cartasMenuUsuario(objData);
-    instance.listarValoresAmenu();
+    // instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
+    // var instance = new cartasMenuUsuario(objData);
+    // instance.listarValoresAmenu();
     var tablaPresupuesto = null;
     listarPresupuestos();
     // function para agregar presupuesto
@@ -79,7 +79,7 @@ $(document).ready(function () {
                         $("#txt_Presupuesto").val("");
                         $("#ventana_del_formulario_Presupuestos").hide();
                         listarPresupuestos();
-                        instance.listarValoresAmenu();
+                        // instance.listarValoresAmenu();
                     })
                     .catch((error) => {
                         console.log(error);

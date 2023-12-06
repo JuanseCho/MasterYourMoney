@@ -1,4 +1,4 @@
-<div class="container containerLogin">
+<div class="container containerLogin pt-5" style="margin-top: 8vh;">
 
     <form id="registroUsuarios" class="form">
         <div class="flex-column">

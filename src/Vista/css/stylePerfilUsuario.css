@@ -314,4 +314,31 @@
   .swal2-x-mark-line-right, .swal2-x-mark-line-left {
     font-size: 16px !important;
   }
+  .my-popup-class {
+    font-size: 16px;
+    width: 500px;
+    height: 200px;
+  }
   
+
+  /* Scroll bar */
+
+/* Estilos personalizados para la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 10px;
+    /* Ancho de la barra de desplazamiento */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #3498db;
+    /* Color del "pulgarcito" (la parte desplazable) */
+    border-radius: 10px;
+    /* Bordes redondeados */
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    /* Color del fondo de la barra de desplazamiento */
+    border-radius: 10px;
+    /* Bordes redondeados */
+}

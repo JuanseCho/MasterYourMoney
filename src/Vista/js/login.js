@@ -38,7 +38,11 @@ $(function () {
                         });
 
                     } else {
-                        alert(response["mensaje"]);
+                        Swal.fire({
+                            icon: 'info',
+                            title: 'Oops...',
+                            text: 'Usuario o contraseña incorrectos por favor verifique! los datos ingresados',
+                        });
                     }
                 });
 

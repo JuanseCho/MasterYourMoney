@@ -108,10 +108,21 @@ $(function () {
       response.forEach(listarDatos);
 
       function listarDatos(item, index) {
-        var objBotones = '<div class="btn-group">';
-        objBotones += '<button id="btnEditar" type="button" class="btn btn-warning" idahorro="' + item.idAhorro + '" descripcionAhorro="' + item.descripcion_ahorro + '" montoInicialAhorro="' + item.montoInicial_ahorro + '" montoActualAhorro="' + item.montoActual_ahorro + '" montoMetaAhorro="' + item.montoMeta_ahorro + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarAhorro">Editar</button>';
-        objBotones += '<button id="btnEliminar" type="button" class="btn btn-danger" idahorro="' + item.idAhorro + '">Eliminar</button>';
-        objBotones += '</div>';
+
+        var objBotones = `
+        <div class="button-container">
+            <!-boton para editar-->
+            <button class="button" id="btnEditar" type="button" class="btn btn-warning" idahorro=" ${item.idAhorro}  " descripcionAhorro="${item.descripcion_ahorro}" montoInicialAhorro=" ${item.montoInicial_ahorro}" montoActualAhorro=" ${item.montoActual_ahorro}" montoMetaAhorro="${item.montoMeta_ahorro}" data-bs-toggle="modal" data-bs-target="#ventanaEditarAhorro">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+
+            <!-boton para eliminar-->
+            
+            <button class="button" id="btnEliminar" type="button" class="btn btn-danger" idahorro=" ${item.idAhorro}">
+                <i class="bi bi-trash"></i>
+            </button>
+
+        </div>`;
 
         dataSet.push([item.fecha_ahorro, item.descripcion_ahorro, item.montoInicial_ahorro, item.montoActual_ahorro, item.montoMeta_ahorro, objBotones]);
         ahorros += '<option value="'+item.idAhorro+'">'+item.descripcion_ahorro+'</option>';

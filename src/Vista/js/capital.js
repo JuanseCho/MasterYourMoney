@@ -6,6 +6,7 @@ $(document).ready(function () {
     var objData = {listarValoresAmenu: "ok"};
     var instance = new cartasMenuUsuario(objData);
     instance.listarValoresAmenu();
+      
 
     //funcion para agregar Capital
     const forms = document.querySelectorAll("#form_Agregar_Capital");

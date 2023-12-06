@@ -23,7 +23,7 @@ class cartasMenuUsuario {
             var capital = response.data.capital.MontoTotal;
             var gasto = response.data.gastos.MontoGasto;
             var presupuesto = response.data.presupuesto.MontoPresupuesto;
-            var ahorro = response.data.ahorros.montoAhorro;
+            var ahorro = response.data.ahorro.montoAhorro;
             // remplazar los valores de las cartas
             document.getElementById("cartCapital").innerHTML = capital;
             document.getElementById("cartGasto").innerHTML = gasto;

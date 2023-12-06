@@ -32,13 +32,21 @@ class gastosModelo
                 $actualizarMontoActual->bindParam(":IdPresupuesto", $IdPresupuesto);
                 $actualizarMontoActual->execute();
 
+                // traer la descripcion del presupuesto
+                $consultaDescripcionPresupuesto = conexion::conectar()->prepare("SELECT descripcionPresupuesto FROM presupuestos WHERE idPresupuesto = :IdPresupuesto");
+                $consultaDescripcionPresupuesto->bindParam(":IdPresupuesto", $IdPresupuesto);
+                $consultaDescripcionPresupuesto->execute();
+                $descripcionPresupuesto = $consultaDescripcionPresupuesto->fetch();
+
+
                 // Insertar el gasto
-                $insertarGasto = conexion::conectar()->prepare("INSERT INTO gastos (hora, fecha, descripcionGasto, monto,usuario,idPresupuesto, formapago_idFormaPago) VALUES (:hora, :fechaGasto, :descripcionGasto, :montoGasto, :usuario,:IdPresupuesto, :formaPagoGasto)");
+                $insertarGasto = conexion::conectar()->prepare("INSERT INTO gastos (hora, fecha, descripcionGasto, monto,usuario_gasto,presupuesto,idPresupuesto, formapago_idFormaPago) VALUES (:hora, :fechaGasto, :descripcionGasto, :montoGasto, :usuario,:presupuesto,:IdPresupuesto, :formaPagoGasto)");
                 $insertarGasto->bindParam(":hora", $horaGasto);
                 $insertarGasto->bindParam(":fechaGasto", $fechaGasto);
                 $insertarGasto->bindParam(":descripcionGasto", $descripcionGasto);
                 $insertarGasto->bindParam(":montoGasto", $montoGasto);
                 $insertarGasto->bindParam(":usuario", $idUsuario);
+                $insertarGasto->bindParam(":presupuesto",$descripcionPresupuesto["descripcionPresupuesto"]);
                 $insertarGasto->bindParam(":formaPagoGasto", $formaPagoGasto);
                 $insertarGasto->bindParam(":IdPresupuesto", $IdPresupuesto);
                 if ($insertarGasto->execute()) {
@@ -61,7 +69,7 @@ class gastosModelo
             $db = conexion::conectar();
 
             // Obtener los gastos
-            $consultaGastos = $db->prepare("SELECT g.*,fp.NombreFormaPago, p.descripcionPresupuesto FROM gastos g INNER JOIN formapago fp ON g.formapago_idFormaPago = fp.idFormaPago JOIN presupuestos p ON g.idPresupuesto = p.idPresupuesto WHERE g.usuario = :idUsuario");
+            $consultaGastos = $db->prepare("SELECT g.*,fp.NombreFormaPago FROM gastos g INNER JOIN formapago fp ON g.formapago_idFormaPago = fp.idFormaPago WHERE g.usuario_gasto = :idUsuario");
             $consultaGastos->bindParam(":idUsuario", $idUsuario);
             $consultaGastos->execute();
             $mensaje = $consultaGastos->fetchAll();

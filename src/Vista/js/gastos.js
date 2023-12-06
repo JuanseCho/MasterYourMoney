@@ -141,7 +141,7 @@ $(Document).ready(function () {
                             </button>
                 
                         </div>`;
-                dataSet.push([item.hora, item.fecha, item.monto, item.descripcionGasto, item.NombreFormaPago, item.descripcionPresupuesto, objBotones]);
+                dataSet.push([item.hora, item.fecha, item.monto, item.descripcionGasto, item.NombreFormaPago, item.presupuesto, objBotones]);
             }
             if (tablaGastos != null) {
                 $("#tabla_Gastos").dataTable().fnDestroy();
