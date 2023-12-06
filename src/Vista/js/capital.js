@@ -76,7 +76,7 @@ $(document).ready(function () {
 
                         listarCapital();
 
-                        instance.listarValoresAmenu();
+                        // instance.listarValoresAmenu();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -313,7 +313,3 @@ $(document).ready(function () {
 
 
 });
-
-var objData = { listarValoresAmenu: "ok" };
-var instance = new cartasMenuUsuario(objData);
-instance.listarValoresAmenu();

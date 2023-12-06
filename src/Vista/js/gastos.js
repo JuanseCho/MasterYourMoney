@@ -288,6 +288,3 @@ class GastosUsuario {
     }
 }
 
-var objData = {listarValoresAmenu: "ok"};
-var instance = new cartasMenuUsuario(objData);
-instance.listarValoresAmenu();

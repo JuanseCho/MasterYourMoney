@@ -13,14 +13,17 @@ class ingresoCapitalControl
     public $montoIngreso;
     public $capitalIngreso;
     public $formaPagoIngreso;
+    public $idUsuario;
 
     public function ctrRegistrarIngresoCapital()
     {
-        $objRespuesta = ingresoCapitalModelo::mdlRegistrarIngresoCapital($this->fechaIngreso, $this->horaIngreso, $this->montoIngreso, $this->capitalIngreso, $this->formaPagoIngreso);
+        $this->idUsuario = $_SESSION["idUsuario"];
+        $objRespuesta = ingresoCapitalModelo::mdlRegistrarIngresoCapital($this->fechaIngreso, $this->horaIngreso, $this->montoIngreso, $this->capitalIngreso, $this->formaPagoIngreso, $this->idUsuario);
         echo json_encode($objRespuesta);
     }
     public function ctrListarIngresosCapital(){
-        echo json_encode(ingresoCapitalModelo::mdlListarIngresosCapital($this->fechaTransacciones));       
+        $this->idUsuario = $_SESSION["idUsuario"];
+        echo json_encode(ingresoCapitalModelo::mdlListarIngresosCapital($this->fechaTransacciones, $this->idUsuario));       
     }
     public function ctrEditarIngresoCapital()
     {
@@ -82,15 +85,13 @@ class ahorroCapitalControl
     public $montoRegAhorro;
     public $ahorroRegAhorro;
     public $capitalRegAhorro;
-    // public $idusuario;
+    public $idUsuario;
 
     public function ctrRegistrarAhorroCapital()
     {
-        $objRespuesta = ahorroCapitalModelo::mdlRegistrarAhorroCapital($this->fechaRegAhorro, $this->horaRegAhorro, $this->montoRegAhorro, $this->ahorroRegAhorro, $this->capitalRegAhorro);
+        $this->idUsuario = $_SESSION["idUsuario"];
+        $objRespuesta = ahorroCapitalModelo::mdlRegistrarAhorroCapital($this->fechaRegAhorro, $this->horaRegAhorro, $this->montoRegAhorro, $this->ahorroRegAhorro, $this->capitalRegAhorro, $this->idUsuario);
         echo json_encode($objRespuesta);
-    }
-    public function ctrListarAhorrosCapital(){
-        echo json_encode(ahorroCapitalModelo::mdlListarAhorrosCapital());          
     }
     public function ctrEliminarAhorroCapital(){
         $objRespuesta = ahorroCapitalModelo::mdlEliminarAhorroCapital($this->idregahorro);
@@ -107,11 +108,6 @@ if (isset($_POST["regFechaAhorro"], $_POST["regHoraAhorro"], $_POST["regMontoAho
     $objAhorroCapital->ahorroRegAhorro = $_POST["regDescripcionAhorro"];
     $objAhorroCapital->capitalRegAhorro = $_POST["regCapitalAhorro"];
     $objAhorroCapital->ctrRegistrarAhorroCapital();
-}
-
-if (isset($_POST["listaAhorrosCapital"])== "ok") {
-    $objAhorroCapital = new ahorroCapitalControl();
-    $objAhorroCapital->ctrListarAhorrosCapital();
 }
 
 if (isset($_POST["idahorro"], $_POST["idcapital"])) {

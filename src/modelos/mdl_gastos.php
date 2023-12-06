@@ -50,9 +50,9 @@ class gastosModelo
                 $insertarGasto->bindParam(":formaPagoGasto", $formaPagoGasto);
                 $insertarGasto->bindParam(":IdPresupuesto", $IdPresupuesto);
                 if ($insertarGasto->execute()) {
-                    $mensaje = array("codigo" => "200", "mensaje" => "Capital registrado correctamente");
+                    $mensaje = array("codigo" => "200", "mensaje" => "Gasto registrado correctamente");
                 } else {
-                    $mensaje = array("codigo" => "425", "mensaje" => "error al registrar Capital");
+                    $mensaje = array("codigo" => "425", "mensaje" => "Error al registrar el Gasto");
                 }
             }
         } catch (Exception $e) {
