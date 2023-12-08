@@ -36,7 +36,16 @@ $(function () {
                     if (response["codigo"] == "200") {
                         window.location = response["ruta"];
                     } else {
-                        alert(response["mensaje"]);
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: response["mensaje"],
+                            showConfirmButton: false,
+                            timer: 4000,
+                            customClass: {
+                                title: 'swal'
+                            }
+                        })
                     }
                 });
 

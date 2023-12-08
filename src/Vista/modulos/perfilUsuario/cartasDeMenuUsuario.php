@@ -39,19 +39,6 @@
                 </div>
             </div>
         </a>
-        <a href="Gastos" class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-3 card-responsive">
-            <div class="card ">
-                <div class="img-section">
-                    <img src="src/Vista/img/gastos.png" alt="">
-                </div>
-                <div class="card-desc">
-                    <div class="card-header">
-                        <h3>Gastos</h3>
-                    </div>
-                    <div class="card-time"> <span>$ </span> <span id="cartGasto" style=" letter-spacing: 4px;"></span></div>
-                </div>
-            </div>
-        </a>
         <a href="misFormasDePago" class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-3 card-responsive">
             <div class="card ">
                 <div class="img-section">
@@ -69,3 +56,4 @@
     </div>
 </div>
 <script src='src/Vista/js/cartasMenuUsuario.js'></script>
+

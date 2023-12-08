@@ -10,20 +10,18 @@
                         Ahorros
                     </p>
                 </h2>
-                <button class="btn" id="btn-agregarAhorro" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarAhorro">
-                    Agregar Ahorro
+                <button class="button1" id="btn-agregarAhorro" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarAhorro">
+                    <span> Agregar Ahorro</span>
+                   
                 </button>
             </div>
         </div>
     </div>
     <hr size="5" color="#455181">
     <div class="row jsDivR p-4">
-        <div class=" col-md-12 col-sm-12 col-lg-2  user-profile">
-            <img class="col-md-2 user-profile-avatar" src="src\Vista\img\2.jpeg" />
-            <i>Sebastian</i>
-        </div>
+        
 
-        <div class="col-md-10 col-sm-12 col-lg-10 table-small jsDiv">
+        <div class="col-md-12 col-sm-12 col-lg-12 table-small jsDiv">
             <button id="editBtn" style="display: none;">Editar</button>
             <table id="tablaAhorros" class="table table-striped">
                 <thead>

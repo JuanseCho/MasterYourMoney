@@ -51,6 +51,27 @@ class recuperarContraseñaControl {
 
 
 }
+class ctr_actualizarImagen {
+
+    public $idUsuario;
+    public $archivo;
+    public $nombreArchivo;
+
+    public function ctr_actualizarImagen(){
+        $this->idUsuario = $_SESSION["idUsuario"];
+        $ObjRespuesta = mdl_actualizarImagenPerfil::actualizarImagenPerfil($this->idUsuario,$this->archivo,$this->nombreArchivo);
+        echo json_encode($ObjRespuesta);
+    
+    }
+
+    public function ctr_listarImagen(){
+        $this->idUsuario = $_SESSION["idUsuario"];
+        $ObjRespuesta = mdl_actualizarImagenPerfil::llistarImagenPerfil($this->idUsuario);
+        echo json_encode($ObjRespuesta);
+    
+    }
+
+}   
 
 
 if (isset($_POST["registro_Nombres"],$_POST["registro_Apellidos"],$_POST["registro_Email"],$_POST["registro_Password"],$_POST["registro_Telefono"])) {
@@ -80,4 +101,18 @@ if (isset($_POST["validar_Codigo"])) {
     $objRecuperarContraseña = new recuperarContraseñaControl();
     $objRecuperarContraseña->codigoU = $_POST["validar_Codigo"];
     $objRecuperarContraseña->ctrValidarCodigo();
+}
+
+// verifica si llego el fila de la imagen del avatar
+if (isset($_FILES["file"])) {
+    $objActualizarImagen = new ctr_actualizarImagen();
+    $objActualizarImagen->nombreArchivo = $_FILES["file"]["name"];
+    $objActualizarImagen->archivo = $_FILES["file"];
+    $objActualizarImagen->ctr_actualizarImagen();
+}
+
+// listar la imagen de perfil
+if (isset($_POST["listarImagen"])=="ok") {
+    $objActualizarImagen = new ctr_actualizarImagen();
+    $objActualizarImagen->ctr_listarImagen();
 }

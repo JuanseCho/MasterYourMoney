@@ -132,7 +132,22 @@ $(function () {
       $("#tablaAhorros").dataTable().fnDestroy();
       }
       tabla = $("#tablaAhorros").DataTable({
-        data: dataSet
+        data: dataSet,
+        search: {
+          return: true
+      },
+      paging: false,
+      scrollY: 300,
+        responsive: {
+          details: {
+              display: DataTable.Responsive.display.modal({
+                 
+              }),
+              renderer: DataTable.Responsive.renderer.tableAll({
+                  tableClass: 'table'
+              })
+          }
+      },
       });
 
       $("#txt-ahorroRegAhorro").html(ahorros);

@@ -144,7 +144,18 @@ $(document).ready(function () {
             },
             paging: false,
             scrollY: 300,
-            responsive: true,
+            responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({
+                        tableClass: 'table'
+                    })
+                }
+            },
             destroy: true
         });
 

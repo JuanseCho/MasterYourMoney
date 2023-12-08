@@ -1,31 +1,35 @@
-
 .perfil-usuario .sombra {
     position: absolute;
     display: block;
-    background: linear-gradient(transparent,rgba(0, 0, 0, .5));
+    background: linear-gradient(transparent, rgba(0, 0, 0, .5));
     width: 100%;
     height: 40%;
     bottom: 0;
     left: 0;
 }
+
 .perfil-usuario .portada-perfil,
 .perfil-usuario .sombra {
     border-radius: 0 0 20px 20px;
 }
+
 .perfil-usuario img {
     width: 100%;
 }
+
 .contenedor-perfil {
-    
+
     margin-left: auto;
     margin-right: auto;
 }
+
 .perfil-usuario .contenedor-perfil {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 90%;
 }
+
 .perfil-usuario .portada-perfil {
     display: block;
     background-size: cover;
@@ -35,19 +39,22 @@
     height: 20rem;
     margin-bottom: .5rem;
 }
+
 .perfil-usuario .avatar-perfil {
     display: block;
-    width: 230px;
-    height: 230px;
+    width: 200px;
+    height: 200px;
     background-color: #D9DCF1;
+    margin: 0 auto;
     position: absolute;
     bottom: -65px;
     left: 4rem;
     border-radius: 50%;
     overflow: hidden;
-    border: 8px solid #FFFFFF;
+    border: 6px solid #6d6f73;
     box-shadow: 0 0 12px 2px rgba(0, 0, 0, .2);
 }
+
 .perfil-usuario .cambiar-foto {
     position: absolute;
     width: 100%;
@@ -65,14 +72,17 @@
     opacity: 0;
     transition: all ease-in 200ms;
 }
+
 .perfil-usuario .cambiar-foto i {
     margin-bottom: .5rem;
     font-size: 2rem;
 }
+
 .perfil-usuario .avatar-perfil:hover .cambiar-foto {
     transform: translateY(0);
     opacity: 1;
 }
+
 .perfil-usuario .datos-perfil {
     position: absolute;
     display: block;
@@ -84,6 +94,7 @@
     padding-bottom: 1rem;
     padding-right: 1rem;
 }
+
 .perfil-usuario .titulo-usuario {
     font-size: 2.3rem;
     white-space: nowrap;
@@ -91,66 +102,36 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .perfil-usuario .bio-usuario {
     font-size: 1em;
     margin-bottom: .75rem;
 }
-.perfil-usuario .lista-perfil {
-    list-style: none;
-}
-.perfil-usuario .lista-perfil li {
-    display: inline-block;
-    font-size: 1em;
-    margin-right: 1rem;
-}
 
-.perfil-usuario .opcciones-perfil {
-    display: block;
-    position: absolute;
-    right: 2rem;
-    top: 1rem;
-}
-.perfil-usuario .opcciones-perfil button {
-    border: 0;
-    padding: 8px 20px;
-    border-radius: 8px;
-    background-color: rgba(0, 0, 0, .5);
-    color: #fff;
-    cursor: pointer;
-}
-.perfil-usuario .menu-perfil ul {
-    display: flex;
-    list-style: none;
-    margin-left: calc(200px + 8rem);
-    width: calc(100% - 200px - 8rem);
-}
-.perfil-usuario .menu-perfil ul li {
-    margin-right: 1rem;
-}
-.perfil-usuario .menu-perfil a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    padding: 8px 20px;
-    font-weight: bold;
-    border-radius: 8px;
-    transition: all ease-in 100ms;
-}
-.perfil-usuario .menu-perfil a:hover {
-    background-color: #4CB0C6;
-    color: #fff;
-}
 .perfil-usuario .icono-perfil {
     display: none;
     margin-right: .75rem;
 }
+
+.avatar-perfil {
+    text-align: center;
+}
+
+.avatar-perfil img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @media (max-width: 780px) {
     .perfil-usuario .contenedor-perfil {
         width: 100%;
     }
+
     .perfil-usuario .avatar-perfil {
         left: calc(50% - 115px)
     }
+
     .perfil-usuario .datos-perfil {
         bottom: 200px;
         left: 0;
@@ -158,51 +139,89 @@
         padding: 15px;
         text-align: center;
     }
+
     .perfil-usuario .bio-usuario {
         font-size: 1em;
-        overflow:hidden;
+        overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+
     .perfil-usuario .titulo-usuario {
         font-size: 2.1rem;
     }
+
     .perfil-usuario .portada-perfil {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         position: relative;
-        
+
         height: 28rem;
     }
-    .perfil-usuario .menu-perfil ul {
-        flex-direction: column;
-    }
-    .perfil-usuario .lista-perfil {
-        display: block;
-    }
-    .perfil-usuario .menu-perfil {
-        margin-top: 2rem;
-    }
-    .perfil-usuario .menu-perfil ul {
-        display: flex;
-        list-style: none;
-        margin-left: auto;
-        margin-right: auto;
-        padding-top: 2.5rem;
-        width: 70%;
-        background-color: #aa7777;
-        border-radius: 12px;
-        box-shadow: 0 0 12px 2px rgba(0, 0, 0, .1);
-    }
+
     .perfil-usuario .icono-perfil {
         display: inline-block;
     }
-}
 
+
+}
+.btnU {
+    margin-top: 30px;
+    display: none;
+    position: relative;
+    padding: 0.3rem 2.5rem;
+    color:#ffffff;
+    font-size: larger;
+    background-color: #686173;
+    outline: none;
+    border: none;
+    
+    border-radius: 5px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transition-property: all;
+    transition-duration: 0.3s;
+    cursor: pointer;
+  }
+  
+  .btnU:hover {
+    background-color: #55505e;
+    box-shadow: 0px 4px 16px -11px #c2b6d5;
+  }
+  
+  .btnU::before {
+    content: "";
+    position: absolute;
+    height: 5px;
+    width: 5px;
+    background-color: white;
+    border-radius: 100px;
+    right: 2rem;
+    bottom: 37%;
+    animation: 0.5s both ease-in-out infinite;
+  }
+  
+  .btnU:hover::before {
+    animation-name: bounce_591;
+    transition: all 0.3s ease;
+  }
+  
+  @keyframes bounce_591 {
+    0% {
+      bottom: 37%;
+    }
+  
+    50% {
+      bottom: 70%;
+    }
+  
+    100% {
+      bottom: 37%;
+    }
+  }
 
 /* cartas  */
-.card-responsive{
+.card-responsive {
     margin-left: 2vw;
     margin-right: 2vw;
 }
@@ -217,42 +236,46 @@
 @media (min-width: 192px) and (max-width: 570px) {
     .card-responsive {
         margin-left: 20vw;
-       
+
     }
 }
+
 .card {
     background-color: #4cb0c600;
-    --primary-clr:rgb(230, 218, 218);
+    --primary-clr: rgb(230, 218, 218);
     --play: hsl(195, 74%, 62%);
     width: 250px;
     height: 220px;
     border-radius: 10px;
     border: rgba(28, 32, 75, 0);
-  
-    
-   }
-   a {
+
+
+}
+
+a {
     text-decoration: none;
-   }
-   
-   .card {
+}
+
+.card {
     font-family: "Arial";
     color: #000000;
     display: grid;
     cursor: pointer;
     grid-template-rows: 50px 1fr;
-    
-   }
-   
-   .card:hover .img-section {
+
+}
+
+.card:hover .img-section {
     transform: translateY(-1.2em);
-    
-   }
-   .card .img-section {
+
+}
+
+.card .img-section {
     text-align: end;
-    
-   }
-   .card-desc {
+
+}
+
+.card-desc {
     border-radius: 10px;
     padding: 15px;
     position: relative;
@@ -261,67 +284,71 @@
     gap: 10px;
     background: var(--primary-clr);
     box-shadow: #222f42 0px 20px 20px -20px;
-   }
-   
-   .card-time {
+}
+
+.card-time {
     font-size: 1.7em;
     font-weight: 500;
-   }
-   
-   .img-section {
+}
+
+.img-section {
     transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     background: hsla(195, 74%, 62%, 0);
     position: relative;
     z-index: 1;
-   }
-   
-   .card-header {
+}
+
+.card-header {
     display: flex;
     align-items: center;
     width: 100%;
-   }
-   
-   .card-title {
+}
+
+.card-title {
     flex: 1;
     font-size: 0.9em;
     font-weight: 500;
-   }
-   
-   .card-menu {
+}
+
+.card-menu {
     display: flex;
     gap: 4px;
     margin-inline: auto;
-   }
-   
-   .card svg {
+}
+
+.card svg {
     float: right;
     max-width: 100%;
     max-height: 100%;
-   }
-   
+}
 
-   
-   .card .recent {
+
+
+.card .recent {
     line-height: 0;
     font-size: 0.8em;
-   }
+}
 
-   .swal2-success-line-tip, .swal2-success-line-long {
+.swal2-success-line-tip,
+.swal2-success-line-long {
     font-size: 16px !important;
-  }
-  .swal2-x-mark-line-right, .swal2-x-mark-line-left {
+}
+
+.swal2-x-mark-line-right,
+.swal2-x-mark-line-left {
     font-size: 16px !important;
-  }
-  .my-popup-class {
+}
+
+.my-popup-class {
     font-size: 16px;
     width: 500px;
     height: 200px;
-  }
-  
+}
 
-  /* Scroll bar */
+
+/* Scroll bar */
 
 /* Estilos personalizados para la barra de desplazamiento */
 ::-webkit-scrollbar {

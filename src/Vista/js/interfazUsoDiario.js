@@ -308,7 +308,18 @@ instance.listarPresupuestos();
       info: false,
       searching: false,
       destroy: true,
-      data: dataSetTransaccionesCapital
+      data: dataSetTransaccionesCapital,
+      responsive: {
+        details: {
+            display: DataTable.Responsive.display.modal({
+                header: function (row) {
+                }
+            }),
+            renderer: DataTable.Responsive.renderer.tableAll({
+                tableClass: 'table'
+            })
+        }
+    }
     });
 
         var formattedTotalIngreso = totalIngreso.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });

@@ -100,7 +100,7 @@ class mdlRecuperarPassword
     foreach ($resultados as $value) {
       if (strtolower($value["email"]) == strtolower($email)) {
         $correoEncontrado = true;
-        
+
         break;
       }
     }
@@ -215,6 +215,53 @@ class mdlRecuperarPassword
       $mensaje = array("codigo" => "425", "mensaje" => "Codigo incorrecto");
     }
 
+    return $mensaje;
+  }
+}
+
+class mdl_actualizarImagenPerfil
+{
+  public static function  actualizarImagenPerfil( $idUsuario, $imagen, $nombreArchivo)
+  {
+    $mensaje = array();
+    try {
+      // mover la imagen a la carpeta de imagenes
+      $ruta = "../Vista/img/usuarios/" . $nombreArchivo;
+      move_uploaded_file($imagen['tmp_name'], $ruta );
+      $ruta = "src/Vista/img/usuarios/" . $nombreArchivo;
+      // actualizar la ruta de la imagen en la base de datos
+      $sql = "UPDATE usuarios SET imgPerfil_URL = :ruta WHERE idUsuario = :idUsuario";
+      $objrespuesta = conexion::conectar()->prepare($sql);
+      $objrespuesta->bindParam(":ruta", $ruta);
+      $objrespuesta->bindParam(":idUsuario", $idUsuario);
+      if ($objrespuesta->execute()) {
+        $mensaje = array("codigo" => "200", "mensaje" => "Imagen actualizada correctamente", "ruta" => $ruta);
+      } else {
+        $mensaje = array("codigo" => "425", "mensaje" => "Error al actualizar la imagen");
+      }
+    } catch (Exception $e) {
+      $mensaje = array("codigo" => "425", "mensaje" => $e->getMessage());
+    }
+    return $mensaje;
+  }
+
+
+  public static function llistarImagenPerfil($idUsuario)
+  {
+    $mensaje = array();
+    try {
+      $objrespuesta = conexion::conectar()->prepare("SELECT imgPerfil_URL FROM usuarios WHERE idUsuario = :idUsuario");
+      $objrespuesta->bindParam(":idUsuario", $idUsuario);
+      $objrespuesta->execute();
+      $resultados = $objrespuesta->fetchAll();
+     $objrespuesta =null;
+     //devolver la imagen
+      foreach ($resultados as $value) {
+        $mensaje = array("codigo" => "200", "mensaje" => "Imagen actualizada correctamente", "ruta" => $value["imgPerfil_URL"]);
+      }
+    }catch (Exception $e) {
+      $mensaje = array("codigo" => "425", "mensaje" => $e->getMessage());
+    }
     return $mensaje;
   }
 }

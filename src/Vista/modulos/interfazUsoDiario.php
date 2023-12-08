@@ -1,7 +1,7 @@
 
-<body class="bodyInterfaz">
-    <div class="containerInterfaz">
-        <div class="container1Interfaz">
+<body class="bodyInterfaz mt-5" >
+    <div class="containerInterfaz mt-5 row">
+        <div class="container1Interfaz col-lg-5 col-md-5">
             <div class="containerFecha">
                 <div id="barraFecha" class="barraFecha shadow shadow-lg"></div>
                 <div id="nombreDia" class="nombreDia"></div>
@@ -44,7 +44,7 @@
                 </table>
             </div>
         </div>
-        <div class="container2Interfaz">
+        <div class="container2Interfaz col-lg-5 col-md-5">
             <div class="col-lg-11 col-lg-8 sm-12 m-5 jsDiv">
                 <h3 class="titulos">CAPITALES </h3>
                 <table id="tabla_CapitalInterfaz" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">

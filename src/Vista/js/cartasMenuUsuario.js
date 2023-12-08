@@ -4,6 +4,7 @@ class cartasMenuUsuario {
         this._objMenuCartas = objData;
 
     }
+    
 
 
 
@@ -21,12 +22,10 @@ class cartasMenuUsuario {
         }).then((response) => {
             // sacar los valores de la respuesta y guardarlos en variables
             var capital = response.data.capital.MontoTotal;
-            var gasto = response.data.gastos.MontoGasto;
             var presupuesto = response.data.presupuesto.MontoPresupuesto;
             var ahorro = response.data.ahorro.montoAhorro;
             // remplazar los valores de las cartas
             document.getElementById("cartCapital").innerHTML = capital;
-            document.getElementById("cartGasto").innerHTML = gasto;
             document.getElementById("cartPresupuesto").innerHTML = presupuesto;
             document.getElementById("cartAhorro").innerHTML = ahorro;
 
