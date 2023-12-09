@@ -45,11 +45,11 @@ class CapitalUsuario{
                 dataSet.push([item.fecha, item.Montoactual, item.descipcion, item.NombreFormaPago, objBotones]);
                 selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
             }
-            if (tablaCapital != null) {
-                $("#tabla_CapitalInterfaz").dataTable().fnDestroy();
-            }
-            tablaCapital = $("#tabla_CapitalInterfaz").DataTable({
-                destroy:true,
+            // if (tablaCapital != null) {
+            //     $("#tabla_CapitalInterfaz").dataTable().fnDestroy();
+            // }
+            tablaCapital = $("#tabla_Capital").DataTable({
+                destroy: true,
                 data: dataSet,
                 search: {
                     return: true
@@ -59,15 +59,15 @@ class CapitalUsuario{
             });
     
             //sumar los datos de MontoInicial
-            var total = 0;
+            var totalCapital = 0;
             tablaCapital.column(1).data().each(function (value, index) {
-                total += parseFloat(value);
+                totalCapital += parseFloat(value);
             });
-            var formattedTotal = total.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+            var formattedTotal = totalCapital.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
             //mostrar en el div de id montoTotal
-            $(".actualCajaForm").html(formattedTotal);
             $("#montoTotal").html(formattedTotal);
-            $("#capitalActual").html(formattedTotal);
+            $("#totalCapital").html(totalCapital);
+
             $("#txt-capitalIngreso").html(selectedOptions);
             $("#txt-editcapitalIngreso").html(selectedOptions);
             $("#txt-capitalRegAhorro").html(selectedOptions);

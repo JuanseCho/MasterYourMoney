@@ -1,10 +1,12 @@
 $(function () {
 
+  let objDataCapital = { "listarCapital": "ok" };
+  let objRespuesta = new CapitalUsuario(objDataCapital);
+  objRespuesta.listarCapital();
+  
   var objData = { listarPresupuesto: "ok" };
-var instance = new presupuestos(objData);
-instance.listarPresupuestos();
-
-  tablaCapital = null;
+  var instance = new presupuestos(objData);
+  instance.listarPresupuestos();
 
   let months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
   let dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -19,14 +21,11 @@ instance.listarPresupuestos();
   let minutosActuales = date.getMinutes();
   let segundosActuales = date.getSeconds();
 
-  let objDataCapital = { "listarCapital": "ok" };
-  let objRespuesta = new CapitalUsuario(objDataCapital);
-  objRespuesta.listarCapital();
-
-
-  const fechaFormateada = `${year}-${mes.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+  let fechaFormateada = `${year}-${mes.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
   let horaFormateada = `${horaActual}:${minutosActuales.toString().padStart(2, '0')}:${segundosActuales.toString().padStart(2, '0')}`;
+  
   listarTransaccionesCapital();
+
   var contenidoBarraFecha = `<div class="d-flex flex-row">
                                 <div>`+ day + ' de ' + monthName + ' de ' + year + `</div>
                                 <a href="#myModal" data-toggle="modal"><img src="src/Vista/img/calendario.png" alt="" style="width:28px;" class="ms-3"></a>
@@ -41,8 +40,7 @@ instance.listarPresupuestos();
 
   var formAgregarIngresoCapital = document.querySelectorAll('#formAgregarIngresoCapital');
 
-  Array.prototype.slice.call(formAgregarIngresoCapital)
-    .forEach(function (form) {
+  Array.prototype.slice.call(formAgregarIngresoCapital).forEach(function (form) {
       form.addEventListener('submit', function (event) {
         if (!form.checkValidity()) {
           event.preventDefault()
@@ -54,7 +52,6 @@ instance.listarPresupuestos();
           var montoIngreso = $("#txt-montoIngreso").val();
           var capitalIngreso = $("#txt-capitalIngreso").val();
           var formaPagoIngreso = $("#txt-formaPagoIngreso").val();
-          // alert(fechaIngresoFormateada);
 
           var objData = new FormData();
           objData.append("regFechaIngreso", fechaFormateada);
@@ -76,7 +73,7 @@ instance.listarPresupuestos();
                 icon: 'success',
                 title: response["respuesta"],
                 showConfirmButton: false,
-                timer: 1000,
+                timer: 2500,
                 customClass: {
                   title: 'swal'
                 }
@@ -96,7 +93,7 @@ instance.listarPresupuestos();
                 icon: 'error',
                 title: response["mensaje"],
                 showConfirmButton: false,
-                timer: 1000
+                timer: 2500
               });
             }
 
@@ -108,77 +105,76 @@ instance.listarPresupuestos();
 
   // Formulario de Edición ingreso al capital
 
-  var formEditarIngresoCapital = document.querySelectorAll('#formEditarIngresoCapital');
+  // var formEditarIngresoCapital = document.querySelectorAll('#formEditarIngresoCapital');
 
-  Array.prototype.slice.call(formEditarIngresoCapital)
-    .forEach(function (form) {
-      form.addEventListener('submit', function (event) {
-        if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
-          form.classList.add('was-validated')
-        } else {
-          event.preventDefault();
+  // Array.prototype.slice.call(formEditarIngresoCapital)
+  //   .forEach(function (form) {
+  //     form.addEventListener('submit', function (event) {
+  //       if (!form.checkValidity()) {
+  //         event.preventDefault()
+  //         event.stopPropagation()
+  //         form.classList.add('was-validated')
+  //       } else {
+  //         event.preventDefault();
 
-          var idingreso = $('#btnEditarIngresoCapital').attr('idingreso');
-          var montoIngreso = $("#txt-editmontoIngreso").val();
-          var capitalIngreso = $("#txt-editcapitalIngreso").val();
-          var formaPagoIngreso = $("#txt-editformaPagoIngreso").val();
+  //         var idingreso = $('#btnEditarIngresoCapital').attr('idingreso');
+  //         var montoIngreso = $("#txt-editmontoIngreso").val();
+  //         var capitalIngreso = $("#txt-editcapitalIngreso").val();
+  //         var formaPagoIngreso = $("#txt-editformaPagoIngreso").val();
 
-          var objData = new FormData();
-          objData.append("editIdIngreso", idingreso);
-          objData.append("regMontoIngreso", montoIngreso);
-          objData.append("regCapitalIngreso", capitalIngreso);
-          objData.append("regFormaPagoIngreso", formaPagoIngreso);
+  //         var objData = new FormData();
+  //         objData.append("editIdIngreso", idingreso);
+  //         objData.append("regMontoIngreso", montoIngreso);
+  //         objData.append("regCapitalIngreso", capitalIngreso);
+  //         objData.append("regFormaPagoIngreso", formaPagoIngreso);
 
-          fetch('src/controladores/interfazUsoDiarioControl.php', {
-            method: 'POST',
-            body: objData
-          }).then(response => response.json()).catch(error => {
-            console.log(error);
-          }).then(response => {
-            if (response["codigo"] == "200") {
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: response["respuesta"],
-                showConfirmButton: false,
-                timer: 1000,
-                customClass: {
-                  title: 'swal'
-                }
-              });
+  //         fetch('src/controladores/interfazUsoDiarioControl.php', {
+  //           method: 'POST',
+  //           body: objData
+  //         }).then(response => response.json()).catch(error => {
+  //           console.log(error);
+  //         }).then(response => {
+  //           if (response["codigo"] == "200") {
+  //             Swal.fire({
+  //               position: 'center',
+  //               icon: 'success',
+  //               title: response["respuesta"],
+  //               showConfirmButton: false,
+  //               timer: 2500,
+  //               customClass: {
+  //                 title: 'swal'
+  //               }
+  //             });
 
-              let objDataCapital = { "listarCapital": "ok" };
-              let objRespuesta = new CapitalUsuario(objDataCapital);
-              objRespuesta.listarCapital();
+  //             let objDataCapital = { "listarCapital": "ok" };
+  //             let objRespuesta = new CapitalUsuario(objDataCapital);
+  //             objRespuesta.listarCapital();
 
-              form.reset();
-              $("#ventanaEditarIngresoCapital").modal('toggle');
-              listarTransaccionesCapital();
+  //             form.reset();
+  //             $("#ventanaEditarIngresoCapital").modal('toggle');
+  //             listarTransaccionesCapital();
 
-            } else {
-              Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: response["mensaje"],
-                showConfirmButton: false,
-                timer: 1000
-              });
-            }
+  //           } else {
+  //             Swal.fire({
+  //               position: 'center',
+  //               icon: 'error',
+  //               title: response["mensaje"],
+  //               showConfirmButton: false,
+  //               timer: 2500
+  //             });
+  //           }
 
-          });
-        }
-      }, false)
-    });
+  //         });
+  //       }
+  //     }, false)
+  //   });
 
 
   // Formulario de ahorro del capital
 
   var formAgregarAhorroCapital = document.querySelectorAll('#formAgregarAhorroCapital');
 
-  Array.prototype.slice.call(formAgregarAhorroCapital)
-    .forEach(function (form) {
+  Array.prototype.slice.call(formAgregarAhorroCapital).forEach(function (form) {
       form.addEventListener('submit', function (event) {
         if (!form.checkValidity()) {
           event.preventDefault()
@@ -211,7 +207,7 @@ instance.listarPresupuestos();
                 icon: 'success',
                 title: response["respuesta"],
                 showConfirmButton: false,
-                timer: 1000,
+                timer: 2500,
                 customClass: {
                   title: 'swal'
                 }
@@ -229,17 +225,104 @@ instance.listarPresupuestos();
               Swal.fire({
                 position: 'center',
                 icon: 'error',
-                title: response["mensaje"],
+                title: response["respuesta"],
                 showConfirmButton: false,
-                timer: 1000
+                timer: 3500
               });
-            }
+              form.reset();
+              $("#ventanaAgregarAhorroCapital").modal('toggle');
+              }
 
           });
 
         }
       }, false)
     });
+
+
+    // Formulario de gasto del capital
+
+    const formularioGastos = document.querySelectorAll("#formAgregarGasto");
+
+    Array.from(formularioGastos).forEach((form) => {
+        form.addEventListener("submit", (evento) => {
+            if (!form.checkValidity()) {
+                evento.preventDefault();
+                evento.stopPropagation();
+                form.classList.add("was-validated");
+            } else {
+                evento.preventDefault();
+
+                let monto = $("#txt-montoGasto").val();
+                let descripcion = $("#txt-descripcionGasto").val();
+                let presupuesto = $("#slc-presupuesto").val();
+                let formaPago = $("#slc-formaPago").val();
+
+                var objData = new FormData();
+                objData.append("horaGasto", horaFormateada);
+                objData.append("fechaGasto", fechaFormateada);
+                objData.append("descripcionGasto", descripcion);
+                objData.append("montoGasto", monto);
+                objData.append("IdPresupuesto", presupuesto);
+                objData.append("formaPagoGasto", formaPago);
+
+                fetch("src/controladores/interfazUsoDiarioControl.php", {
+                    method: "POST",
+                    body: objData,
+                })
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then((response) => {
+                        if (response["codigo"] == "200") {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: response["mensaje"],
+                                showConfirmButton: false,
+                                timer: 2500,
+                                customClass: {
+                                    title: 'swal'
+                                }
+                            });
+
+                            var objData = { listarPresupuesto: "ok" };
+                            var instance = new presupuestos(objData);
+                            instance.listarPresupuestos();
+
+                            form.reset();
+                            $("#ventanaAgregarGastoCapital").modal('toggle');
+                            listarTransaccionesCapital();
+
+                          } else {
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: response["mensaje"],
+                                showConfirmButton: false,
+                                timer: 3500
+                            });
+                          form.reset();
+                          $("#ventanaAgregarGastoCapital").modal('toggle');
+                        }
+                        
+                    })
+                    .catch((error) => {
+                        console.error("Error:", error);
+                    });
+
+            }
+
+        });
+
+    });
+
+
+
+
 
   // Función de listar Transacciones
 
@@ -263,7 +346,9 @@ instance.listarPresupuestos();
         var dataSetTransaccionesCapital = [];  
         var inicioCaja = 0;
         var totalIngreso = 0;  
-        var totalAhorro = 0;  
+        var totalAhorro = 0;
+        var totalGasto = 0;
+        var totalTransacciones = 0;
         response.forEach(listarDatos);
 
     function listarDatos(item, index) {
@@ -271,15 +356,22 @@ instance.listarPresupuestos();
 
           if (item.tipoTransaccion === "Ingreso") {
             totalIngreso += parseFloat(item.montoTransaccion);
+            totalTransacciones += parseFloat(item.montoTransaccion);
             // objBotones += '<button id="btnEditar" type="button" class="btn-transac" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" idFormaPago="' + item.idFormaPago + '" tipoTransaccion="' + item.tipoTransaccion + '" horaTransaccion="' + item.horaTransaccion + '" descripcionTransaccion="' + item.descripcionTransaccion + '" montoTransaccion="' + item.montoTransaccion + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarIngresoCapital"><img src="src/Vista/img/editarTransaccion2.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
             objBotones += '<button id="btnEliminar" tipoTransaccion="' + item.tipoTransaccion + '" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" type="button" class="btn-transac"><img src="src/Vista/img/eliminarTransaccion2.png" alt="" style="width:30px;" class="p-2"></button>';
             item.tipoTransaccion = '<img src="src/Vista/img/ingresoBoton.png" alt="Ingreso" style="width:15px;">';
             
           } else if (item.tipoTransaccion === "Ahorro") {
             totalAhorro += parseFloat(item.montoTransaccion);
+            totalTransacciones -= parseFloat(item.montoTransaccion);
            // objBotones += '<button id="btnEditar" type="button" class="btn-transac" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" idFormaPago="' + item.idFormaPago + '" tipoTransaccion="' + item.tipoTransaccion + '" horaTransaccion="' + item.horaTransaccion + '" descripcionTransaccion="' + item.descripcionTransaccion + '" montoTransaccion="' + item.montoTransaccion + '" data-bs-toggle="modal" data-bs-target="#ventanaEditarAhorroCapital"><img src="src/Vista/img/editarTransaccion2.png" alt="" style="width:25px;" class="ms-2 p-1"></button>';
             objBotones += '<button id="btnEliminar" tipoTransaccion="' + item.tipoTransaccion + '" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" type="button" class="btn-transac"><img src="src/Vista/img/eliminarTransaccion2.png" alt="" style="width:30px;" class="p-2"></button>';
             item.tipoTransaccion = '<img src="src/Vista/img/ahorroBoton.png" alt="Ingreso" style="width:19px;">';
+          } else {
+            totalGasto += parseFloat(item.montoTransaccion);
+            totalTransacciones -= parseFloat(item.montoTransaccion);
+            objBotones += '<button id="btnEliminar" tipoTransaccion="' + item.tipoTransaccion + '" idTransaccion="' + item.idTransaccion + '" idCapital="' + item.idCapital + '" type="button" class="btn-transac"><img src="src/Vista/img/eliminarTransaccion2.png" alt="" style="width:30px;" class="p-2"></button>';
+            item.tipoTransaccion = '<img src="src/Vista/img/gastoBoton.png" alt="Ingreso" style="width:19px;">';
           }
           objBotones += '</div>';
 
@@ -310,19 +402,20 @@ instance.listarPresupuestos();
       destroy: true,
       data: dataSetTransaccionesCapital
     });
+        var totalCaja = parseFloat($("#totalCapital").html()) + parseFloat($("#totalPresupuesto").html());
+        var formattedTotalCaja = totalCaja.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+        $("#actualCaja").html(formattedTotalCaja);
+        $(".actualCajaForm").html(formattedTotalCaja);
+        
 
         var formattedTotalIngreso = totalIngreso.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
         var formattedTotalAhorro = totalAhorro.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+        var formattedTotalGasto = totalGasto.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
         $("#ingresoCaja").html('+'+formattedTotalIngreso);
         $("#ahorroCaja").html('-'+formattedTotalAhorro);
+        $("#gastoCaja").html('-'+formattedTotalGasto);
 
-        var transaccionesCapital = totalIngreso - totalAhorro;
-        
-        inicioCaja = parseFloat($("#capitalActual").html().replace(/[^\d-]/g, '')) - transaccionesCapital;
-        var formattedInicioCaja = inicioCaja.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
-        $("#inicioCaja").html(formattedInicioCaja);
-
-        if (totalIngreso == 0 && totalAhorro == 0) {
+        if (totalIngreso == 0 && totalAhorro == 0 && totalGasto == 0) {
           $("#inicioCaja").hide();
         } else {
           $("#inicioCaja").show();
@@ -337,27 +430,44 @@ instance.listarPresupuestos();
         } else {
           $("#ahorroCaja").show();
         }
-      
+        if (totalGasto == 0) {
+          $("#gastoCaja").hide();
+        } else {
+          $("#gastoCaja").show();
+        }
+        
+        inicioCaja = totalCaja - totalTransacciones;
+        var formattedInicioCaja = inicioCaja.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+        $("#inicioCaja").html(formattedInicioCaja);
+
+
+        let objDataCapital = { "listarCapital": "ok" };
+        let objRespuesta = new CapitalUsuario(objDataCapital);
+        objRespuesta.listarCapital();
+        
+        var objData = { listarPresupuesto: "ok" };
+        var instance = new presupuestos(objData);
+        instance.listarPresupuestos();
       };
       
 
   // Botón para editar Transacción
 
-  $("#tablaTransaccionesCapital").on("click", "#btnEditar", function () {
-    var idtransaccion = $(this).attr('idTransaccion');
-    var descripcionTransaccion = $(this).attr('idCapital');
-    var montoTransaccion = $(this).attr('montoTransaccion');
-    var formaPago = $(this).attr('idFormaPago');
+  // $("#tablaTransaccionesCapital").on("click", "#btnEditar", function () {
+  //   var idtransaccion = $(this).attr('idTransaccion');
+  //   var descripcionTransaccion = $(this).attr('idCapital');
+  //   var montoTransaccion = $(this).attr('montoTransaccion');
+  //   var formaPago = $(this).attr('idFormaPago');
 
-    if ($(this).attr('tipoTransaccion') === "Ingreso") {
-      // alert("Ingreso");
-      $("#btnEditarIngresoCapital").attr("idingreso", idtransaccion);
-      $("#txt-editmontoIngreso").val(montoTransaccion);
-      $("#txt-editcapitalIngreso").val(descripcionTransaccion);
-      $("#txt-editformaPagoIngreso").val(formaPago);
-      alert(idtransaccion);
-    }
-  });
+  //   if ($(this).attr('tipoTransaccion') === "Ingreso") {
+  //     // alert("Ingreso");
+  //     $("#btnEditarIngresoCapital").attr("idingreso", idtransaccion);
+  //     $("#txt-editmontoIngreso").val(montoTransaccion);
+  //     $("#txt-editcapitalIngreso").val(descripcionTransaccion);
+  //     $("#txt-editformaPagoIngreso").val(formaPago);
+  //     alert(idtransaccion);
+  //   }
+  // });
 
 
   // Botón para eliminar Transacción
@@ -394,13 +504,6 @@ instance.listarPresupuestos();
         }).then(response => response.json()).catch(error => {
           console.log('error: ', error);
         }).then(response => {
-
-          let objDataCapital = { "listarCapital": "ok" };
-          let objRespuesta = new CapitalUsuario(objDataCapital);
-          objRespuesta.listarCapital();
-
-          listarTransaccionesCapital();
-
           if (response["codigo"] === "200") {
             Swal.fire({
               position: 'center',
@@ -409,6 +512,17 @@ instance.listarPresupuestos();
               showConfirmButton: false,
               timer: 2500
             });
+
+            let objDataCapital = { "listarCapital": "ok" };
+            let objRespuesta = new CapitalUsuario(objDataCapital);
+            objRespuesta.listarCapital();
+
+            var objData = { listarPresupuesto: "ok" };
+            var instance = new presupuestos(objData);
+            instance.listarPresupuestos();
+
+            listarTransaccionesCapital();
+
           } else {
             Swal.fire({
               position: 'center',

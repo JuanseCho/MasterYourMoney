@@ -102,21 +102,30 @@
 .inicioCaja {
     font-family: monda;
     font-size: 4ch;
-    color: #EDEDED;
+    color: #dfdede;
     margin-right: 5%;
+    font-weight: 600;
 }
 .ingresoCaja {
     font-family: monda;
     font-size: 2.5ch;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #a9d2b1;
+    text-align: end;
+    margin-left: 5%;
+}
+.gastoCaja {
+    font-family: monda;
+    font-size: 2.5ch;
+    /* font-weight: 600; */
+    color: #dcc4c4;
     text-align: end;
     margin-left: 5%;
 }
 .ahorroCaja {
     font-family: monda;
     font-size: 2.5ch;
-    font-weight: 600;
+    /* font-weight: 600; */
     color: #CCD1DF;
     text-align: end;
     margin-left: 5%;
@@ -124,10 +133,12 @@
 .actualCaja {
     font-family: monda;
     font-size: 5.5ch;
-    color: #00651C;
+    color: #236b38;
     text-align: end;
     margin-right: 5%;
     margin-left: 14%;
+    font-weight: 600;
+
 }
 .cajaDisponibleForm {
     margin-left: auto;
@@ -149,7 +160,6 @@
     padding-inline: 6%;
 }
 .containerListadoTransacciones {
-
     width: 73%;
     height: 35%;
     background-color: #a9a9a9;
@@ -179,13 +189,12 @@
     border-left: 1px solid #8E8E8E;
     text-align: center;
 }
-
 .col-acciones {
     /* Alinear texto en el centro */
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* background-color: #484848; */
+    background-color: transparent;
     /*Cambiar el colo de texto*/
     color: #e3e3e3;
     width: 5%;
@@ -195,8 +204,7 @@
     justify-content: right;
     align-items: center;
     text-align: right;
-    /* background-color: #484848; */
-    /*Cambiar el colo de texto*/
+    background-color: transparent;
     color: #e3e3e3;
 }
 .col-monto {
@@ -204,7 +212,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* background-color: #484848; */
+    background-color: transparent;
     /*Cambiar el colo de texto*/
     color: #e3e3e3;
     width: 30%;
@@ -214,7 +222,7 @@
     justify-content: right;
     align-items: center;
     text-align: right;
-    /* background-color: #484848; */
+    background-color: transparent;
     /*Cambiar el colo de texto*/
     color: #e3e3e3;
     width: 13%;
@@ -224,7 +232,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    /* background-color: #484848; */
+    background-color: transparent;
     /*Cambiar el colo de texto*/
     color: #e3e3e3;
     width: 16%;

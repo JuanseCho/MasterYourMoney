@@ -2,11 +2,16 @@
 $(document).ready(function () {
 
     "use strict";
-
-    // instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
-    // var instance = new cartasMenuUsuario(objData);
-    // instance.listarValoresAmenu();
     var tablaPresupuesto = null;
+    listarPresupuestos();
+
+    instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
+    var instance = new cartasMenuUsuario(objData);
+    instance.listarValoresAmenu();
+
+    var objData = { listarPresupuesto: "ok" };
+    var instance = new presupuestos(objData);
+    instance.listarPresupuestos();
     // function para agregar presupuesto
     const formsPresupuesto = document.querySelectorAll("#form_Agregar_Presupuesto");
 
@@ -43,7 +48,7 @@ $(document).ready(function () {
                                 icon: 'success',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1500,
+                                timer: 2500,
                                 customClass: {
                                     title: 'swal'
                                 }
@@ -69,12 +74,12 @@ $(document).ready(function () {
                                 icon: 'error',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2500
                             });
                         }
 
                         listarPresupuestos();
-                        // instance.listarValoresAmenu();
+                        instance.listarValoresAmenu(); 
                     })
                     .catch((error) => {
                         console.log(error);
@@ -87,87 +92,88 @@ $(document).ready(function () {
 
 
 
-    function listarPresupuestos() {
-        var objData = new FormData();
-        objData.append("listarPresupuestos", "ok");
-        fetch("src/controladores/ctr_presupuesto.php", {
-            method: "POST",
-            body: objData,
-        })
-            .then((response) => response.json())
-            .catch((error) => {
-                console.log(error);
-            })
-            .then((response) => {
-                cargarDatosPresupuesto(response);
+    // function listarPresupuestos() {
+    //     var objData = new FormData();
+    //     objData.append("listarPresupuestos", "ok");
+    //     fetch("src/controladores/ctr_presupuesto.php", {
+    //         method: "POST",
+    //         body: objData,
+    //     })
+    //         .then((response) => response.json())
+    //         .catch((error) => {
+    //             console.log(error);
+    //         })
+    //         .then((response) => {
+    //             cargarDatosPresupuesto(response);
 
-            });
-    }
+    //         });
+    // }
 
-    // function para cargar datos en la tabla
-    function cargarDatosPresupuesto(response) {
-        console.log(response);
+    // // function para cargar datos en la tabla
+    // function cargarDatosPresupuesto(response) {
+    //     console.log(response);
 
-        var dataSet = [];
+    //     var dataSetPresupuesto = [];
 
-        var selectedOptionsEdit = [];
-        var selectedOptions = "<option selected montoPresupuestoAsignado='0' nombrePresupuesto='' >seleccione el presupuesto </option>";
+    //     var selectedOptionsEdit = [];
+    //     var selectedOptions = "<option selected montoPresupuestoAsignado='0' nombrePresupuesto='' >seleccione el presupuesto </option>";
 
-        response.forEach(listarDatosP);
+    //     response.forEach(listarDatosP);
 
-        function listarDatosP(item, index) {
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //     function listarDatosP(item, index) {
+    //         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-            var objBotones = `
-              <div class="button-container">
-                  <button class="button" id="btn_Agregar_Al_Presupuesto" idPresupuesto="${item.idPresupuesto}" Presupuesto="${item.idPresupuesto}" nombrePresupuesto="${item.descripcionPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Capital_Has_Presupuesto">
-                       <i class="bi bi-cash-coin"></i>
-                  </button>
-                  <!-boton para editar-->
-                  <button class="button" id="btn_Edit_Presupuesto" idPresupuesto="${item.idPresupuesto}" DescripcionPresupuesto="${item.descripcionPresupuesto}" nombreTipoPresupuesto="${item.NombreTipoPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Presupuesto_Edit">
-                      <i class="bi bi-pencil-square"></i>
-                  </button>
+    //         var objBotones = `
+    //           <div class="button-container">
+    //               <button class="button" id="btn_Agregar_Al_Presupuesto" idPresupuesto="${item.idPresupuesto}" Presupuesto="${item.idPresupuesto}" nombrePresupuesto="${item.descripcionPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Capital_Has_Presupuesto">
+    //                    <i class="bi bi-cash-coin"></i>
+    //               </button>
+    //               <!-boton para editar-->
+    //               <button class="button" id="btn_Edit_Presupuesto" idPresupuesto="${item.idPresupuesto}" DescripcionPresupuesto="${item.descripcionPresupuesto}" nombreTipoPresupuesto="${item.NombreTipoPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Presupuesto_Edit">
+    //                   <i class="bi bi-pencil-square"></i>
+    //               </button>
   
-                  <!-boton para eliminar-->
+    //               <!-boton para eliminar-->
                   
-                  <button class="button" id="btn_Eliminar_Presupuesto" idPresupuesto="${item.idPresupuesto}">
-                      <i class="bi bi-trash"></i>
-                  </button>
+    //               <button class="button" id="btn_Eliminar_Presupuesto" idPresupuesto="${item.idPresupuesto}">
+    //                   <i class="bi bi-trash"></i>
+    //               </button>
   
-              </div>`;
+    //           </div>`;
 
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //         dataSetPresupuesto.push([item.descripcionPresupuesto, item.ValorAsignado, item.montoActual, item.capitales, objBotones]);
+    //         selectedOptions += `<option value="${item.idPresupuesto}" montoactual="${item.montoActual}" montoPresupuestoAsignado="${item.ValorAsignado}" nombrePresupuesto="${item.NombreTipoPresupuesto}">   ${item.NombreTipoPresupuesto}</option>`;
+    //     }
 
-            dataSet.push([item.descripcionPresupuesto, item.ValorAsignado, item.montoActual, item.capitales, objBotones]);
+    //     tablaPresupuesto = $("#Tabla_De_Presupuestos").DataTable({
+    //         data: dataSetPresupuesto,
+    //         search: {
+    //             return: true
+    //         },
+    //         paging: false,
+    //         scrollY: 300,
+    //         responsive: true,
+    //         destroy: true
+    //     });
+
+    //     //sumar los datos de MontoActual
+    //     var totalPresupuesto = 0;
+    //     tablaPresupuesto.column(2).data().each(function (value, index) {
+    //         totalPresupuesto += parseFloat(value);
+    //     });
+    //     alert(totalPresupuesto);
+    //     var formattedTotalPresupuesto = totalPresupuesto.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+
+    //     $("#slc-presupuesto").html(selectedOptions);
+    //     $("#totalPresupuesto").html(formattedTotalPresupuesto);
 
 
-            selectedOptions += `<option value="${item.idPresupuesto}" montoactual="${item.montoActual}" montoPresupuestoAsignado="${item.ValorAsignado}" nombrePresupuesto="${item.NombreTipoPresupuesto}">   ${item.NombreTipoPresupuesto}</option>`;
-
-
-        }
+    // }
 
 
 
 
-        $("#slc-presupuesto").html(selectedOptions);
-
-        if (tablaPresupuesto != null) {
-            $("#Tabla_De_Presupuestos").dataTable().fnDestroy();
-        }
-        tablaPresupuesto = $("#Tabla_De_Presupuestos").DataTable({
-
-            data: dataSet,
-            search: {
-                return: true
-            },
-            paging: false,
-            scrollY: 300,
-            responsive: true,
-            destroy: true
-
-        });
-
-    }
 
     $("#Tabla_De_Presupuestos").on("click", "#btn_Edit_Presupuesto", function () {
         var id = $(this).attr("idPresupuesto");
@@ -213,7 +219,7 @@ $(document).ready(function () {
                                 icon: 'success',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1500,
+                                timer: 2500,
                                 customClass: {
                                     title: 'swal'
                                 }
@@ -225,7 +231,7 @@ $(document).ready(function () {
                                 icon: 'error',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2500
                             });
                         }
                         $("#txt_edit_Presupuesto").val("");
@@ -289,7 +295,7 @@ $(document).ready(function () {
                                         icon: 'success',
                                         title: response["mensaje"],
                                         showConfirmButton: false,
-                                        timer: 1500,
+                                        timer: 2500,
                                         customClass: {
                                             title: 'swal'
                                         }
@@ -300,7 +306,7 @@ $(document).ready(function () {
                                         icon: 'error',
                                         title: response["mensaje"],
                                         showConfirmButton: false,
-                                        timer: 1500
+                                        timer: 2500
                                     });
                                 }
                                 listarPresupuestos();
@@ -385,10 +391,10 @@ class presupuestos {
                 }
 
                 // Usar this.tablaPresupuesto en lugar de tablaPresupuesto
-                if (this.tablaPresupuesto != null) {
-                    // Usar this en lugar de tablaPresupuesto
-                    this.tablaPresupuesto.destroy();
-                }
+                // if (this.tablaPresupuesto != null) {
+                //     // Usar this en lugar de tablaPresupuesto
+                //     this.tablaPresupuesto.destroy();
+                // }
 
                 // Usar this.tablaPresupuesto en lugar de tablaPresupuesto
                 this.tablaPresupuesto = $("#Tabla_De_Presupuestos").DataTable({
@@ -398,8 +404,19 @@ class presupuestos {
                     },
                     paging: false,
                     scrollY: 300,
-                    responsive: true
+                    responsive: true,
+                    destroy: true
                 });
+
+                //sumar los datos de MontoActual
+                var totalPresupuesto = 0;
+                this.tablaPresupuesto.column(2).data().each(function (value, index) {
+                    totalPresupuesto += parseFloat(value);
+                });
+
+                var formattedTotalPresupuesto = totalPresupuesto.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+                $("#totalPresupuesto").html(totalPresupuesto);
+                // alert(totalPresupuesto);
 
                 $("#txt-presupuesto").html(selectedOptions);
                 $("#slc-presupuesto").html(selectedOptions);

@@ -39,7 +39,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Mohave:wght@700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Monda&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Monda&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@900&display=swap" rel="stylesheet">
 
@@ -60,6 +60,7 @@
 <script src='src/Vista/js/capital.js'></script>
 
 <script src='src/Vista/js/cl_capital.js'></script>
+<!-- <script src='src/Vista/js/cl_presupuesto.js'></script> -->
 <script src='src/Vista/js/misPresupuestos.js'></script>
 <script src='src/Vista/js/capital_has_presupuesto.js'></script>
 

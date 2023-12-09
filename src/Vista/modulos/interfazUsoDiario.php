@@ -14,6 +14,7 @@
                                 <div id="ahorroCaja" class="ahorroCaja me-3"></div> 
                                 <div id="inicioCaja" class="inicioCaja"></div> 
                             </div>
+                            <div id="gastoCaja" class="gastoCaja"></div>
                             <div id="ingresoCaja" class="ingresoCaja"></div>
                         </div>
                     </div>
@@ -22,7 +23,9 @@
                             <button class="botonIngreso border shadow shadow-md" id="btn-agregarIngresoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarIngresoCapital"><img src="src/Vista/img/ingresoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
                             <button class="botonGasto border shadow shadow-md" id="btn-agregarGastoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarGastoCapital"><img src="src/Vista/img/gastoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
                         </div>                        
-                        <div id="capitalActual" class="actualCaja"></div>    
+                        <div id="totalCapital" class="hidden"></div>    
+                        <div id="totalPresupuesto" class="hidden"></div>    
+                        <div id="actualCaja" class="actualCaja"></div>    
                     </div>
 
             </div>
@@ -46,31 +49,39 @@
         </div>
         <div class="container2Interfaz">
             <div class="col-lg-11 col-lg-8 sm-12 m-5 jsDiv">
-                <h3 class="titulos">CAPITALES </h3>
+                
                 <table id="tabla_CapitalInterfaz" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
-                    <thead class="thead-tablaTransacciones">
+                    <thead class="thead-tablaTransacciones"><h3 class="titulos">CAPITALES </h3>
                         <tr>
                             <th>fecha</th>
                             <th>monto</th>
                             <th>Descripcion</th>
                         </tr>
                     </thead>
-
                 </table>
+                
+                <table id="tablaAhorros" class="table nowrap table-striped">
+                    <thead><h3 class="titulos">AHORROS</h3>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Monto inicial</th>
+                            <th scope="col">Monto actual</th>
+                        </tr>
+                    </thead>
+                </table>
+                
+                <table id="Tabla_De_PresupuestosInterfaz" class="table nowrap table-striped">
+                    <thead><h3 class="titulos">PRESUPUESTOS</h3>
+                        <tr>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Valor Asignado</th>
+                            <th scope="col">Monto actual</th>
+                        </tr>
+                    </thead>
+                </table>
+                
 
-                <table id="tablaAhorros" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Monto inicial</th>
-                        <th scope="col">Monto actual</th>
-                    </tr>
-                </thead>
-                <tbody class="table-bordered">
-
-                </tbody>
-            </table>
 
             </div>
         </div>
