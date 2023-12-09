@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="datos-perfil">
-                    <h4 class="titulo-usuario">Juan Sebastian</h4>
+                    <h4 class="titulo-usuario"></h4>
 
                     <button class="btnU" id="update-button">
                         <i class="bi bi-pen"></i>

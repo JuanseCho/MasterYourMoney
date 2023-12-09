@@ -250,14 +250,14 @@ class mdl_actualizarImagenPerfil
   {
     $mensaje = array();
     try {
-      $objrespuesta = conexion::conectar()->prepare("SELECT imgPerfil_URL FROM usuarios WHERE idUsuario = :idUsuario");
+      $objrespuesta = conexion::conectar()->prepare("SELECT CONCAT(nombres, ' ' , apellidos) AS nombre_usuario ,imgPerfil_URL FROM usuarios WHERE idUsuario = :idUsuario");
       $objrespuesta->bindParam(":idUsuario", $idUsuario);
       $objrespuesta->execute();
       $resultados = $objrespuesta->fetchAll();
      $objrespuesta =null;
      //devolver la imagen
       foreach ($resultados as $value) {
-        $mensaje = array("codigo" => "200", "mensaje" => "Imagen actualizada correctamente", "ruta" => $value["imgPerfil_URL"]);
+        $mensaje = array("codigo" => "200", "mensaje" => "Imagen actualizada correctamente", "datosUsuario" => $resultados);
       }
     }catch (Exception $e) {
       $mensaje = array("codigo" => "425", "mensaje" => $e->getMessage());

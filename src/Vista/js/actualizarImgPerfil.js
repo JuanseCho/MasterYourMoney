@@ -13,7 +13,7 @@ $(document).ready(function () {
 
             if (supportedImages.indexOf(element.type) != -1) {
                 createPreview(element);
-               $("#update-button").show();
+                $("#update-button").show();
             } else {
                 seEncontraronElementoNoValidos = true;
             }
@@ -52,17 +52,17 @@ $(document).ready(function () {
                 timer: 4000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
-              })
-              
-              Toast.fire({
+            })
+
+            Toast.fire({
                 icon: 'success',
                 title: 'actualizado correctamente'
-              })
+            })
             $("#update-button").hide();
-            
+
         }).catch((error) => {
             console.error('Error en la solicitud:', error);
         });
@@ -70,7 +70,7 @@ $(document).ready(function () {
     // funcion para listar la imagen en el perfil de usuario
     function listarImagen() {
 
-    
+
         var objData = new FormData();
         objData.append("listarImagen", "ok");
         fetch("src/controladores/registroControl.php", {
@@ -82,9 +82,9 @@ $(document).ready(function () {
             }
             return response.json();
         }).then((response) => {
-            console.log(response);
+
             cargarImagen(response);
-            
+
         }).catch((error) => {
             console.error('Error en la solicitud:', error);
 
@@ -92,10 +92,16 @@ $(document).ready(function () {
     }
 
     function cargarImagen(response) {
+        console.log(response);
         var img = document.getElementById('avatar-img');
-        img.src = response.ruta;
+        var titulo = document.querySelector('.titulo-usuario');
+        var imagen = response.datosUsuario[0].imgPerfil_URL;
+        var nombre_usuario = response.datosUsuario[0].nombre_usuario;
+        titulo.innerHTML = nombre_usuario;
+        img.src = imagen;
 
-     
+
+
     }
 });
 
