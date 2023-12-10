@@ -48,9 +48,23 @@
             </div>
         </div>
         <div class="container2Interfaz">
-            <div class="col-lg-11 col-lg-8 sm-12 m-5 jsDiv">
+            <!-- <div class="col-lg-11 col-lg-8 sm-12 m-5 jsDiv"> -->
                 
-                <table id="tabla_CapitalInterfaz" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
+            <div id="mychart-holder" class="col-6" style="display: flex; justify-content: center; align-items: center;">
+                <div class="row">
+                    <select id="selectChart">
+                        <option value="general">General</option>
+                        <option value="gastos">Gastos</option>
+                        <option value="ahorros">Ahorros</option>
+                        <option value="ingresos">Ingresos</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <canvas id="myChart" style="width:100%; max-height: 300px"></canvas>
+                </div>
+            </div>
+
+                <!-- <table id="tabla_CapitalInterfaz" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
                     <thead class="thead-tablaTransacciones"><h3 class="titulos">CAPITALES </h3>
                         <tr>
                             <th>fecha</th>
@@ -79,11 +93,11 @@
                             <th scope="col">Monto actual</th>
                         </tr>
                     </thead>
-                </table>
+                </table> -->
                 
 
 
-            </div>
+            <!-- </div> -->
         </div>
     </div>
     

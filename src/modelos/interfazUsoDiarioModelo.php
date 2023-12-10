@@ -378,8 +378,6 @@ include_once "conexion.php";
             } else {
                 $montoActualFinal = $montoActual["montoActual"] - $montoGasto;
 
-
-
                 // Actualizar el monto actual del presupuesto
                 $actualizarMontoActual = conexion::conectar()->prepare("UPDATE presupuestos SET montoActual = :montoActualFinal WHERE idPresupuesto = :IdPresupuesto");
                 $actualizarMontoActual->bindParam(":montoActualFinal", $montoActualFinal);
@@ -457,48 +455,8 @@ include_once "conexion.php";
             $objRespuesta->bindParam(":idgasto", $idgasto);
             $objRespuesta->execute();
 
-
-
-            // // Obtener el monto del registro de ahorro que se va a eliminar
-            // $consultaMontoRegAhorro = $db->prepare("SELECT monto_regAhorro, ahorro_idAhorro, capital_idCapital FROM capital_has_ahorro WHERE idRegAhorro = :idregahorro");
-            // $consultaMontoRegAhorro->bindParam(":idregahorro", $idregahorro);
-            // $consultaMontoRegAhorro->execute();
-            // $montoRegAhorro = $consultaMontoRegAhorro->fetch();
-
-            // // Obtener el monto actual del ahorro donde se realizó el ahorro
-            // $consultaMontoAhorro = $db->prepare("SELECT montoActual_ahorro FROM ahorro WHERE idAhorro = :ahorroRegAhorro");
-            // $consultaMontoAhorro->bindParam(":ahorroRegAhorro", $montoRegAhorro["ahorro_idAhorro"]);
-            // $consultaMontoAhorro->execute();
-            // $montoAhorro = $consultaMontoAhorro->fetch();
-            // $montoAhorroFinal = $montoAhorro["montoActual_ahorro"] - $montoRegAhorro["monto_regAhorro"];
-
-            // // Actualizar el monto actual del ahorro donde se realizó el registro de ahorro
-            // $actualizarMontoAhorro = $db->prepare("UPDATE ahorro SET montoActual_ahorro = :montoAhorroFinal WHERE idAhorro = :ahorroRegAhorro");
-            // $actualizarMontoAhorro->bindParam(":montoAhorroFinal", $montoAhorroFinal);
-            // $actualizarMontoAhorro->bindParam(":ahorroRegAhorro", $montoRegAhorro["ahorro_idAhorro"]);
-            // $actualizarMontoAhorro->execute();  
-
-            // // Obtener el monto actual del capital donde se realizó el ahorro
-            // $consultaMontoCapital = $db->prepare("SELECT Montoactual FROM capital WHERE idCapital = :capitalAhorro");
-            // $consultaMontoCapital->bindParam(":capitalAhorro", $montoRegAhorro["capital_idCapital"]);
-            // $consultaMontoCapital->execute();
-            // $montoCapital = $consultaMontoCapital->fetch();
-            // $montoCapitalFinal = $montoCapital["Montoactual"] + $montoRegAhorro["monto_regAhorro"];
-            
-            // // Actualizar el monto actual del capital donde se realizó el ahorro
-            // $actualizarMontoCapital = $db->prepare("UPDATE capital SET Montoactual = :montoCapitalFinal WHERE idCapital = :capitalAhorro");
-            // $actualizarMontoCapital->bindParam(":montoCapitalFinal", $montoCapitalFinal);
-            // $actualizarMontoCapital->bindParam(":capitalAhorro", $montoRegAhorro["capital_idCapital"]);
-            // $actualizarMontoCapital->execute();
-
-            // // Eliminar el ahorro
-            // $objRespuesta = $db->prepare("DELETE FROM capital_has_ahorro WHERE idRegAhorro = :idregahorro");
-            // $objRespuesta->bindParam(":idregahorro", $idregahorro);
-            // $objRespuesta->execute();
-
-
             if ($objRespuesta->execute()) {
-                $mensaje = array("codigo" => "200", "respuesta" => "Ahorro de capital eliminado correctamente");
+                $mensaje = array("codigo" => "200", "respuesta" => "Gasto eliminado correctamente");
             } else {
                 $mensaje = array("codigo" => "425", "respuesta" => "No fue posible procesar la solicitud de eliminación");
             }

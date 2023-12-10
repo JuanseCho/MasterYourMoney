@@ -150,19 +150,17 @@ $(document).ready(function () {
         tablaCapital.column(1).data().each(function (value, index) {
             totalCapital += parseFloat(value);
         });
-        // var formattedTotal = totalCapital.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
-        //mostrar en el div de id montoTotal
-        // $("#montoTotal").html(formattedTotal);
-        // $("#totalCapital").html(formattedTotal);
-        // $(".actualCajaForm").html(formattedTotal);
+        var formattedTotal = totalCapital.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+        // mostrar en el div de id montoTotal
+        $("#montoTotal").html(formattedTotal);
+        $("#totalCapital").html(formattedTotal);
 
-        // $("#capitalActual").html(totalCapital);
 
-        // $("#select_tipoCapital").html(selectedOptions);
-        // $("#txt-capitalIngreso").html(selectedOptions);
-        // $("#txt-editcapitalIngreso").html(selectedOptions);
-        // $("#txt-capitalAhorro").html(selectedOptions);
-        // $("#txt-capitalGasto").html(selectedOptions);
+        $("#select_tipoCapital").html(selectedOptions);
+        $("#txt-capitalIngreso").html(selectedOptions);
+        $("#txt-editcapitalIngreso").html(selectedOptions);
+        $("#txt-capitalAhorro").html(selectedOptions);
+        $("#txt-capitalGasto").html(selectedOptions);
 
     }
 
