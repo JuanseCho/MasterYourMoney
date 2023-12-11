@@ -34,6 +34,9 @@ $(function () {
   $('#barraFecha').html(contenidoBarraFecha);
   $('#nombreDia').html(dayName);
 
+  let objGrafico = { traerValoresGrafico: "ok", fechaValoresGrafico: fechaFormateada };
+  let objRespuestaGrafico = new graficoHoy(objGrafico);
+  objRespuestaGrafico.traerValoresGrafico();
 
 
   // Formulario de Registro de ingreso al capital
@@ -86,6 +89,10 @@ $(function () {
               form.reset();
               $("#ventanaAgregarIngresoCapital").modal('toggle');
               listarTransaccionesCapital();
+
+              let objGrafico = { traerValoresGrafico: "ok", fechaValoresGrafico: fechaFormateada };
+              let objRespuestaGrafico = new graficoHoy(objGrafico);
+              objRespuestaGrafico.traerValoresGrafico();
 
             } else {
               Swal.fire({

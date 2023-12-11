@@ -417,6 +417,7 @@ class presupuestos {
                 var formattedTotalPresupuesto = totalPresupuesto.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
                 $("#totalPresupuesto").html(totalPresupuesto);
                 // alert(totalPresupuesto);
+                
 
                 $("#txt-presupuesto").html(selectedOptions);
                 $("#slc-presupuesto").html(selectedOptions);
