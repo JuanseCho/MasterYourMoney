@@ -6,9 +6,11 @@ include_once "../modelos/chartModelo.php";
     class graficoControl{
 
         public $fechaGrafico;
+        public $idUsuario;
 
         public function ctrTraerValoresGrafico(){
-            $objRespuesta = graficoModelo::mdlTraerValoresGrafico($this->fechaGrafico);
+            $this->idUsuario = $_SESSION["idUsuario"];
+            $objRespuesta = graficoModelo::mdlTraerValoresGrafico($this->fechaGrafico, $this->idUsuario);
             echo json_encode($objRespuesta);
         }
     }
