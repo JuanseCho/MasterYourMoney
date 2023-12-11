@@ -37,6 +37,11 @@
 <!-- Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
+<script src="https://kit.fontawesome.com/e4a7398719.js" crossorigin="anonymous"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
 
 <link rel='stylesheet' type='text/css' media='screen' href='src/Vista/css/main.css'>
@@ -49,10 +54,11 @@
 
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Mohave:wght@700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Monda&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Monda&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@900&display=swap" rel="stylesheet">
 
+<script src="src/Vista/js/chart.js"></script>
 
 
 
@@ -70,12 +76,14 @@
 <script src='src/Vista/js/capital.js'></script>
 
 <script src='src/Vista/js/cl_capital.js'></script>
+<script src='src/Vista/js/cl_presupuesto.js'></script>
 <script src='src/Vista/js/misPresupuestos.js'></script>
 <script src='src/Vista/js/capital_has_presupuesto.js'></script>
 
 <script src='src/Vista/js/gastos.js'></script>
 <script src='src/Vista/js/misAhorros.js'></script>
-<script src='src/Vista/js/interfazUsoDiario.js'></script> 
+<script src='src/Vista/js/interfazUsoDiario.js'></script>
+<script src='src/Vista/js/chart.js'></script>
 
  <script src='src/Vista/js/login.js'></script>  
 

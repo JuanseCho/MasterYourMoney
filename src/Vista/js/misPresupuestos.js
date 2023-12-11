@@ -2,6 +2,8 @@
 $(document).ready(function () {
 
     "use strict";
+    var tablaPresupuesto = null;
+    // listarPresupuestos();
 
     // instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
     // var instance = new cartasMenuUsuario(objData);
@@ -44,7 +46,7 @@ $(document).ready(function () {
                                 icon: 'success',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1500,
+                                timer: 2500,
                                 customClass: {
                                     title: 'swal'
                                 }
@@ -70,12 +72,12 @@ $(document).ready(function () {
                                 icon: 'error',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2500
                             });
                         }
 
                         listarPresupuestos();
-                        // instance.listarValoresAmenu();
+                        instance.listarValoresAmenu(); 
                     })
                     .catch((error) => {
                         console.log(error);
@@ -109,7 +111,7 @@ $(document).ready(function () {
     function cargarDatosPresupuesto(response) {
         console.log(response);
 
-        var dataSet = [];
+        var dataSetPresupuesto = [];
 
         var selectedOptionsEdit = [];
         var selectedOptions = "<option selected montoPresupuestoAsignado='0' nombrePresupuesto='' >seleccione el presupuesto </option>";
@@ -138,26 +140,18 @@ $(document).ready(function () {
               </div>`;
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            dataSet.push([item.descripcionPresupuesto, item.ValorAsignado, item.montoActual, item.capitales, objBotones]);
-
-
-            selectedOptions += `<option value="${item.idPresupuesto}" montoactual="${item.montoActual}" montoPresupuestoAsignado="${item.ValorAsignado}" nombrePresupuesto="${item.NombreTipoPresupuesto}">   ${item.NombreTipoPresupuesto}</option>`;
-
+            dataSetPresupuesto.push([item.descripcionPresupuesto, item.ValorAsignado, item.montoActual, item.capitales, objBotones]);
+            selectedOptions += `<option value="${item.idPresupuesto}" montoactual="${item.montoActual}" montoPresupuestoAsignado="${item.ValorAsignado}" nombrePresupuesto="${item.NombreTipoPresupuesto}">   ${item.descripcionPresupuesto}</option>`;
 
         }
 
+       $("#slc-presupuesto").html(selectedOptions);
 
-
-
-       // $("#slc-presupuesto").html(selectedOptions);
-
-        if (tablaPresupuesto != null) {
-            $("#Tabla_De_Presupuestos").dataTable().fnDestroy();
-        }
+        // if (tablaPresupuesto != null) {
+        //     $("#Tabla_De_Presupuestos").dataTable().fnDestroy();
+        // }
         tablaPresupuesto = $("#Tabla_De_Presupuestos").DataTable({
-
-            data: dataSet,
+            data: dataSetPresupuesto,
             search: {
                 return: true
             },
@@ -177,10 +171,25 @@ $(document).ready(function () {
                 }
             },
             destroy: true
-
         });
 
+        // //sumar los datos de MontoActual
+        var totalPresupuesto = 0;
+        tablaPresupuesto.column(2).data().each(function (value, index) {
+            totalPresupuesto += parseFloat(value);
+        });
+        // alert(totalPresupuesto);
+        var formattedTotalPresupuesto = totalPresupuesto.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+
+        // $("#slc-presupuesto").html(selectedOptions);
+        $("#totalPresupuesto").html(totalPresupuesto);
+
+
     }
+
+
+
+
 
     $("#Tabla_De_Presupuestos").on("click", "#btn_Edit_Presupuesto", function () {
         var id = $(this).attr("idPresupuesto");
@@ -226,7 +235,7 @@ $(document).ready(function () {
                                 icon: 'success',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1500,
+                                timer: 2500,
                                 customClass: {
                                     title: 'swal'
                                 }
@@ -238,7 +247,7 @@ $(document).ready(function () {
                                 icon: 'error',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1500
+                                timer: 2500
                             });
                         }
                         $("#txt_edit_Presupuesto").val("");
@@ -302,7 +311,7 @@ $(document).ready(function () {
                                         icon: 'success',
                                         title: response["mensaje"],
                                         showConfirmButton: false,
-                                        timer: 1500,
+                                        timer: 2500,
                                         customClass: {
                                             title: 'swal'
                                         }
@@ -313,7 +322,7 @@ $(document).ready(function () {
                                         icon: 'error',
                                         title: response["mensaje"],
                                         showConfirmButton: false,
-                                        timer: 1500
+                                        timer: 2500
                                     });
                                 }
                                 listarPresupuestos();
@@ -354,10 +363,14 @@ $(document).ready(function () {
 
 
 class presupuestos {
+    
     constructor(objData) {
         this._objPresupuesto = objData;
         this.tablaPresupuesto = null;
     }
+
+    tablaPresupuesto = null;
+    totalPresupuesto = 0;
 
     listarPresupuestos() {
         var objData = new FormData();
@@ -398,10 +411,10 @@ class presupuestos {
                 }
 
                 // Usar this.tablaPresupuesto en lugar de tablaPresupuesto
-                if (this.tablaPresupuesto != null) {
-                    // Usar this en lugar de tablaPresupuesto
-                    this.tablaPresupuesto.destroy();
-                }
+                // if (this.tablaPresupuesto != null) {
+                //     // Usar this en lugar de tablaPresupuesto
+                //     this.tablaPresupuesto.destroy();
+                // }
 
                 // Usar this.tablaPresupuesto en lugar de tablaPresupuesto
                 this.tablaPresupuesto = $("#Tabla_De_Presupuestos").DataTable({
@@ -411,23 +424,23 @@ class presupuestos {
                     },
                     paging: false,
                     scrollY: 300,
-                    responsive: {
-                        details: {
-                            display: DataTable.Responsive.display.modal({
-                                header: function (row) {
-                                   
-                                }
-                            }),
-                            renderer: DataTable.Responsive.renderer.tableAll({
-                                tableClass: 'table'
-                            })
-                        }
-                    },
+                    responsive: true,
                     destroy: true
                 });
 
-                $("#txt-presupuesto").html(selectedOptions);
-                $("#slc-presupuesto").html(selectedOptions);
+                //sumar los datos de MontoActual
+                totalPresupuesto = 0;
+                this.tablaPresupuesto.column(2).data().each(function (value, index) {
+                    totalPresupuesto += parseFloat(value);
+                });
+
+                $("#totalPresupuesto").html(totalPresupuesto);
+                // var formattedTotalPresupuesto = totalPresupuesto.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+                // alert(totalPresupuesto);
+                
+
+                // $("#txt-presupuesto").html(selectedOptions);
+                // $("#slc-presupuesto").html(selectedOptions);
 
             })
             .catch((error) => {

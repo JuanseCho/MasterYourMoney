@@ -1,7 +1,7 @@
 
 <body class="bodyInterfaz mt-5" >
     <div class="containerInterfaz mt-5 row">
-        <div class="container1Interfaz col-lg-5 col-md-5">
+        <div class="container1Interfaz">
             <div class="containerFecha">
                 <div id="barraFecha" class="barraFecha shadow shadow-lg"></div>
                 <div id="nombreDia" class="nombreDia"></div>
@@ -14,6 +14,7 @@
                                 <div id="ahorroCaja" class="ahorroCaja me-3"></div> 
                                 <div id="inicioCaja" class="inicioCaja"></div> 
                             </div>
+                            <div id="gastoCaja" class="gastoCaja"></div>
                             <div id="ingresoCaja" class="ingresoCaja"></div>
                         </div>
                     </div>
@@ -22,7 +23,9 @@
                             <button class="botonIngreso border shadow shadow-md" id="btn-agregarIngresoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarIngresoCapital"><img src="src/Vista/img/ingresoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
                             <button class="botonGasto border shadow shadow-md" id="btn-agregarGastoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarGastoCapital"><img src="src/Vista/img/gastoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
                         </div>                        
-                        <div id="capitalActual" class="actualCaja"></div>    
+                        <div id="totalCapital" class="hidden"></div>    
+                        <div id="totalPresupuesto" class="hidden"></div>    
+                        <div id="actualCaja" class="actualCaja"></div>    
                     </div>
 
             </div>
@@ -44,35 +47,57 @@
                 </table>
             </div>
         </div>
-        <div class="container2Interfaz col-lg-5 col-md-5">
-            <div class="col-lg-11 col-lg-8 sm-12 m-5 jsDiv">
-                <h3 class="titulos">CAPITALES </h3>
-                <table id="tabla_CapitalInterfaz" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
-                    <thead class="thead-tablaTransacciones">
+        <div class="container2Interfaz">
+            <!-- <div class="col-lg-11 col-lg-8 sm-12 m-5 jsDiv"> -->
+                
+            <div id="mychart-holder" class="col-6" style="display: flex; justify-content: center; align-items: center;">
+                <div class="row">
+                    <select id="selectChart">
+                        <option value="general">General</option>
+                        <option value="gastos">Gastos</option>
+                        <option value="ahorros">Ahorros</option>
+                        <option value="ingresos">Ingresos</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <canvas id="myChart" style="width:100%; max-height: 300px"></canvas>
+                </div>
+            </div>
+
+                <!-- <table id="tabla_CapitalInterfaz" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
+                    <thead class="thead-tablaTransacciones"><h3 class="titulos">CAPITALES </h3>
                         <tr>
                             <th>fecha</th>
                             <th>monto</th>
                             <th>Descripcion</th>
                         </tr>
                     </thead>
-
                 </table>
+                
+                <table id="tablaAhorros" class="table nowrap table-striped">
+                    <thead><h3 class="titulos">AHORROS</h3>
+                        <tr>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Monto inicial</th>
+                            <th scope="col">Monto actual</th>
+                        </tr>
+                    </thead>
+                </table>
+                
+                <table id="Tabla_De_PresupuestosInterfaz" class="table nowrap table-striped">
+                    <thead><h3 class="titulos">PRESUPUESTOS</h3>
+                        <tr>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Valor Asignado</th>
+                            <th scope="col">Monto actual</th>
+                        </tr>
+                    </thead>
+                </table> -->
+                
 
-                <table id="tablaAhorros" class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Monto inicial</th>
-                        <th scope="col">Monto actual</th>
-                    </tr>
-                </thead>
-                <tbody class="table-bordered">
 
-                </tbody>
-            </table>
-
-            </div>
+            <!-- </div> -->
         </div>
     </div>
     
@@ -134,7 +159,7 @@
 
 
     <!-- Formulario modal Editar Ingreso al Capital-->
-    <div class="modal" id="ventanaEditarIngresoCapital">
+    <!-- <div class="modal" id="ventanaEditarIngresoCapital">
             <div class="modal-dialog">
                 <div class="modal-content rounded-5">
                     <form id="formEditarIngresoCapital" action="" class="modal-body needs-validated shadow-lg rounded-5 text-center" novalidate>
@@ -170,7 +195,7 @@
                     </form>                  
                 </div>
             </div>
-    </div>
+    </div> -->
 
 
     <!-- Formulario modal Agregar Ahorro del Capital-->
@@ -216,7 +241,7 @@
 
 
     <!-- Formulario modal Editar Ahorro del Capital-->
-    <div class="modal" id="ventanaEditarRegAhorroCapital">
+    <!-- <div class="modal" id="ventanaEditarRegAhorroCapital">
             <div class="modal-dialog">
                 <div class="modal-content rounded-5">
                     <form id="formEditarRegAhorroCapital" action="" class="modal-body needs-validated shadow-lg rounded-5 text-center" novalidate>
@@ -254,7 +279,7 @@
                     </form>                  
                 </div>
             </div>
-    </div>
+    </div> -->
 
 
     <!-- Formulario modal agregar Gasto del Capital-->

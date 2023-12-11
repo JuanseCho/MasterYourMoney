@@ -1,14 +1,13 @@
 $(document).ready(function () {
 
-    tablaCapital = null;
+    var tablaCapital = null;
     listarCapital();
 
-    var objData = {listarValoresAmenu: "ok"};
-    var instance = new cartasMenuUsuario(objData);
-    instance.listarValoresAmenu();
-      
+    // var objData = {listarValoresAmenu: "ok"};
+    // var instance = new cartasMenuUsuario(objData);
+    // instance.listarValoresAmenu();
 
-    //funcion para agregar Capital
+    // funcion para agregar Capital
     const forms = document.querySelectorAll("#form_Agregar_Capital");
     Array.from(forms).forEach((form) => {
         form.addEventListener("submit", (event) => {
@@ -52,7 +51,7 @@ $(document).ready(function () {
                                 icon: 'success',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 10000,
+                                timer: 2500,
                                 customClass: {
                                     title: 'swal'
                                 }
@@ -66,7 +65,7 @@ $(document).ready(function () {
                                 icon: 'error',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 100000
+                                timer: 2500
                             });
                         }
                         $("#txt_monto").val("");
@@ -134,9 +133,7 @@ $(document).ready(function () {
             dataSet.push([item.fecha, item.Montoactual, item.descipcion, item.NombreFormaPago, objBotones]);
             selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
         }
-        if (tablaCapital != null) {
-            $("#tabla_Capital").dataTable().fnDestroy();
-        }
+
         tablaCapital = $("#tabla_Capital").DataTable({
             data: dataSet,
             search: {
@@ -144,33 +141,27 @@ $(document).ready(function () {
             },
             paging: false,
             scrollY: 300,
-            responsive: {
-                details: {
-                    display: DataTable.Responsive.display.modal({
-                        header: function (row) {
-                            
-                        }
-                    }),
-                    renderer: DataTable.Responsive.renderer.tableAll({
-                        tableClass: 'table'
-                    })
-                }
-            },
+            responsive: true,
             destroy: true
         });
 
         //sumar los datos de MontoActual
-        var total = 0;
+        var totalCapital = 0;
         tablaCapital.column(1).data().each(function (value, index) {
-            total += parseFloat(value);
+            totalCapital += parseFloat(value);
         });
-        var formattedTotal = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
+        $("#totalCapital").html(totalCapital);
+
+        var formattedTotal = totalCapital.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
         //mostrar en el div de id montoTotal
         $("#montoTotal").html(formattedTotal);
-        $(".actualCajaForm").html(formattedTotal);
-        $("#capitalActual").html(formattedTotal);
+        // $("#totalCapital").html(formattedTotal);
+        // $(".actualCajaForm").html(formattedTotal);
+
+
         $("#select_tipoCapital").html(selectedOptions);
         $("#txt-capitalIngreso").html(selectedOptions);
+        $("#txt-capitalRegAhorro").html(selectedOptions);
         $("#txt-editcapitalIngreso").html(selectedOptions);
         $("#txt-capitalAhorro").html(selectedOptions);
         $("#txt-capitalGasto").html(selectedOptions);
@@ -210,7 +201,7 @@ $(document).ready(function () {
                                 icon: 'success',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1000,
+                                timer: 2500,
                                 customClass: {
                                     title: 'swal'
                                 }
@@ -291,7 +282,7 @@ $(document).ready(function () {
                                 icon: 'success',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1000,
+                                timer: 2500,
                                 customClass: {
                                     title: 'swal'
                                 }
@@ -303,7 +294,7 @@ $(document).ready(function () {
                                 icon: 'error',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1000
+                                timer: 2500
                             });
                         }
                         let objDataCapital = { "listarCapital": "ok" };
@@ -324,3 +315,7 @@ $(document).ready(function () {
 
 
 });
+
+// var objData = { listarValoresAmenu: "ok" };
+// var instance = new cartasMenuUsuario(objData);
+// instance.listarValoresAmenu();

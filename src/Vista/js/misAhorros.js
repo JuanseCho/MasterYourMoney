@@ -16,7 +16,7 @@ $(function () {
   const fechaFormateada = `${year}-${mes.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
   // let horaFormateada = `${horaActual}:${minutosActuales.toString().padStart(2, '0')}:${segundosActuales.toString().padStart(2, '0')}`; 
 
-    var tabla = null;
+    var tablaAhorro = null;
     // var dataSet = null;
     listarAhorros();
 
@@ -33,7 +33,7 @@ $(function () {
                 let descripcionAhorro = $("#txt-descripcionAhorro").val();
                 let montoInicialAhorro = $("#txt-montoInicialAhorro").val();
                 let montoMetaAhorro = $("#txt-montoMetaAhorro").val();
-                alert(descripcionAhorro);
+                // alert(descripcionAhorro);
 
                 let objData = new FormData();
                 objData.append("regFechaAhorro", fechaFormateada);
@@ -58,7 +58,7 @@ $(function () {
                                 icon: 'success',
                                 title: response["respuesta"],
                                 showConfirmButton: false,
-                                timer: 1000,
+                                timer: 2500,
                                 customClass: {
                                     title: 'swal'
                                 }
@@ -72,7 +72,7 @@ $(function () {
                                 icon: 'error',
                                 title: response["mensaje"],
                                 showConfirmButton: false,
-                                timer: 1000
+                                timer: 2500
                             });
                         }
                         $("#ventanaAgregarAhorro").modal('toggle');
@@ -101,54 +101,41 @@ $(function () {
     }
 
     function cargarDatos(response) {
-      var dataSet = [];
+      var dataSetAhorro = [];
       var ahorros =[];
-      ahorros += '<option selected disabled>Seleccione la ahorro del Ingreso</option>';
+      ahorros += '<option selected disabled>Seleccione el ahorro del Ingreso</option>';
 
       response.forEach(listarDatos);
 
       function listarDatos(item, index) {
-
         var objBotones = `
-        <div class="button-container">
-            <!-boton para editar-->
-            <button class="button" id="btnEditar" type="button" class="btn btn-warning" idahorro=" ${item.idAhorro}  " descripcionAhorro="${item.descripcion_ahorro}" montoInicialAhorro=" ${item.montoInicial_ahorro}" montoActualAhorro=" ${item.montoActual_ahorro}" montoMetaAhorro="${item.montoMeta_ahorro}" data-bs-toggle="modal" data-bs-target="#ventanaEditarAhorro">
-                <i class="bi bi-pencil-square"></i>
-            </button>
+            <div class="button-container">
+                <!-boton para editar-->
+                <button class="button" id="btnEditar" idAhorro="${item.idAhorro}" descripcionAhorro="${item.descripcion_ahorro}" montoInicialAhorro="${item.montoInicial_ahorro}" montoActualAhorro="${item.montoActual_ahorro}" montoMetaAhorro="${item.montoMeta_ahorro}" data-bs-toggle="modal" data-bs-target="#modalFormularioEditarAhorro">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+    
+                <!-boton para eliminar-->
+                
+                <button class="button" id="btnEliminar" idCapital="${item.idCapital}">
+                    <i class="bi bi-trash"></i>
+                </button>
+    
+            </div>`;
 
-            <!-boton para eliminar-->
-            
-            <button class="button" id="btnEliminar" type="button" class="btn btn-danger" idahorro=" ${item.idAhorro}">
-                <i class="bi bi-trash"></i>
-            </button>
-
-        </div>`;
-
-        dataSet.push([item.fecha_ahorro, item.descripcion_ahorro, item.montoInicial_ahorro, item.montoActual_ahorro, item.montoMeta_ahorro, objBotones]);
+        dataSetAhorro.push([item.fecha_ahorro, item.descripcion_ahorro, item.montoInicial_ahorro, item.montoActual_ahorro, item.montoMeta_ahorro, objBotones]);
         ahorros += '<option value="'+item.idAhorro+'">'+item.descripcion_ahorro+'</option>';
       }
 
-      if (tabla != null) {
-      $("#tablaAhorros").dataTable().fnDestroy();
-      }
-      tabla = $("#tablaAhorros").DataTable({
-        data: dataSet,
+      tablaAhorro = $("#tablaAhorros").DataTable({
+        destroy:true,
+        data: dataSetAhorro,
         search: {
-          return: true
-      },
-      paging: false,
-      scrollY: 300,
-        responsive: {
-          details: {
-              display: DataTable.Responsive.display.modal({
-                 
-              }),
-              renderer: DataTable.Responsive.renderer.tableAll({
-                  tableClass: 'table'
-              })
-          }
-      },
-      });
+            return: true
+        },
+        paging: false,
+        scrollY: 300
+    });
 
       $("#txt-ahorroRegAhorro").html(ahorros);
       // $("#txt-editahorroIngreso").html(ahorros);
@@ -170,12 +157,16 @@ $(function () {
 
             var idahorro = $("#btnEditarAhorro").attr("idahorro");
             var descripcionAhorro = $("#txt-editdescripcionAhorro").val();
+            let montoInicialAhorro = $("#txt-editmontoInicialAhorro").val();
+            let montoMetaAhorro = $("#txt-editmontoMetaAhorro").val();
 
             var objData = new FormData();
             objData.append("editIdAhorro", idahorro);
             objData.append("regDescripcionAhorro", descripcionAhorro);
+            objData.append("regMontoInicialAhorro", montoInicialAhorro);
+            objData.append("regMontoMetaAhorro", montoMetaAhorro);
 
-            fetch('src/controladores/misFormasDePagoControl.php', {
+            fetch('src/controladores/misAhorrosControl.php', {
               method: 'POST',
               body: objData
             }).then(response => response.json()).catch(error => {
@@ -187,7 +178,7 @@ $(function () {
                     icon: 'success',
                     title: response["respuesta"],
                     showConfirmButton: false,
-                    timer: 1000,
+                    timer: 2500,
                     customClass: {
                         title: 'swal'
                     }
@@ -199,11 +190,11 @@ $(function () {
                       icon: 'error',
                       title: response["mensaje"],
                       showConfirmButton: false,
-                      timer: 1000
+                      timer: 2500
                   });
             }
             form.reset();
-            $("#ventanaEditarAhorro").modal('toggle');
+            $("#modalFormularioEditarAhorro").modal('toggle');
             listarAhorros();
             });
 

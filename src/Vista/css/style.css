@@ -92,6 +92,9 @@ form {
 .dataTables_scrollBody {
     overflow-x: hidden !important;
 }
+.hidden {
+    display: none;
+}
 
 table td {
     border: 0;

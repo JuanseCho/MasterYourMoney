@@ -38,7 +38,7 @@ $(function () {
                 icon: 'success',
                 title: response["respuesta"],
                 showConfirmButton: false,
-                timer: 1000,
+                timer: 2500,
                 customClass: {
                   title: 'swal'
                 }
@@ -52,7 +52,7 @@ $(function () {
                 icon: 'error',
                 title: response["mensaje"],
                 showConfirmButton: false,
-                timer: 1000
+                timer: 2500
               });
             }
             form.reset();
@@ -166,7 +166,7 @@ $(function () {
                 icon: 'success',
                 title: response["respuesta"],
                 showConfirmButton: false,
-                timer: 1000,
+                timer: 2500,
                 customClass: {
                   title: 'swal'
                 }
@@ -178,7 +178,7 @@ $(function () {
                 icon: 'error',
                 title: response["mensaje"],
                 showConfirmButton: false,
-                timer: 1000
+                timer: 2500
               });
 
              

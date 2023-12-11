@@ -34,7 +34,7 @@ $(function () {
                             icon: 'success',
                             title: 'Bienvenido',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 2500
                         });
 
                     } else {
