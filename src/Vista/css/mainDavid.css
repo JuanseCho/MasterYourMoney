@@ -1,5 +1,5 @@
 .bodyInterfaz {
-    background-color: #c5dcdf;
+    background-color: #3a5672;
 }
 .containerInterfaz {
     display: flex;
@@ -14,7 +14,9 @@
 .container2Interfaz {
     width: 50%;
     height: 100vh;
-    /* background-color: #566E87; */
+    /* centrar el contenido */
+    margin-inline-start: 5%;
+    margin-block-start: 15%;
 }
 .containerFecha {
     width: 80%;
@@ -306,4 +308,8 @@
     /*Cambiar tamaño del text wrap*/
     font-size: 2.3ch;
     text-align: center;
+}
+.labelChartCustom {
+    color: red; /* Cambia el color de la fuente */
+  font-weight: bold; /* Cambia el peso de la fuente */
 }
