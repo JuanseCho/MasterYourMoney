@@ -339,6 +339,7 @@ button:hover,
     background: var(--brand-01);
     transition: var(--hover-timing);
     box-shadow: var(--card-hover);
+    
 }
 
 

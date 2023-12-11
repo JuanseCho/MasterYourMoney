@@ -126,7 +126,7 @@ class mdlRecuperarPassword
         $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
         //Recipients
-        $mail->setFrom('sebastian.ch1777@gmail.com', 'phpMailer');
+        $mail->setFrom('sebastian.ch1777@gmail.com', 'masterYourMoney');
         $mail->addAddress($email, 'yuanse');     //Add a recipient
 
         //Attachments
@@ -135,52 +135,57 @@ class mdlRecuperarPassword
         $mail->CharSet = 'UTF-8';
         $mail->Subject = "Recuperacion de contraseña  masterYourMoney";
 
-        // Define el contenido del correo electrónico utilizando HTML
         $mail->Body = '
-          <html lang="en">
-          <head>
-            
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <style>
-              .container {
-                width: 500px;
-                margin: 0 auto;
-                padding: 20px;
-              }
-              .card {
-                border: 2px solid #000d47;
-                border-radius: 10px;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-                color: #fff;
-                font-size: 18px;
-                padding: 20px;
-                width: 400px;
-                height: 350;
-                background-color:#0f0f40;
-                background:url("https://img.freepik.com/fotos-premium/fondo-foto-textura-pintura-color-azul-retrato-hecho-aiinteligencia-artificial_41969-11901.jpg?w=740")
-              }
-            </style>
-          </head>
-          <body>
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td  bgcolor="#f0f0f0" valign="top">
-                  <div class="container mt-3">
-                    <h2></h2>
-                    <div class="card">
-                      <div class="card-header"></div>
-                      <div class="card-body">' . $codigo . '</div>
-                      <div class="card-footer"></div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </table>
-          </body>
-          </html>
-          ';
+        <html lang="en">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <style>
+            .container {
+              width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+              min-height: max-content;
+            }
+            .card {
+              border: 2px solid #000d47;
+              border-radius: 10px;
+              box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+              color: #fff;
+              font-size: 18px;
+              padding: 20px;
+              width: 400px;
+              height: 350;
+              background: linear-gradient(rgba(15, 15, 64, 0.5), rgba(15, 15, 64, 0.5)), url("https://images.pexels.com/photos/196659/pexels-photo-196659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+              background-size: cover; 
+              background-position: center;
+            }
+          </style>
+        </head>
+        <body>
+          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td bgcolor="#f0f0f0" valign="top">
+                <div class="container mt-3">
+                  <h2>Recuperación de contraseña</h2>
+                  <div class="card">
+                    <div class="card-header">Estimado usuario,</div>
+                    <div class="card-body">
+                    Hemos recibido una solicitud para restablecer tu contraseña.
+                    Tu código de verificación es: <strong>' . $codigo . '</strong>
+                    Por favor, introduce este código en la aplicación para continuar con el proceso de recuperación de tu contraseña.
 
+                    <img src="https://images.pexels.com/photos/196659/pexels-photo-196659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Descripción de la imagen">
+                    </div>
+                    <div class="card-footer" style="background: #94938cd4 ; color: #fff">Si no has solicitado un cambio de contraseña, por favor ignora este correo electrónico.</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+        ';
         if ($mail->send()) {
           // devolver el correo electrónico en el array de $mensaje
           $mensaje = array("codigo" => "200", "mensaje" => "Correo enviado correctamente", "email" => $email);
@@ -221,13 +226,13 @@ class mdlRecuperarPassword
 
 class mdl_actualizarImagenPerfil
 {
-  public static function  actualizarImagenPerfil( $idUsuario, $imagen, $nombreArchivo)
+  public static function  actualizarImagenPerfil($idUsuario, $imagen, $nombreArchivo)
   {
     $mensaje = array();
     try {
       // mover la imagen a la carpeta de imagenes
       $ruta = "../Vista/img/usuarios/" . $nombreArchivo;
-      move_uploaded_file($imagen['tmp_name'], $ruta );
+      move_uploaded_file($imagen['tmp_name'], $ruta);
       $ruta = "src/Vista/img/usuarios/" . $nombreArchivo;
       // actualizar la ruta de la imagen en la base de datos
       $sql = "UPDATE usuarios SET imgPerfil_URL = :ruta WHERE idUsuario = :idUsuario";
@@ -254,12 +259,12 @@ class mdl_actualizarImagenPerfil
       $objrespuesta->bindParam(":idUsuario", $idUsuario);
       $objrespuesta->execute();
       $resultados = $objrespuesta->fetchAll();
-     $objrespuesta =null;
-     //devolver la imagen
+      $objrespuesta = null;
+      //devolver la imagen
       foreach ($resultados as $value) {
         $mensaje = array("codigo" => "200", "mensaje" => "Imagen actualizada correctamente", "datosUsuario" => $resultados);
       }
-    }catch (Exception $e) {
+    } catch (Exception $e) {
       $mensaje = array("codigo" => "425", "mensaje" => $e->getMessage());
     }
     return $mensaje;

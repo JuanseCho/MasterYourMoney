@@ -147,9 +147,6 @@ $(document).ready(function () {
             responsive: {
                 details: {
                     display: DataTable.Responsive.display.modal({
-                        header: function (row) {
-                            
-                        }
                     }),
                     renderer: DataTable.Responsive.renderer.tableAll({
                         tableClass: 'table'

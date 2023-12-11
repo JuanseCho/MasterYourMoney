@@ -154,6 +154,15 @@ $(function () {
                 }).then(response => {
 
                     if (response["codigo"] == "200") {
+                        $("#correo").html(email);
+                        //cerrar modal
+                        
+                        //colocar el correo en el span del modal validarCodigo
+                        // abrir modal validarCodigo
+                        $('#validarCodigo').modal({
+                            backdrop: 'static',
+                            keyboard: true  // también previene el cierre con la tecla escape
+                        }); $("#validarCodigo").modal("show");
                         const Toast = Swal.mixin({
                             toast: true,
                             position: 'top-end',
@@ -161,27 +170,19 @@ $(function () {
                             timer: 8000,
                             timerProgressBar: true,
                             didOpen: (toast) => {
-                              toast.addEventListener('mouseenter', Swal.stopTimer)
-                              toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
                             }
-                          })
-                          
-                          Toast.fire({
+                        })
+
+                        Toast.fire({
                             icon: 'success',
                             title: 'revisa tu correo electronico y valida el codigo'
-                          })
-                        //cerrar modal
-                        $("#recuperarContraseña").modal("hide");
-                        //colocar el correo en el span del modal validarCodigo
-                        $("#correo").html(email);
-                        // abrir modal validarCodigo
-                         $('#validarCodigo').modal({
-                            backdrop: 'static',
-                            keyboard: false  // también previene el cierre con la tecla escape
-                          });$("#validarCodigo").modal("show");
-                       
+                        })
 
-                          
+                     
+
+
                     } else {
                         Swal.fire({
                             position: 'center',
@@ -199,7 +200,7 @@ $(function () {
         }, false)
     })
 
-    
+
     var forms = document.querySelectorAll('#validar_Codigo');
     Array.prototype.slice.call(forms).forEach(function (form) {
 
@@ -223,8 +224,14 @@ $(function () {
                 }).then(response => {
 
                     if (response["codigo"] == "200") {
+                        $("#recuperarContraseña").modal("hide");
                         //cerrar modal
                         $("#validarCodigo").modal("hide");
+                        $('#restContraseña').modal({
+                            backdrop: 'static',
+                            keyboard: false  // también previene el cierre con la tecla escape
+                        });
+
                         // abrir modal validarCodigo
                         $("#restContraseña").modal("show");
                     } else {
