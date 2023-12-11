@@ -62,7 +62,7 @@ class CapitalUsuario{
     
             //sumar los datos de MontoInicial
             totalCapital = 0;
-            tablaCapital.column(1).data().each(function (value, index) {
+            this.tablaCapital.column(1).data().each(function (value, index) {
                 totalCapital += parseFloat(value);
             });
             var formattedTotal = totalCapital.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });

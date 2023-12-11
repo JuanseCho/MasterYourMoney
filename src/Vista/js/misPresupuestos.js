@@ -1,13 +1,13 @@
 
 $(document).ready(function () {
 
-    "use strict";
-    var tablaPresupuesto = null;
-    // listarPresupuestos();
+    // "use strict";
+    // var tablaPresupuesto = null;
+    listarPresupuestos();
 
-    // instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
-    // var instance = new cartasMenuUsuario(objData);
-    // instance.listarValoresAmenu();
+    instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
+    var instance = new cartasMenuUsuario(objData);
+    instance.listarValoresAmenu();
 
     var objData = { listarPresupuesto: "ok" };
     var instance = new presupuestos(objData);

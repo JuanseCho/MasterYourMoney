@@ -403,7 +403,7 @@ $(document).ready(function () {
     
         let totalCaja = parseFloat($("#totalCapital").html()) + parseFloat($("#totalPresupuesto").html());
         var formattedTotalCaja = totalCaja.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
-        $(".actualCaja").html(formattedTotalCaja);
+        $("#actualCaja").html(formattedTotalCaja);
         $(".actualCajaForm").html(formattedTotalCaja);
         
 
