@@ -612,6 +612,7 @@ button:hover,
  
 }
 
+<<<<<<< HEAD
 /*GRAFICA DE TORTA */
 
 #containerChartPie {
@@ -656,3 +657,8 @@ button:hover,
 .btnFiltroGrafico:hover {
     background-color: #2980b9; /* Cambia el color al pasar el mouse sobre el botón */
 }
+=======
+
+
+  
+>>>>>>> cb90977187da57a71f489e8abf6d183efc9e0344

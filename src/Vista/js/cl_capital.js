@@ -46,16 +46,29 @@ class CapitalUsuario{
                 selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
             }
             if (tablaCapital != null) {
-                $("#tabla_Capital").dataTable().fnDestroy();
+                $("#tabla_CapitalInterfaz").dataTable().fnDestroy();
             }
-            tablaCapital = $("#tabla_Capital").DataTable({
+            tablaCapital = $("#tabla_CapitalInterfaz").DataTable({
                 destroy:true,
                 data: dataSet,
                 search: {
                     return: true
                 },
                 paging: false,
-                scrollY: 300
+                scrollY: 300,
+                responsive: {
+                    details: {
+                        display: DataTable.Responsive.display.modal({
+                            header: function (row) {
+                                var data = row.data();
+                                return 'Details for ' + data[0] + ' ' + data[1];
+                            }
+                        }),
+                        renderer: DataTable.Responsive.renderer.tableAll({
+                            tableClass: 'table'
+                        })
+                    }
+                },
             });
     
             //sumar los datos de MontoInicial
@@ -63,7 +76,7 @@ class CapitalUsuario{
             tablaCapital.column(1).data().each(function (value, index) {
                 total += parseFloat(value);
             });
-            var formattedTotal = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0});
+            var formattedTotal = total.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
             //mostrar en el div de id montoTotal
             $(".actualCajaForm").html(formattedTotal);
             $("#montoTotal").html(formattedTotal);
@@ -71,6 +84,7 @@ class CapitalUsuario{
             $("#txt-capitalIngreso").html(selectedOptions);
             $("#txt-editcapitalIngreso").html(selectedOptions);
             $("#txt-capitalRegAhorro").html(selectedOptions);
+            $("#txt-editcapitalRegAhorro").html(selectedOptions);
             $("#txt-capitalGasto").html(selectedOptions);
             $("#select_tipoCapital").html(selectedOptions);
 

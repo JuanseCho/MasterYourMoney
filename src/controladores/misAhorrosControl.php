@@ -18,12 +18,12 @@ include_once "../modelos/misAhorrosModelo.php";
             $objRespuesta = ahorroModelo::mdlListarAhorros();
             echo json_encode($objRespuesta);
         }
-
+/*
         public function ctrActualizarAhorro(){
             $objRespuesta = ahorroModelo::mdlActualizarAhorro($this->idahorro, $this->nombreAhorro);
             echo json_encode($objRespuesta);
         }
-
+*/
         public function ctrEliminarAhorro(){
             $objRespuesta = ahorroModelo::mdlEliminarAhorro($this->idahorro);
             echo json_encode($objRespuesta);
@@ -44,14 +44,14 @@ include_once "../modelos/misAhorrosModelo.php";
         $objAhorros = new ahorroControl();
         $objAhorros->ctrListarAhorros();
     }
-
+/*
     if (isset($_POST["editIdAhorro"])) {
         $objAhorro = new ahorroControl();
         $objAhorro->idahorro = $_POST["editIdAhorro"];
         $objAhorro->nombreAhorro = $_POST["regNombreAhorro"];
         $objAhorro->ctrActualizarAhorro();
     }
-
+*/
     if (isset($_POST["idahorro"])) {
         $objCategoria = new ahorroControl();
         $objCategoria->idahorro = $_POST["idahorro"];

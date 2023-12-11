@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    
     let objDataCapital = { "listarCapital": "ok" };
     let objRespuesta = new CapitalUsuario(objDataCapital);
     objRespuesta.listarCapital();
@@ -187,7 +188,19 @@ $(document).ready(function () {
             },
             paging: false,
             scrollY: 300,
-            responsive: true
+            responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return 'Details for ' + data[0] + ' ' + data[1];
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({
+                        tableClass: 'table'
+                    })
+                }
+            }
         });
     }
 
@@ -276,3 +289,6 @@ $(document).ready(function () {
 
 
 
+var objData = {listarValoresAmenu: "ok"};
+var instance = new cartasMenuUsuario(objData);
+instance.listarValoresAmenu();

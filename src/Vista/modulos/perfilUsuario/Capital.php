@@ -32,7 +32,7 @@
     
             <div class="col-md-12 col-lg-12 sm-12  jsDiv">
                 <h3 class="titulos">CAPITALES </h3>
-                <table id="" class="table table-striped nowrap dataTables_scrollBody " style="width: 100%;">
+                <table id="tabla_Capital" class="table table-striped nowrap dataTables_scrollBody tabla_Capital" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>fecha</th>

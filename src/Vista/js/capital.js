@@ -1,10 +1,13 @@
 $(document).ready(function () {
-    // let objDataCapital = { "listarCapital": "ok" };
-    // let objRespuesta = new CapitalUsuario(objDataCapital);
-    // objRespuesta.listarCapital();
 
     tablaCapital = null;
     listarCapital();
+
+    var objData = {listarValoresAmenu: "ok"};
+    var instance = new cartasMenuUsuario(objData);
+    instance.listarValoresAmenu();
+      
+
     //funcion para agregar Capital
     const forms = document.querySelectorAll("#form_Agregar_Capital");
     Array.from(forms).forEach((form) => {
@@ -21,7 +24,7 @@ $(document).ready(function () {
                 const mes = fecha.getMonth() + 1; // Sumamos 1 para obtener un valor de mes entre 1 y 12
                 const dia = fecha.getDate();
                 const fechaFormateada = `${año}-${mes.toString().padStart(2, '0')}-${dia.toString().padStart(2, '0')}`;
-                
+
                 let monto = $("#txt_monto").val();
                 let descripcion = $("#txt_descripcion").val();
                 let formaDePago = $("#txt_formaD_Pago").val();
@@ -70,8 +73,10 @@ $(document).ready(function () {
                         $("#txt_descripcion").val("");
                         $("#txt_formaD_Pago").val("");
                         let objDataCapital = { "listarCapital": "ok" };
-                        let objRespuesta = new CapitalUsuario(objDataCapital);
-                        objRespuesta.listarCapital();
+
+                        listarCapital();
+
+                        // instance.listarValoresAmenu();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -79,38 +84,38 @@ $(document).ready(function () {
             }
         });
     });
-    
-        //funcion para listar Capital
-        function listarCapital() {
-            var objData = new FormData();
-            objData.append("listarCapital", "ok");
-            fetch("src/controladores/ctr_capital.php", {
-                method: "POST",
-                body: objData,
+
+    //funcion para listar Capital
+    function listarCapital() {
+        var objData = new FormData();
+        objData.append("listarCapital", "ok");
+        fetch("src/controladores/ctr_capital.php", {
+            method: "POST",
+            body: objData,
+        })
+            .then((response) => {
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
             })
-                .then((response) => {
-    
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then((response) => {
-                    cargarDatos(response);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-        }
-        // function para cargar datos en la tabla
-        function cargarDatos(response) {
-            var dataSet = [];
-            var selectedOptions = [];
-            response.forEach(listarDatosC);
-            function listarDatosC(item, index) {
-    
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                var objBotones = `
+            .then((response) => {
+                cargarDatos(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+    // function para cargar datos en la tabla
+    function cargarDatos(response) {
+        var dataSet = [];
+        var selectedOptions = [];
+        response.forEach(listarDatosC);
+        function listarDatosC(item, index) {
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            var objBotones = `
             <div class="button-container">
                 <!-boton para editar-->
                 <button class="button" id="Btn_Capital_Editar" idCapital="${item.idCapital}" monto="${item.Montoactual}" descripcion="${item.descipcion}" formaPago="${item.formapago_idFormaPago}" data-bs-toggle="modal" data-bs-target="#modalFormulaioEditarCapital">
@@ -124,45 +129,54 @@ $(document).ready(function () {
                 </button>
     
             </div>`;
-    
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                dataSet.push([item.fecha, item.Montoactual, item.descipcion, item.nombreFormaPago, objBotones]);
-                selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
-            }
-            if (tablaCapital != null) {
-                $("#tabla_Capital").dataTable().fnDestroy();
-            }
-            tablaCapital = $("#tabla_Capital").DataTable({
-                data: dataSet,
-                search: {
-                    return: true
-                },
-                paging: false,
-                scrollY: 300,
-                responsive: true
-            });
-    
-            //sumar los datos de MontoActual
-            var total = 0;
-            tablaCapital.column(1).data().each(function (value, index) {
-                total += parseFloat(value);
-            });
-            var formattedTotal = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
-            //mostrar en el div de id montoTotal
-            $("#montoTotal").html(formattedTotal);
-            $(".actualCajaForm").html(formattedTotal);
-            $("#capitalActual").html(formattedTotal);
-            $("#select_tipoCapital").html(selectedOptions);
-            $("#txt-capitalIngreso").html(selectedOptions);
-            $("#txt-editcapitalIngreso").html(selectedOptions);
-            $("#txt-capitalAhorro").html(selectedOptions);
-            $("#txt-capitalGasto").html(selectedOptions);
-    
-    
-    
-    
+
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            dataSet.push([item.fecha, item.Montoactual, item.descipcion, item.NombreFormaPago, objBotones]);
+            selectedOptions += `<option value="${item.idCapital}">${item.descipcion}</option>`;
         }
-    
+        if (tablaCapital != null) {
+            $("#tabla_Capital").dataTable().fnDestroy();
+        }
+        tablaCapital = $("#tabla_Capital").DataTable({
+            data: dataSet,
+            search: {
+                return: true
+            },
+            paging: false,
+            scrollY: 300,
+            responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({
+                        tableClass: 'table'
+                    })
+                }
+            },
+            destroy: true
+        });
+
+        //sumar los datos de MontoActual
+        var total = 0;
+        tablaCapital.column(1).data().each(function (value, index) {
+            total += parseFloat(value);
+        });
+        var formattedTotal = total.toLocaleString('es-MX', { style: 'currency', currency: 'MXN' });
+        //mostrar en el div de id montoTotal
+        $("#montoTotal").html(formattedTotal);
+        $(".actualCajaForm").html(formattedTotal);
+        $("#capitalActual").html(formattedTotal);
+        $("#select_tipoCapital").html(selectedOptions);
+        $("#txt-capitalIngreso").html(selectedOptions);
+        $("#txt-editcapitalIngreso").html(selectedOptions);
+        $("#txt-capitalAhorro").html(selectedOptions);
+        $("#txt-capitalGasto").html(selectedOptions);
+
+    }
+
 
     //funcion para eliminar Capital
 
@@ -207,17 +221,19 @@ $(document).ready(function () {
                             Swal.fire({
                                 position: 'center',
                                 icon: 'error',
-                                title: response["mensaje"],
+                                title: "tienes  gastos o ahorros de este capital no puedes eliminarlo",
                                 showConfirmButton: false,
-                                timer: 1000
+                                timer: 2000
                             });
                         }
-                        let objDataCapital = { "listarCapital": "ok" };
-                        let objRespuesta = new CapitalUsuario(objDataCapital);
-                        objRespuesta.listarCapital();
 
+
+                        listarCapital();
+                        instance.listarValoresAmenu();
                     });
             }
+
+
         })
 
     });
@@ -294,6 +310,9 @@ $(document).ready(function () {
                         let objRespuesta = new CapitalUsuario(objDataCapital);
                         objRespuesta.listarCapital();
 
+
+                        instance.listarValoresAmenu();
+
                     })
                     .catch((error) => {
                         console.log(error);
@@ -305,4 +324,3 @@ $(document).ready(function () {
 
 
 });
-

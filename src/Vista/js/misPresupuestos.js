@@ -3,7 +3,9 @@ $(document).ready(function () {
 
     "use strict";
 
-
+    // instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
+    // var instance = new cartasMenuUsuario(objData);
+    // instance.listarValoresAmenu();
     var tablaPresupuesto = null;
     listarPresupuestos();
     // function para agregar presupuesto
@@ -23,6 +25,7 @@ $(document).ready(function () {
                 let objData = new FormData();
                 objData.append("descripcionPresupuesto", Presupuesto);
                 objData.append("limitePresupuesto", limitePresupuesto);
+                alert(limitePresupuesto);
 
                 fetch("src/controladores/ctr_presupuesto.php", {
                     method: "POST",
@@ -49,9 +52,6 @@ $(document).ready(function () {
 
                             $("#txt_Presupuesto").val("");
 
-                            $("#select_tipoPresupuesto").empty();
-
-
                             $("#ventana_del_formulario_Presupuestos").hide();
 
                         } else if (response["codigo"] == "300") {
@@ -73,11 +73,9 @@ $(document).ready(function () {
                                 timer: 1500
                             });
                         }
-                        //cerrar ventana modal
-                        $("#txt_Presupuesto").val("");
-                        $("#ventana_del_formulario_Presupuestos").hide();
-                        listarPresupuestos();
 
+                        listarPresupuestos();
+                        // instance.listarValoresAmenu();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -122,29 +120,29 @@ $(document).ready(function () {
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             var objBotones = `
-            <div class="button-container">
-                <button class="button" id="btn_Agregar_Al_Presupuesto" idPresupuesto="${item.idPresupuesto}"  nombrePresupuesto="${item.descripcionPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Capital_Has_Presupuesto">
-                     <i class="bi bi-cash-coin"></i>
-                </button>
-                <!-boton para editar-->
-                <button class="button" id="btn_Edit_Presupuesto" idPresupuesto="${item.idPresupuesto}" descripcionPresupuesto="${item.descripcionPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Presupuesto_Edit">
-                    <i class="bi bi-pencil-square"></i>
-                </button>
-
-                <!-boton para eliminar-->
-                
-                <button class="button" id="btn_Eliminar_Presupuesto" idPresupuesto="${item.idPresupuesto}">
-                    <i class="bi bi-trash"></i>
-                </button>
-
-            </div>`;
+              <div class="button-container">
+                  <button class="button" id="btn_Agregar_Al_Presupuesto" idPresupuesto="${item.idPresupuesto}" Presupuesto="${item.idPresupuesto}" nombrePresupuesto="${item.descripcionPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Capital_Has_Presupuesto">
+                       <i class="bi bi-cash-coin"></i>
+                  </button>
+                  <!-boton para editar-->
+                  <button class="button" id="btn_Edit_Presupuesto" idPresupuesto="${item.idPresupuesto}" DescripcionPresupuesto="${item.descripcionPresupuesto}" nombreTipoPresupuesto="${item.NombreTipoPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Presupuesto_Edit">
+                      <i class="bi bi-pencil-square"></i>
+                  </button>
+  
+                  <!-boton para eliminar-->
+                  
+                  <button class="button" id="btn_Eliminar_Presupuesto" idPresupuesto="${item.idPresupuesto}">
+                      <i class="bi bi-trash"></i>
+                  </button>
+  
+              </div>`;
 
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
             dataSet.push([item.descripcionPresupuesto, item.ValorAsignado, item.montoActual, item.capitales, objBotones]);
 
 
-            selectedOptions += `<option value="${item.idPresupuesto}" montoactual="${item.montoActual}" montoPresupuestoAsignado="${item.ValorAsignado}" >   ${item.descripcionPresupuesto}</option>`;
+            selectedOptions += `<option value="${item.idPresupuesto}" montoactual="${item.montoActual}" montoPresupuestoAsignado="${item.ValorAsignado}" nombrePresupuesto="${item.NombreTipoPresupuesto}">   ${item.NombreTipoPresupuesto}</option>`;
 
 
         }
@@ -152,7 +150,8 @@ $(document).ready(function () {
 
 
 
-        $("#slc-presupuesto").html(selectedOptions);
+       // $("#slc-presupuesto").html(selectedOptions);
+
         if (tablaPresupuesto != null) {
             $("#Tabla_De_Presupuestos").dataTable().fnDestroy();
         }
@@ -164,12 +163,24 @@ $(document).ready(function () {
             },
             paging: false,
             scrollY: 300,
-            responsive: true,
+            responsive: {
+                details: {
+                    display: DataTable.Responsive.display.modal({
+                        header: function (row) {
+                            var data = row.data();
+                            return 'Details for ' + data[0] + ' ' + data[1];
+                        }
+                    }),
+                    renderer: DataTable.Responsive.renderer.tableAll({
+                        tableClass: 'table'
+                    })
+                }
+            },
             destroy: true
+
         });
 
     }
-
 
     $("#Tabla_De_Presupuestos").on("click", "#btn_Edit_Presupuesto", function () {
         var id = $(this).attr("idPresupuesto");
@@ -233,6 +244,9 @@ $(document).ready(function () {
                         $("#txt_edit_Presupuesto").val("");
 
                         listarPresupuestos();
+
+
+                        instance.listarValoresAmenu();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -248,7 +262,7 @@ $(document).ready(function () {
     $("#Tabla_De_Presupuestos").on("click", "#btn_Eliminar_Presupuesto", function () {
         var id = $(this).attr("idPresupuesto");
         Swal.fire({
-            title: '¿Estas seguro de eliminar este presupuesto ?',
+            title: '¿Estas seguro de eliminar este presupuesto se eliminaran los gastos vinculados?',
             text: "¡No podrás revertir esto!",
             icon: 'warning',
             showCancelButton: true,
@@ -303,6 +317,8 @@ $(document).ready(function () {
                                     });
                                 }
                                 listarPresupuestos();
+
+                                instance.listarValoresAmenu();
                             });
                     }
                 });
@@ -313,31 +329,7 @@ $(document).ready(function () {
 
 
     ////////////////////////////////////////////////////
-    //eventos para mostrar y ocultar ventanas de formularios
-    $("#Btn_Presupuestos").on("click touchstart", function () {
-        $("#ventana_del_formulario_Presupuestos").show();
-
-    });
-    $("#cerrar-ventana").on("click touchstart", function () {
-        $("#ventana_del_formulario_Presupuestos").hide();
-        $("#select_tipoPresupuesto").empty();
-        listarTiposPresupuesto();
-
-
-    });
-
-
-    $("#Btn_Presupuestos").on("click touchstart", function () {
-        $("#select_tipoPresupuesto").empty();
-        listarTiposPresupuesto();
-    });
-    $("#btn_Cancelar_edit_tipo_Presupuesto").on("click touchstart", function () {
-        $("#ventana_del_formulario_TG_Edit").hide();
-
-    });
-    document.getElementById("btn_Cancelar_edit_tipo_Presupuesto").addEventListener("click", function () {
-        document.getElementById("ventana_del_formulario_TG_Edit").style.display = "none";
-    });
+    
 
     $("#Tabla_De_Presupuestos").on("click touchstart", "#btn_Agregar_Al_Presupuesto", function () {
         $("#ventana_del_formulario_Capital_Has_Presupuesto").show();
@@ -355,7 +347,8 @@ $(document).ready(function () {
     $("#btnPresupuestos").on("click ", function () {
 
         listarPresupuestos();
-    })
+    });
+
 })
 
 
@@ -381,7 +374,6 @@ class presupuestos {
                 return response.json();
             })
             .then((response) => {
-                console.log(response);
                 var dataSetP = [];
                 var selectedOptions = [];
 
@@ -419,10 +411,21 @@ class presupuestos {
                     },
                     paging: false,
                     scrollY: 300,
-                    responsive: true,
+                    responsive: {
+                        details: {
+                            display: DataTable.Responsive.display.modal({
+                                header: function (row) {
+                                   
+                                }
+                            }),
+                            renderer: DataTable.Responsive.renderer.tableAll({
+                                tableClass: 'table'
+                            })
+                        }
+                    },
                     destroy: true
                 });
-                console.log(selectedOptions);
+
                 $("#txt-presupuesto").html(selectedOptions);
                 $("#slc-presupuesto").html(selectedOptions);
 
@@ -432,4 +435,6 @@ class presupuestos {
             });
     }
 }
+
+
 
