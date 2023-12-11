@@ -1,10 +1,12 @@
 class CapitalUsuario{
 
+    
     constructor(objData){
         this._objCapital = objData;
     }
-
+    
     tablaCapital = null;
+    totalCapital = 0;
 
     listarCapital(){
         var objData = new FormData();
@@ -48,7 +50,7 @@ class CapitalUsuario{
             // if (tablaCapital != null) {
             //     $("#tabla_CapitalInterfaz").dataTable().fnDestroy();
             // }
-            tablaCapital = $("#tabla_Capital").DataTable({
+            this.tablaCapital = $("#tabla_Capital").DataTable({
                 destroy: true,
                 data: dataSet,
                 search: {
@@ -59,8 +61,8 @@ class CapitalUsuario{
             });
     
             //sumar los datos de MontoInicial
-            var totalCapital = 0;
-            tablaCapital.column(1).data().each(function (value, index) {
+            totalCapital = 0;
+            this.tablaCapital.column(1).data().each(function (value, index) {
                 totalCapital += parseFloat(value);
             });
             var formattedTotal = totalCapital.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });

@@ -1,4 +1,5 @@
-$(function () {
+
+$(document).ready(function () {
 
   let objDataCapital = { "listarCapital": "ok" };
   let objRespuesta = new CapitalUsuario(objDataCapital);
@@ -25,6 +26,10 @@ $(function () {
   let horaFormateada = `${horaActual}:${minutosActuales.toString().padStart(2, '0')}:${segundosActuales.toString().padStart(2, '0')}`;
   
   listarTransaccionesCapital();
+
+  let objDataGrafico = { "traerValoresGrafico": "ok", "fechaValoresGrafico": fechaFormateada };
+  let objRespuestaGrafico = new graficoHoy(objDataGrafico);
+  objRespuestaGrafico.traerValoresGrafico();
 
   var contenidoBarraFecha = `<div class="d-flex flex-row">
                                 <div>`+ day + ' de ' + monthName + ' de ' + year + `</div>
@@ -82,12 +87,10 @@ $(function () {
                 }
               });
 
-              let objDataCapital = { "listarCapital": "ok" };
-              let objRespuesta = new CapitalUsuario(objDataCapital);
-              objRespuesta.listarCapital();
-
               form.reset();
               $("#ventanaAgregarIngresoCapital").modal('toggle');
+              objRespuesta.listarCapital();
+
               listarTransaccionesCapital();
 
               let objGrafico = { traerValoresGrafico: "ok", fechaValoresGrafico: fechaFormateada };
@@ -220,12 +223,10 @@ $(function () {
                 }
               });
 
-              let objDataCapital = { "listarCapital": "ok" };
-              let objRespuesta = new CapitalUsuario(objDataCapital);
-              objRespuesta.listarCapital();
-
               form.reset();
               $("#ventanaAgregarAhorroCapital").modal('toggle');
+              objRespuesta.listarCapital();
+
               listarTransaccionesCapital();
 
             } else {
@@ -273,56 +274,46 @@ $(function () {
                 objData.append("IdPresupuesto", presupuesto);
                 objData.append("formaPagoGasto", formaPago);
 
-                fetch("src/controladores/interfazUsoDiarioControl.php", {
-                    method: "POST",
-                    body: objData,
-                })
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then((response) => {
-                        if (response["codigo"] == "200") {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: response["mensaje"],
-                                showConfirmButton: false,
-                                timer: 2500,
-                                customClass: {
-                                    title: 'swal'
-                                }
-                            });
-
-                            var objData = { listarPresupuesto: "ok" };
-                            var instance = new presupuestos(objData);
-                            instance.listarPresupuestos();
-
-                            form.reset();
-                            $("#ventanaAgregarGastoCapital").modal('toggle');
-                            listarTransaccionesCapital();
-
-                          } else {
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: response["mensaje"],
-                                showConfirmButton: false,
-                                timer: 3500
-                            });
-                          form.reset();
-                          $("#ventanaAgregarGastoCapital").modal('toggle');
-                        }
-                        
-                    })
-                    .catch((error) => {
-                        console.error("Error:", error);
+                fetch('src/controladores/interfazUsoDiarioControl.php', {
+                  method: 'POST',
+                  body: objData
+                }).then(response => response.json()).catch(error => {
+                  console.log(error);
+                }).then(response => {
+                  if (response["codigo"] == "200") {
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'success',
+                      title: response["mensaje"],
+                      showConfirmButton: false,
+                      timer: 2500,
+                      customClass: {
+                        title: 'swal'
+                      }
                     });
 
-            }
+                    form.reset();
+                    $("#ventanaAgregarGastoCapital").modal('toggle');
+                    instance.listarPresupuestos();
 
+                    listarTransaccionesCapital();
+      
+                  } else {
+                    Swal.fire({
+                      position: 'center',
+                      icon: 'error',
+                      title: response["respuesta"],
+                      showConfirmButton: false,
+                      timer: 3500
+                    });
+                    form.reset();
+                    $("#ventanaAgregarGAstoCapital").modal('toggle');
+                    }
+      
+                });
+      
+              }
+            
         });
 
     });
@@ -409,9 +400,10 @@ $(function () {
       destroy: true,
       data: dataSetTransaccionesCapital
     });
-        var totalCaja = parseFloat($("#totalCapital").html()) + parseFloat($("#totalPresupuesto").html());
+    
+        let totalCaja = parseFloat($("#totalCapital").html()) + parseFloat($("#totalPresupuesto").html());
         var formattedTotalCaja = totalCaja.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
-        $("#actualCaja").html(formattedTotalCaja);
+        $(".actualCaja").html(formattedTotalCaja);
         $(".actualCajaForm").html(formattedTotalCaja);
         
 
@@ -446,15 +438,11 @@ $(function () {
         inicioCaja = totalCaja - totalTransacciones;
         var formattedInicioCaja = inicioCaja.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
         $("#inicioCaja").html(formattedInicioCaja);
-
-
-        let objDataCapital = { "listarCapital": "ok" };
-        let objRespuesta = new CapitalUsuario(objDataCapital);
-        objRespuesta.listarCapital();
         
-        var objData = { listarPresupuesto: "ok" };
-        var instance = new presupuestos(objData);
+        objRespuesta.listarCapital();
         instance.listarPresupuestos();
+        objRespuestaGrafico.traerValoresGrafico();
+
       };
       
 
@@ -519,15 +507,7 @@ $(function () {
               showConfirmButton: false,
               timer: 2500
             });
-
-            let objDataCapital = { "listarCapital": "ok" };
-            let objRespuesta = new CapitalUsuario(objDataCapital);
-            objRespuesta.listarCapital();
-
-            var objData = { listarPresupuesto: "ok" };
-            var instance = new presupuestos(objData);
-            instance.listarPresupuestos();
-
+            
             listarTransaccionesCapital();
 
           } else {
