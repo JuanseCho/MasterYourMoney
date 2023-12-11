@@ -27,9 +27,9 @@ $(document).ready(function () {
   
   listarTransaccionesCapital();
 
-  let objDataGrafico = { "traerValoresGrafico": "ok", "fechaValoresGrafico": fechaFormateada };
-  let objRespuestaGrafico = new graficoHoy(objDataGrafico);
-  objRespuestaGrafico.traerValoresGrafico();
+  // let objDataGrafico = { "traerValoresGrafico": "ok", "fechaValoresGrafico": fechaFormateada };
+  // let objRespuestaGrafico = new graficoHoy(objDataGrafico);
+  // objRespuestaGrafico.traerValoresGrafico();
 
   var contenidoBarraFecha = `<div class="d-flex flex-row">
                                 <div>`+ day + ' de ' + monthName + ' de ' + year + `</div>
