@@ -612,6 +612,53 @@ button:hover,
  
 }
 
+<<<<<<< HEAD
+/*GRAFICA DE TORTA */
+
+#containerChartPie {
+    max-height: 35%;
+    max-width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    margin: 10% auto; /* Auto en el margen horizontal centrará el contenedor */
+    border: solid 4px black;
+    border-radius: 20px;
+}
+
+.btn-group {
+    margin: 10px 10px 30px 10px; /* Espacio entre los botones y el select */
+
+}
+
+#containerSelectChart {
+    margin-bottom: 15%;
+}
+
+/* Ajustes adicionales si es necesario */
+.btn-group {
+    display: flex;
+    justify-content: space-between; /* Espacio uniforme entre los botones */
+    width: 100%; /* Para ocupar todo el ancho del contenedor */
+}
+
+.btnFiltroGrafico {
+    flex: 1; /* Cada botón tomará igual espacio */
+    background-color: #3498db; /* Cambia el color de fondo según tus preferencias */
+    color: #fff; /* Cambia el color del texto para que sea legible sobre el fondo */
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 8px; /* Ajusta el redondeo de los bordes según tus preferencias */
+    cursor: pointer;
+}
+.btnFiltroGrafico:hover {
+    background-color: #2980b9; /* Cambia el color al pasar el mouse sobre el botón */
+}
+=======
 
 
   
+>>>>>>> cb90977187da57a71f489e8abf6d183efc9e0344
