@@ -26,6 +26,10 @@ $(function () {
   
   listarTransaccionesCapital();
 
+  let objDataGrafico = { "traerValoresGrafico": "ok", "fechaValoresGrafico": fechaFormateada };
+  let objRespuestaGrafico = new graficoHoy(objDataGrafico);
+  objRespuestaGrafico.traerValoresGrafico();
+
   var contenidoBarraFecha = `<div class="d-flex flex-row">
                                 <div>`+ day + ' de ' + monthName + ' de ' + year + `</div>
                                 <a href="#myModal" data-toggle="modal"><img src="src/Vista/img/calendario.png" alt="" style="width:28px;" class="ms-3"></a>
