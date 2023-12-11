@@ -23,8 +23,8 @@
                             <button class="botonIngreso border shadow shadow-md" id="btn-agregarIngresoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarIngresoCapital"><img src="src/Vista/img/ingresoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
                             <button class="botonGasto border shadow shadow-md" id="btn-agregarGastoCapital" type="button" data-bs-toggle="modal" data-bs-target="#ventanaAgregarGastoCapital"><img src="src/Vista/img/gastoBoton.png" alt="" style="width:20px;" class="mx-4"></button>
                         </div>                        
-                        <div id="totalCapital" class="hidden"></div>    
-                        <div id="totalPresupuesto" class="hidden"></div>    
+                        <div id="totalCapital" class=""></div>    
+                        <div id="totalPresupuesto" class=""></div>    
                         <div id="actualCaja" class="actualCaja"></div>    
                     </div>
 
@@ -159,7 +159,7 @@
 
 
     <!-- Formulario modal Editar Ingreso al Capital-->
-    <div class="modal" id="ventanaEditarIngresoCapital">
+    <!-- <div class="modal" id="ventanaEditarIngresoCapital">
             <div class="modal-dialog">
                 <div class="modal-content rounded-5">
                     <form id="formEditarIngresoCapital" action="" class="modal-body needs-validated shadow-lg rounded-5 text-center" novalidate>
@@ -195,7 +195,7 @@
                     </form>                  
                 </div>
             </div>
-    </div>
+    </div> -->
 
 
     <!-- Formulario modal Agregar Ahorro del Capital-->

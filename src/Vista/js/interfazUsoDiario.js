@@ -401,6 +401,14 @@ $(document).ready(function () {
       data: dataSetTransaccionesCapital
     });
     
+    let objDataCapital = { "listarCapital": "ok" };
+    let objRespuesta = new CapitalUsuario(objDataCapital);
+    objRespuesta.listarCapital();
+    
+    var objData = { listarPresupuesto: "ok" };
+    var instance = new presupuestos(objData);
+    instance.listarPresupuestos();
+
         let totalCaja = parseFloat($("#totalCapital").html()) + parseFloat($("#totalPresupuesto").html());
         var formattedTotalCaja = totalCaja.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
         $(".actualCaja").html(formattedTotalCaja);

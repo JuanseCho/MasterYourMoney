@@ -158,15 +158,15 @@ $(document).ready(function () {
         });
 
         // //sumar los datos de MontoActual
-        // var totalPresupuesto = 0;
-        // tablaPresupuesto.column(2).data().each(function (value, index) {
-        //     totalPresupuesto += parseFloat(value);
-        // });
-        // alert(totalPresupuesto);
-        // var formattedTotalPresupuesto = totalPresupuesto.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
+        var totalPresupuesto = 0;
+        tablaPresupuesto.column(2).data().each(function (value, index) {
+            totalPresupuesto += parseFloat(value);
+        });
+        alert(totalPresupuesto);
+        var formattedTotalPresupuesto = totalPresupuesto.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0 });
 
-        // $("#slc-presupuesto").html(selectedOptions);
-        // $("#totalPresupuesto").html(formattedTotalPresupuesto);
+        $("#slc-presupuesto").html(selectedOptions);
+        $("#totalPresupuesto").html(formattedTotalPresupuesto);
 
 
     }
