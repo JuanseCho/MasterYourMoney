@@ -3,11 +3,11 @@ $(document).ready(function () {
 
     "use strict";
     var tablaPresupuesto = null;
-    listarPresupuestos();
+    // listarPresupuestos();
 
-    instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
-    var instance = new cartasMenuUsuario(objData);
-    instance.listarValoresAmenu();
+    // instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
+    // var instance = new cartasMenuUsuario(objData);
+    // instance.listarValoresAmenu();
 
     var objData = { listarPresupuesto: "ok" };
     var instance = new presupuestos(objData);
@@ -395,10 +395,10 @@ class presupuestos {
                 }
 
                 // Usar this.tablaPresupuesto en lugar de tablaPresupuesto
-                if (this.tablaPresupuesto != null) {
-                    // Usar this en lugar de tablaPresupuesto
-                    this.tablaPresupuesto.destroy();
-                }
+                // if (this.tablaPresupuesto != null) {
+                //     // Usar this en lugar de tablaPresupuesto
+                //     this.tablaPresupuesto.destroy();
+                // }
 
                 // Usar this.tablaPresupuesto en lugar de tablaPresupuesto
                 this.tablaPresupuesto = $("#Tabla_De_Presupuestos").DataTable({

@@ -1,13 +1,13 @@
 $(document).ready(function () {
 
-    tablaCapital = null;
+    var tablaCapital = null;
     listarCapital();
 
     // var objData = {listarValoresAmenu: "ok"};
     // var instance = new cartasMenuUsuario(objData);
     // instance.listarValoresAmenu();
 
-    //funcion para agregar Capital
+    // funcion para agregar Capital
     const forms = document.querySelectorAll("#form_Agregar_Capital");
     Array.from(forms).forEach((form) => {
         form.addEventListener("submit", (event) => {
@@ -312,6 +312,6 @@ $(document).ready(function () {
 
 });
 
-var objData = { listarValoresAmenu: "ok" };
-var instance = new cartasMenuUsuario(objData);
-instance.listarValoresAmenu();
+// var objData = { listarValoresAmenu: "ok" };
+// var instance = new cartasMenuUsuario(objData);
+// instance.listarValoresAmenu();
