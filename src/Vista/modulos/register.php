@@ -3,7 +3,7 @@
     <form id="registroUsuarios" class="form">
         <div class="flex-column">
             <label for="txt-nombres">Nombres:</label>
-            <input class="form-control" type="text" id="txt-nombres" placeholder="nombres">
+            <input class="form-control" type="text" id="txt-nombres" placeholder="Nombres">
         </div>
 
         <div class="flex-column">

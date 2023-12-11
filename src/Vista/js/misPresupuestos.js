@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     "use strict";
     var tablaPresupuesto = null;
-    // listarPresupuestos();
+    listarPresupuestos();
 
     // instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
     // var instance = new cartasMenuUsuario(objData);
@@ -52,9 +52,8 @@ $(document).ready(function () {
                                 }
                             });
 
-                            $("#txt_Presupuesto").val("");
-
-                            $("#ventana_del_formulario_Presupuestos").hide();
+                            form.reset();
+                            $("#AgregarPresupuesto").hide();
 
                         } else if (response["codigo"] == "300") {
                             Swal.fire({
@@ -77,7 +76,7 @@ $(document).ready(function () {
                         }
 
                         listarPresupuestos();
-                        instance.listarValoresAmenu(); 
+                        // instance.listarValoresAmenu(); 
                     })
                     .catch((error) => {
                         console.log(error);

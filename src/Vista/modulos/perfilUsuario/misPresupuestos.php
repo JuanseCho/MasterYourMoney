@@ -68,7 +68,7 @@
       <form id="form_Agregar_Presupuesto">
         <div>
             <label for="txt_NombrePresupuesto" class="form-label">Descripcion del presupuesto</label>
-           <input type="text" class="form-control" name="txt_NombrePresupuesto" id="txt_NombrePresupuesto" placeholder="nombre descriptivo " maxlength="50" required>
+           <input type="text" class="form-control" name="txt_NombrePresupuesto" id="txt_NombrePresupuesto" placeholder="Nombre descriptivo " maxlength="50" required>
             <div class="valid-feedback">Correcto</div>
             <div class="invalid-feedback">Por favor, ingresa un nombre válido</div>
 
