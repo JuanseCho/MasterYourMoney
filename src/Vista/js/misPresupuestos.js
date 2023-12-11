@@ -2,12 +2,16 @@
 $(document).ready(function () {
 
     "use strict";
-
-    // instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
-    // var instance = new cartasMenuUsuario(objData);
-    // instance.listarValoresAmenu();
     var tablaPresupuesto = null;
-    listarPresupuestos();
+    let objPresupuesto = { "listarPresupuestos": "ok" };
+    let objRespuestaPre = new presupuestos(objPresupuesto);
+    objRespuestaPre.listarPresupuestos();
+
+    instance.listarValoresAmenu(); var objData = { listarValoresAmenu: "ok" };
+    var instance = new cartasMenuUsuario(objData);
+    instance.listarValoresAmenu();
+
+
     // function para agregar presupuesto
     const formsPresupuesto = document.querySelectorAll("#form_Agregar_Presupuesto");
 
@@ -74,8 +78,8 @@ $(document).ready(function () {
                             });
                         }
 
-                        listarPresupuestos();
-                        // instance.listarValoresAmenu();
+                        objRespuestaPre.listarPresupuestos();
+                        instance.listarValoresAmenu();
                     })
                     .catch((error) => {
                         console.log(error);
@@ -83,101 +87,6 @@ $(document).ready(function () {
             }
         });
     });
-
-
-
-
-
-    function listarPresupuestos() {
-        var objData = new FormData();
-        objData.append("listarPresupuestos", "ok");
-        fetch("src/controladores/ctr_presupuesto.php", {
-            method: "POST",
-            body: objData,
-        })
-            .then((response) => response.json())
-            .catch((error) => {
-                console.log(error);
-            })
-            .then((response) => {
-                cargarDatosPresupuesto(response);
-
-            });
-    }
-
-    // function para cargar datos en la tabla
-    function cargarDatosPresupuesto(response) {
-        console.log(response);
-
-        var dataSet = [];
-
-        var selectedOptionsEdit = [];
-        var selectedOptions = "<option selected montoPresupuestoAsignado='0' nombrePresupuesto='' >seleccione el presupuesto </option>";
-
-        response.forEach(listarDatosP);
-
-        function listarDatosP(item, index) {
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            var objBotones = `
-              <div class="button-container">
-                  <button class="button" id="btn_Agregar_Al_Presupuesto" idPresupuesto="${item.idPresupuesto}" Presupuesto="${item.idPresupuesto}" nombrePresupuesto="${item.descripcionPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Capital_Has_Presupuesto">
-                       <i class="bi bi-cash-coin"></i>
-                  </button>
-                  <!-boton para editar-->
-                  <button class="button" id="btn_Edit_Presupuesto" idPresupuesto="${item.idPresupuesto}" DescripcionPresupuesto="${item.descripcionPresupuesto}" nombreTipoPresupuesto="${item.NombreTipoPresupuesto}" limitePresupuesto="${item.ValorAsignado}" data-bs-toggle="modal" data-bs-target="#ventana_del_formulario_Presupuesto_Edit">
-                      <i class="bi bi-pencil-square"></i>
-                  </button>
-  
-                  <!-boton para eliminar-->
-                  
-                  <button class="button" id="btn_Eliminar_Presupuesto" idPresupuesto="${item.idPresupuesto}">
-                      <i class="bi bi-trash"></i>
-                  </button>
-  
-              </div>`;
-
-            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-            dataSet.push([item.descripcionPresupuesto, item.ValorAsignado, item.montoActual, item.capitales, objBotones]);
-
-
-            selectedOptions += `<option value="${item.idPresupuesto}" montoactual="${item.montoActual}" montoPresupuestoAsignado="${item.ValorAsignado}" nombrePresupuesto="${item.NombreTipoPresupuesto}">   ${item.NombreTipoPresupuesto}</option>`;
-
-
-        }
-
-
-
-
-       // $("#slc-presupuesto").html(selectedOptions);
-
-        if (tablaPresupuesto != null) {
-            $("#Tabla_De_Presupuestos").dataTable().fnDestroy();
-        }
-        tablaPresupuesto = $("#Tabla_De_Presupuestos").DataTable({
-
-            data: dataSet,
-            search: {
-                return: true
-            },
-            paging: false,
-            scrollY: 300,
-            responsive: {
-                details: {
-                    display: DataTable.Responsive.display.modal({
-                  
-                    }),
-                    renderer: DataTable.Responsive.renderer.tableAll({
-                        tableClass: 'table'
-                    })
-                }
-            },
-            destroy: true
-
-        });
-
-    }
 
     $("#Tabla_De_Presupuestos").on("click", "#btn_Edit_Presupuesto", function () {
         var id = $(this).attr("idPresupuesto");
@@ -228,7 +137,7 @@ $(document).ready(function () {
                                     title: 'swal'
                                 }
                             });
-                            listarPresupuestos();
+                            
                         } else {
                             Swal.fire({
                                 position: 'center',
@@ -240,9 +149,9 @@ $(document).ready(function () {
                         }
                         $("#txt_edit_Presupuesto").val("");
 
-                        listarPresupuestos();
+                        objRespuestaPre.listarPresupuestos();
 
-
+                       
                         instance.listarValoresAmenu();
                     })
                     .catch((error) => {
@@ -313,7 +222,7 @@ $(document).ready(function () {
                                         timer: 1500
                                     });
                                 }
-                                listarPresupuestos();
+                                objRespuestaPre.listarPresupuestos();
 
                                 instance.listarValoresAmenu();
                             });
@@ -326,7 +235,7 @@ $(document).ready(function () {
 
 
     ////////////////////////////////////////////////////
-    
+
 
     $("#Tabla_De_Presupuestos").on("click touchstart", "#btn_Agregar_Al_Presupuesto", function () {
         $("#ventana_del_formulario_Capital_Has_Presupuesto").show();
@@ -338,12 +247,12 @@ $(document).ready(function () {
     $("#Btn_new_Capital_presupuesto").on("click touchstart", function () {
 
         setTimeout(function () {
-            listarPresupuestos();
+            objRespuestaPre.listarPresupuestos();
         }, 2000);
     });
     $("#btnPresupuestos").on("click ", function () {
 
-        listarPresupuestos();
+        objRespuestaPre.listarPresupuestos();
     });
 
 })
@@ -411,7 +320,7 @@ class presupuestos {
                     responsive: {
                         details: {
                             display: DataTable.Responsive.display.modal({
-                     
+
                             }),
                             renderer: DataTable.Responsive.renderer.tableAll({
                                 tableClass: 'table'

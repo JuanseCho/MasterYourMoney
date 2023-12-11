@@ -3,6 +3,10 @@ $(document).ready(function () {
     let objDataCapital = { "listarCapital": "ok" };
     let objRespuesta = new CapitalUsuario(objDataCapital);
     objRespuesta.listarCapital();
+    
+    let objPresupuesto = { "listarPresupuestos": "ok" };
+    let objRespuestaPre = new presupuestos(objPresupuesto);
+    objRespuestaPre.listarPresupuestos();
 
     "use strict"
     var tablaCapitalesDePresupuesto = null;
@@ -112,8 +116,7 @@ $(document).ready(function () {
                     $("#txt_valorAsignado").val("");
                     $("#select_tipoCapital").val("");
 
-                    let objPresupuesto = { "listarPresupuestos": "ok" };
-                    let objRespuestaPre = new presupuestos(objPresupuesto);
+                  
                     objRespuestaPre.listarPresupuestos();
 
 
@@ -265,9 +268,7 @@ $(document).ready(function () {
 
                         listarCapitalesDePresupuesto(idPresupuesto);
 
-
-                        let objPresupuesto = { "listarPresupuestos": "ok" };
-                        let objRespuestaPre = new CapitalUsuario(objPresupuesto);
+                       
                         objRespuestaPre.listarPresupuestos();
                     })
                     .catch((error) => {
